@@ -20,7 +20,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 ---
-name: Pylint
+name: pylint
 on:
   push:
     branches:
@@ -32,11 +32,11 @@ concurrency:
   group: pylint-${{ github.ref }}
   cancel-in-progress: true
 jobs:
-  build:
+  check:
     runs-on: ubuntu-20.04
     strategy:
       matrix:
-        python-version: ["3.8", "3.9", "3.10"]
+        python-version: ["3.9", "3.10", "3.11"]
     steps:
       - uses: actions/checkout@v3
       - name: Set up Python ${{ matrix.python-version }}

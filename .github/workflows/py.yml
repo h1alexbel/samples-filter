@@ -20,7 +20,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 ---
-name: py-build
+name: py
 on:
   push:
     branches:
@@ -29,7 +29,7 @@ on:
     branches:
       - master
 concurrency:
-  group: py-build-${{ github.ref }}
+  group: py-${{ github.ref }}
   cancel-in-progress: true
 jobs:
   build:
