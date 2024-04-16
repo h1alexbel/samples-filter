@@ -52,6 +52,7 @@ jobs:
       - name: pytest
         run: |
           export PYTHONPATH=.
+          pip install .
           pytest tests
       - name: pylint
         run: |
