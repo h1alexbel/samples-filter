@@ -20,8 +20,8 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 ---
-name: Pylint
-on:
+name: markdown-lint
+'on':
   push:
     branches:
       - master
@@ -29,24 +29,11 @@ on:
     branches:
       - master
 concurrency:
-  group: pylint-${{ github.ref }}
+  group: markdown-lint-${{ github.ref }}
   cancel-in-progress: true
 jobs:
-  build:
-    runs-on: ubuntu-20.04
-    strategy:
-      matrix:
-        python-version: ["3.8", "3.9", "3.10"]
+  markdown-lint:
+    runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v3
-      - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v3
-        with:
-          python-version: ${{ matrix.python-version }}
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install pylint
-      - name: Analysing the code with pylint
-        run: |
-          pylint $(git ls-files '*.py')
+      - uses: actions/checkout@cd7d8d697e10461458bc61a30d094dc601a8b017
+      - uses: articulate/actions-markdownlint@v1
