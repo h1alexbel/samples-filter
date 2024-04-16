@@ -1,3 +1,5 @@
+# samples-filter
+
 [![EO principles respected here](https://www.elegantobjects.org/badge.svg)](https://www.elegantobjects.org)
 [![DevOps By Rultor.com](http://www.rultor.com/b/h1alexbel/samples-filter)](http://www.rultor.com/p/h1alexbel/samples-filter)
 [![We recommend IntelliJ IDEA](https://www.elegantobjects.org/intellij-idea.svg)](https://www.jetbrains.com/idea/)
@@ -13,11 +15,11 @@ Samples-filter is a command-line filter
 for GitHub repositories that contain `samples`,
 instead of real project or framework or library.
 E.g. [leeowenowen/rxjava-examples](https://github.com/leeowenowen/rxjava-examples),
-[streaming-with-flink/examples-java](https://github.com/streaming-with-flink/examples-java), 
+[streaming-with-flink/examples-java](https://github.com/streaming-with-flink/examples-java),
 [redisson/redisson-examples](https://github.com/redisson/redisson-examples).
 
 **Motivation**. During work on [cam](https://github.com/yegor256/cam) project,
-where we're building datasets with open source Java programs, 
+where we're building datasets with open source Java programs,
 we [discovered](https://github.com/yegor256/cam/issues/227)
 the need for filtering repositories that contain
 not a real code, but rather samples, tutorials or examples.
@@ -40,6 +42,7 @@ hanks-zyh/SmallBang,master,1005,158,2015-12-24T14:48:37Z,6379,6,"  twitter like 
 Gavin-ZYX/StickyDecoration,master,1033,165,2017-05-31T07:38:49Z,1018,3,"","[]"
 ...
 ```
+
 ?: format csv to Markdown
 
 Then, for each repo in the dataset we fetch it's `README.md` file.
@@ -61,6 +64,11 @@ To set up virtual environment use this set of commands:
 
 ```bash
 $ python3 -m venv $(pwd)
+```
+
+then activate it:
+
+```bash
 $ source $(pwd)/venv/bin/activate
 ```
 
