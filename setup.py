@@ -31,12 +31,12 @@ setup(
     ],
     entry_points={
         'console_scripts': [
-            'samples-filter=mycli.cli:main',
+            'samples-filter=objects.run.py:main',
         ],
     },
     author='Aliaksei Bialiauski',
     author_email='aliaksei.bialiauski@hey.com',
-    description='Command-line filter for GitHub repositories that contain "samples", instead of real project or framework/library',
+    description='Command-line filter for GitHub repositories that contain "samples", instead of real project or framework or library',
     long_description=open('README.md').read(),
     long_description_content_type='text/markdown',
     url='https://github.com/h1alexbel/samples-filter',
