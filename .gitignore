@@ -5,6 +5,7 @@ include/
 bin/
 venv/
 pwd/
+samples_filter.egg-info/
 .vscode/
 .idea/
 .DS_Store
