@@ -17,10 +17,12 @@ E.g. [leeowenowen/rxjava-examples](https://github.com/leeowenowen/rxjava-example
 [redisson/redisson-examples](https://github.com/redisson/redisson-examples).
 
 **Motivation**. During work on [cam](https://github.com/yegor256/cam) project,
-where we build datasets with open source Java programs, 
+where we're building datasets with open source Java programs, 
 we [discovered](https://github.com/yegor256/cam/issues/227)
 the need for filtering repositories that contain
-not a real code, but rather samples, tutorials or examples. 
+not a real code, but rather samples, tutorials or examples.
+This repository is portable command-line tool that filters those
+sample repositories.
 
 ## How to use
 
