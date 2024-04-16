@@ -57,19 +57,14 @@ provided they don't violate our quality standards. To avoid frustration,
 before sending us your pull request please run full build:
 
 ```bash
-$ ..
+..
 ```
 
 To set up virtual environment use this set of commands:
 
 ```bash
-$ python3 -m venv $(pwd)
-```
-
-then activate it:
-
-```bash
-$ source $(pwd)/venv/bin/activate
+python3 -m venv $(pwd)
+source $(pwd)/venv/bin/activate
 ```
 
 You will need [Python 3.9+](https://www.python.org/downloads/release/python-390)
