@@ -5,7 +5,7 @@
 [![We recommend IntelliJ IDEA](https://www.elegantobjects.org/intellij-idea.svg)](https://www.jetbrains.com/idea/)
 
 [![py](https://github.com/h1alexbel/samples-filter/actions/workflows/py.yml/badge.svg)](https://github.com/h1alexbel/samples-filter/actions/workflows/py.yml)
-[![PyPI - Version](https://img.shields.io/pypi/v/samples-filter)]()
+[![PyPI - Version](https://img.shields.io/pypi/v/samples-filter)](https://pypi.org/project/samples-filter)
 [![PDD status](http://www.0pdd.com/svg?name=h1alexbel/samples-filter)](http://www.0pdd.com/p?name=h1alexbel/samples-filter)
 [![Hits-of-Code](https://hitsofcode.com/github/h1alexbel/samples-filter)](https://hitsofcode.com/view/github/h1alexbel/samples-filter)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/h1alexbel/samples-filter/blob/master/LICENSE.txt)
