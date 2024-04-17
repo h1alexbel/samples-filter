@@ -47,7 +47,5 @@ check:
 
 # Release package to PyPI.
 release:
-	export TWINE_USERNAME=h1alexbel
-	export TWINE_PASSWORD=$(cat ../pypi.txt)
 	python3 setup.py sdist bdist_wheel
 	python3 -m twine upload dist/*
