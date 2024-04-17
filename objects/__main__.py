@@ -25,11 +25,7 @@ Command-line entry point.
 """
 from objects import cli, NAME
 
-"""
-Entry point.
-"""
-
-
+# Entry point.
 def main():
     """
     Main entry point for the command-line interface.
