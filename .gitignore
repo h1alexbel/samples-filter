@@ -6,6 +6,7 @@ bin/
 venv/
 pwd/
 samples_filter.egg-info/
+pipeline/
 .vscode/
 .idea/
 .DS_Store

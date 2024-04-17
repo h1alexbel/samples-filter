@@ -28,18 +28,26 @@ from typing import Optional
 import typer
 
 from objects import NAME, VERSION
+from .pre_filter import PreFilter
+from .input import Input
 
 app = typer.Typer()
+
 
 def _version_callback(value: bool) -> None:
     if value:
         typer.echo(f"{VERSION}")
         raise typer.Exit()
 
+
 @app.command()
 def filter(
-    repositories: str = typer.Option(..., "--repositories", help="Path to the repositories file."),
-    out: str = typer.Option(..., "--out", help="Path to the output file.")
+        repositories: str = typer.Option(
+            ..., "--repositories", help="Path to the repositories CSV file."
+        ),
+        out: str = typer.Option(
+            ..., "--out", help="Path to the output CSV file."
+        )
 ):
     """
     Filter repositories.
@@ -48,10 +56,14 @@ def filter(
     # @todo #10:45min Filter the repositories using general-like interface.
     #  We should execute filtering here using some general interface, so
     #  it would easy to use either LLM or ML filters.
-    # @todo #10:35min Create {out} file with output result.
-    #  We should create file with provided name for {out}.
-    #  Don't forget to remove this puzzle.
-    typer.echo(f"Saving output to {out}")
+    # @todo #19:45 Implement chain of csv transformation.
+    #  We should implement a transformation chain of csv files.
+    #  For now we are just adding separate objects to this script.
+    #  Let's create a class (let's call it `train` or `pipeline`) that would
+    #  execute all transformation one by one.
+    PreFilter(out).prepare()
+    Input(repositories).copy()
+    typer.echo(f"Filtering completed. Saving output to {out}...")
 
 
 # Run it.
