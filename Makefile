@@ -47,9 +47,6 @@ check:
 
 # Release package to PyPI.
 release:
-	[[ "${tag}" =~ ^[0-9]+\.[0-9]+\.[0-9]+(-[a-zA-Z0-9_]+)?$ ]] || exit -1
-	sed -i "s/0\.0\.0/${tag}/g" version.txt
-	git commit -am "${tag}"
 	export TWINE_USERNAME=h1alexbel
 	export TWINE_PASSWORD=$(cat ../pypi.txt)
 	python3 setup.py sdist bdist_wheel
