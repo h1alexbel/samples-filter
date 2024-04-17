@@ -24,7 +24,7 @@ Test case for cli.py.
 """
 from typer.testing import CliRunner
 
-from objects import NAME, VERSION, cli
+from objects import VERSION, cli
 
 runner = CliRunner()
 
@@ -38,4 +38,4 @@ def test_displays_version():
     """
     result = runner.invoke(cli.app, ["--version"])
     assert result.exit_code == 0
-    assert f"{NAME} v{VERSION}\n" in result.stdout
+    assert f"{VERSION}\n" in result.stdout

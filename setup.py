@@ -52,7 +52,7 @@ setup(
     ],
     entry_points={
         'console_scripts': [
-            'samples-filter=objects.run.py:main',
+            'samples-filter=objects.__main__.py:main',
         ],
     },
     author='Aliaksei Bialiauski',
