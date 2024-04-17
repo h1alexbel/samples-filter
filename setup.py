@@ -20,7 +20,13 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+"""
+setup.py
+"""
 from setuptools import setup, find_packages
+
+with open('README.md', 'r', encoding='utf-8') as f:
+    long_description = f.read()
 
 setup(
     name='samples-filter',
@@ -39,7 +45,7 @@ setup(
     description=
     'Command-line filter for GitHub repositories that contain "samples",'
     ' instead of real project or framework or library',
-    long_description=open('README.md').read(),
+    long_description=long_description,
     long_description_content_type='text/markdown',
     url='https://github.com/h1alexbel/samples-filter',
     classifiers=[

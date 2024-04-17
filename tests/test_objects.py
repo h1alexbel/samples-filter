@@ -32,12 +32,10 @@ runner = CliRunner()
 #  This one is a dummy test in order to not fail the build.
 #  Let's remove it, when we will have tests for real code.
 #  Don't forget to remove this puzzle.
-"""
-Test case for displaying version passing --version parameter.
-"""
-
-
 def test_displays_version():
+    """
+    Test case for displaying version passing --version parameter.
+    """
     result = runner.invoke(cli.app, ["--version"])
     assert result.exit_code == 0
     assert f"{NAME} v{VERSION}\n" in result.stdout

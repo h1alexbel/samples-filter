@@ -31,7 +31,6 @@ from objects import NAME, VERSION
 
 app = typer.Typer()
 
-
 # @todo #1:45min Add support for --repositories and --out parameter.
 #  We should add support to our cli to handle two options: --repositories,
 #  and --out. Both indicate the name of the file to read/create.
@@ -45,13 +44,10 @@ def _version_callback(value: bool) -> None:
         raise typer.Exit()
 
 
-"""
-Run it.
-"""
-
-
+# Run it.
 @app.callback()
 def main(
+        # pylint: disable=unused-argument
         version: Optional[bool] = typer.Option(
             None,
             "--version",
@@ -61,4 +57,8 @@ def main(
             is_eager=True,
         )
 ) -> None:
+    """
+    Respond in interface
+    :param version: Cli version
+    """
     return

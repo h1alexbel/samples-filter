@@ -34,6 +34,5 @@ def main():
     """
     cli.app(prog_name=NAME)
 
-
 if __name__ == "__main__":
     main()
