@@ -19,11 +19,15 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
+
+"""
+Cli runner.
+"""
 from typing import Optional
 
 import typer
 
-from objects import name, version
+from objects import NAME, VERSION
 
 app = typer.Typer()
 
@@ -37,10 +41,12 @@ app = typer.Typer()
 #  Don't forget to remove this puzzle.
 def _version_callback(value: bool) -> None:
     if value:
-        typer.echo(f"{name} v{version}")
+        typer.echo(f"{NAME} v{VERSION}")
         raise typer.Exit()
 
-
+"""
+Run it.
+"""
 @app.callback()
 def main(
         version: Optional[bool] = typer.Option(

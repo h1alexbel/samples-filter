@@ -25,5 +25,5 @@ Root package.
 """
 import pkg_resources
 
-name = "samples-filter"
-version = pkg_resources.get_distribution("samples-filter").version
+NAME = "samples-filter"
+VERSION = pkg_resources.get_distribution("samples-filter").version
