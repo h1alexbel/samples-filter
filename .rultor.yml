@@ -1,14 +1,30 @@
 architect:
   - h1alexbel
+assets:
+  pypi.txt: h1alexbel/home#assets/pypi.txt
+install: |
+  python -m pip install --upgrade pip
+  pip install twine
+# @todo #1:30min Create merge script for rultor.
+#  We should create merge script for rultor to invoke it on a pull requests.
+#  Let's take .github/workflows/py.yml as a basis and do something similar.
+#  See also https://github.com/h1alexbel/samples-filter/issues/13.
 merge:
   script: |
     <merge script>
+    python3 setup.py sdist bdist_wheel
 release:
+  sensitive:
+    - pypi.txt
   script: |
     [[ "${tag}" =~ ^[0-9]+\.[0-9]+\.[0-9]+(-[a-zA-Z0-9_]+)?$ ]] || exit -1
-    <set version>
+    echo $tag > version.txt
     git commit -am "${tag}"
-    <release to PyPI>
+    pip install twine
+    export TWINE_USERNAME=h1alexbel
+    export TWINE_PASSWORD=$(cat ../pypi.txt)
+    python setup.py sdist bdist_wheel
+    twine upload dist/*
 deploy:
   script: |
     echo "There is no such thing as #deploy"

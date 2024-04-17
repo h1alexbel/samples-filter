@@ -25,12 +25,15 @@ setup.py
 """
 from setuptools import setup, find_packages
 
+with open('version.txt', 'r', encoding='utf-8') as version_file:
+    version = version_file.read().strip()
+
 with open('README.md', 'r', encoding='utf-8') as f:
     long_description = f.read()
 
 setup(
     name='samples-filter',
-    version='0.0.1',
+    version=version or '0.0.0',
     packages=find_packages(),
     install_requires=[
         'typer'
@@ -52,11 +55,8 @@ setup(
         'Development Status :: 3 - Alpha',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: MIT License',
-        'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.6',
-        'Programming Language :: Python :: 3.7',
-        'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: 3.9',
         'Programming Language :: Python :: 3.10',
+        'Programming Language :: Python :: 3.11',
     ],
 )
