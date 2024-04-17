@@ -3,7 +3,7 @@ architect:
 assets:
   pypi.txt: h1alexbel/home#assets/pypi.txt
 install: |
-  python -m pip install --upgrade pip
+  python3 -m pip install --upgrade pip
   pip install twine
 # @todo #1:30min Create merge script for rultor.
 #  We should create merge script for rultor to invoke it on a pull requests.
@@ -20,7 +20,6 @@ release:
     [[ "${tag}" =~ ^[0-9]+\.[0-9]+\.[0-9]+(-[a-zA-Z0-9_]+)?$ ]] || exit -1
     sed -i "s/0\.0\.0/${tag}/g" version.txt
     git commit -am "${tag}"
-    pip install twine
     export TWINE_USERNAME=h1alexbel
     export TWINE_PASSWORD=$(cat ../pypi.txt)
     python setup.py sdist bdist_wheel
