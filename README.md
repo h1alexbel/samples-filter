@@ -18,7 +18,7 @@ E.g. [leeowenowen/rxjava-examples](https://github.com/leeowenowen/rxjava-example
 [streaming-with-flink/examples-java](https://github.com/streaming-with-flink/examples-java),
 [redisson/redisson-examples](https://github.com/redisson/redisson-examples).
 
-**Motivation**. During work on [cam](https://github.com/yegor256/cam) project,
+**Motivation**. During the work on [cam](https://github.com/yegor256/cam) project,
 where we're building datasets with open source Java programs,
 we [discovered](https://github.com/yegor256/cam/issues/227)
 the need for filtering repositories that contain
@@ -57,7 +57,7 @@ provided they don't violate our quality standards. To avoid frustration,
 before sending us your pull request please run full build:
 
 ```bash
-..
+make install test check
 ```
 
 To set up virtual environment use this set of commands:
@@ -68,4 +68,4 @@ source $(pwd)/venv/bin/activate
 ```
 
 You will need [Python 3.9+](https://www.python.org/downloads/release/python-390)
-and [pip](https://pypi.org/project/pip) installed.
+installed.
