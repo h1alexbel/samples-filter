@@ -34,7 +34,7 @@ release:
     [[ "${tag}" =~ ^[0-9]+\.[0-9]+\.[0-9]+(-[a-zA-Z0-9_]+)?$ ]] || exit -1
     sed -i "s/0\.0\.0/${tag}/g" version.txt
     git commit -am "${tag}"
-    make release
+    make install release
 deploy:
   script: |
     echo "There is no such thing as #deploy"
