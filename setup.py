@@ -34,12 +34,14 @@ def version():
     else:
         return '0.0.0'
 
+actual = version()
+
 with open('README.md', 'r', encoding='utf-8') as f:
     long_description = f.read()
 
 setup(
     name='samples-filter',
-    version=version,
+    version=actual,
     packages=find_packages(),
     install_requires=[
         'typer'
