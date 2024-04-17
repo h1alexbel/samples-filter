@@ -24,16 +24,22 @@
 setup.py
 """
 from setuptools import setup, find_packages
+import os
 
-with open('version.txt', 'r', encoding='utf-8') as version_file:
-    version = version_file.read().strip()
+def version():
+    version_file = 'version.txt'
+    if os.path.exists(version_file):
+        with open(version_file, 'r', encoding='utf-8') as f:
+            return f.read().strip()
+    else:
+        return '0.0.0'
 
 with open('README.md', 'r', encoding='utf-8') as f:
     long_description = f.read()
 
 setup(
     name='samples-filter',
-    version=version or '0.0.0',
+    version=version,
     packages=find_packages(),
     install_requires=[
         'typer'
