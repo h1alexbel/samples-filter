@@ -27,7 +27,7 @@ from typing import Optional
 
 import typer
 
-from objects import VERSION
+from objects import NAME, VERSION
 
 app = typer.Typer()
 
@@ -66,7 +66,7 @@ def main(
             is_eager=True,
         )
 ) -> None:
-    """
-    This is a samples-filter CLI
+    f"""
+    {NAME}
     """
     return
