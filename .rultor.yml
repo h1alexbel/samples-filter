@@ -32,8 +32,8 @@ release:
     - pypi.txt
   script: |
     [[ "${tag}" =~ ^[0-9]+\.[0-9]+\.[0-9]+(-[a-zA-Z0-9_]+)?$ ]] || exit -1
-	  sed -i "s/0\.0\.0/${tag}/g" version.txt
-	  git commit -am "${tag}"
+    sed -i "s/0\.0\.0/${tag}/g" version.txt
+    git commit -am "${tag}"
     make release
 deploy:
   script: |
