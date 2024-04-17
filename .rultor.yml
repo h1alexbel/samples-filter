@@ -24,9 +24,6 @@ architect:
   - h1alexbel
 assets:
   pypi.txt: h1alexbel/home#assets/pypi.txt
-install: |
-  python3 -m pip install --upgrade pip
-  pip install twine
 merge:
   script: |
     make install test check
