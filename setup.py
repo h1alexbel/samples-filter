@@ -23,14 +23,18 @@
 """
 setup.py
 """
-from setuptools import setup, find_packages
 import os
+from setuptools import setup, find_packages
 
 def version():
+    """
+    Fetch version from version.txt.
+    :return: version
+    """
     version_file = 'version.txt'
     if os.path.exists(version_file):
-        with open(version_file, 'r', encoding='utf-8') as f:
-            return f.read().strip()
+        with open(version_file, 'r', encoding='utf-8') as file:
+            return file.read().strip()
     else:
         return '0.0.0'
 
