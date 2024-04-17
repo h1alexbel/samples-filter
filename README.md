@@ -28,7 +28,21 @@ sample repositories.
 
 ## How to use
 
-TBD..
+First, install it from [PyPI](https://pypi.org/project/samples-filter) like that:
+
+```bash
+pip install samples-filter
+```
+
+then, execute:
+
+```bash
+samples-filter filter --repositories=repos.csv --out=filtered.csv
+```
+
+For `--repositories` you should provide a name of **existing** [csv](https://en.wikipedia.org/wiki/Comma-separated_values)
+dataset with GitHub repositories, and name for the output file in `--out`
+(it will be created automatically).
 
 ## Filtering method
 
