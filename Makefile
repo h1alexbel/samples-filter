@@ -39,7 +39,7 @@ install:
 test:
 	export PYTHONPATH=.
 	pip install .
-	pytest tests
+	python3 -m pytest tests
 
 # Check the quality of code.
 check:
