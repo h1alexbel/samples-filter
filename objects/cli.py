@@ -44,9 +44,12 @@ def _version_callback(value: bool) -> None:
         typer.echo(f"{NAME} v{VERSION}")
         raise typer.Exit()
 
+
 """
 Run it.
 """
+
+
 @app.callback()
 def main(
         version: Optional[bool] = typer.Option(
