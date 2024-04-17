@@ -23,13 +23,15 @@
 """
 Command-line entry point.
 """
-from objects import cli, name
+from objects import cli, NAME
 
 """
 Entry point.
 """
+
+
 def main():
-    cli.app(prog_name=name)
+    cli.app(prog_name=NAME)
 
 
 if __name__ == "__main__":
