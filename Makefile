@@ -43,7 +43,7 @@ test:
 
 # Check the quality of code.
 check:
-	pylint '*.py'
+	python3 -m pylint '*.py'
 
 # Release package to PyPI.
 release:
