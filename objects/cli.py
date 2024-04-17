@@ -27,21 +27,31 @@ from typing import Optional
 
 import typer
 
-from objects import NAME, VERSION
+from objects import VERSION
 
 app = typer.Typer()
 
-# @todo #1:45min Add support for --repositories and --out parameter.
-#  We should add support to our cli to handle two options: --repositories,
-#  and --out. Both indicate the name of the file to read/create.
-# @todo #1:25min Clean parameters that we don't need.
-#  Let's remove parameters that we don't really need in this cli.
-#  Less parameters we will have, the better.
-#  Don't forget to remove this puzzle.
 def _version_callback(value: bool) -> None:
     if value:
-        typer.echo(f"{NAME} v{VERSION}")
+        typer.echo(f"{VERSION}")
         raise typer.Exit()
+
+@app.command()
+def filter(
+    repositories: str = typer.Option(..., "--repositories", help="Path to the repositories file."),
+    out: str = typer.Option(..., "--out", help="Path to the output file.")
+):
+    """
+    Filter repositories.
+    """
+    typer.echo(f"Filtering {repositories}...")
+    # @todo #10:45min Filter the repositories using general-like interface.
+    #  We should execute filtering here using some general interface, so
+    #  it would easy to use either LLM or ML filters.
+    # @todo #10:35min Create {out} file with output result.
+    #  We should create file with provided name for {out}.
+    #  Don't forget to remove this puzzle.
+    typer.echo(f"Saving output to {out}")
 
 
 # Run it.
@@ -51,14 +61,12 @@ def main(
         version: Optional[bool] = typer.Option(
             None,
             "--version",
-            "-v",
             help="Show the application's version and exit.",
             callback=_version_callback,
             is_eager=True,
         )
 ) -> None:
     """
-    Respond in interface
-    :param version: Cli version
+    This is a samples-filter CLI
     """
     return
