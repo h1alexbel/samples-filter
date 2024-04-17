@@ -35,6 +35,8 @@ runner = CliRunner()
 """
 Test case for displaying version passing --version parameter.
 """
+
+
 def test_displays_version():
     result = runner.invoke(cli.app, ["--version"])
     assert result.exit_code == 0
