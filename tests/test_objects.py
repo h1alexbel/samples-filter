@@ -19,9 +19,12 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
+"""
+Test case for cli.py.
+"""
 from typer.testing import CliRunner
 
-from objects import name, version, cli
+from objects import NAME, VERSION, cli
 
 runner = CliRunner()
 
@@ -29,7 +32,10 @@ runner = CliRunner()
 #  This one is a dummy test in order to not fail the build.
 #  Let's remove it, when we will have tests for real code.
 #  Don't forget to remove this puzzle.
+"""
+Test case for displaying version passing --version parameter.
+"""
 def test_displays_version():
     result = runner.invoke(cli.app, ["--version"])
     assert result.exit_code == 0
-    assert f"{name} v{version}\n" in result.stdout
+    assert f"{NAME} v{VERSION}\n" in result.stdout
