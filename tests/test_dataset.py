@@ -17,8 +17,8 @@ class TestDataset(unittest.TestCase):
 
     def test_formulates_dataset(self):
         PreFilter(self.OUT).prepare()
-        Dataset("input.csv").formulate()
-        with open("pipeline/dataset.csv", 'r') as formulated, open("data.csv", 'r') as prepared:
+        Dataset("tests/input.csv").formulate()
+        with open("pipeline/dataset.csv", 'r') as formulated, open("tests/data.csv", 'r') as prepared:
             actual = formulated.read()
             expected = prepared.read()
         self.assertEqual(
