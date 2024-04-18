@@ -41,16 +41,39 @@ class Input:
             reader = csv.DictReader(input)
             writer = csv.DictWriter(
                 pipe,
-                fieldnames=["full_name", "description", "topics", "readme"]
+                fieldnames=[
+                    "full_name",
+                    "default_branch",
+                    "stars",
+                    "forks",
+                    "created_at",
+                    "size",
+                    "open_issues_count",
+                    "description",
+                    "topics",
+                    "readme"
+                ]
             )
             writer.writeheader()
             for row in reader:
                 repo = row["full_name"]
+                branch = row["default_branch"]
+                stars = row["stars"]
+                forks = row["forks"]
+                created = row["created_at"]
+                size = row["size"]
+                issues = row["open_issues_count"]
                 description = row["description"]
                 topics = row["topics"]
                 readme = Readme(repo).asText()
                 out = {
                     "full_name": repo,
+                    "default_branch": branch,
+                    "stars": stars,
+                    "forks": forks,
+                    "created_at": created,
+                    "size": size,
+                    "open_issues_count": issues,
                     "description": description,
                     "topics": topics,
                     "readme": readme
