@@ -21,30 +21,27 @@
 # SOFTWARE.
 
 """
-Pipeline input.
+Dataset.
 """
 import csv
-from .readme import Readme
 
-class Input:
-    DESTINATION = "pipeline/input.csv"
 
-    def __init__(self, name):
-        self.name = name
+class Dataset:
+    DESTINATION = "pipeline/dataset.csv"
 
-    def copy(self):
-        with open(self.name, "r") as input, open(self.DESTINATION, "w", newline="") as pipe:
+    def __init__(self, where):
+        self.where = where
+
+    """
+    Formulate dataset.
+    """
+    def formulate(self):
+        with open(self.where, "r") as input, open(self.DESTINATION, "w", newline="") as pipe:
             reader = csv.DictReader(input)
             writer = csv.DictWriter(
                 pipe,
                 fieldnames=[
                     "full_name",
-                    "default_branch",
-                    "stars",
-                    "forks",
-                    "created_at",
-                    "size",
-                    "open_issues_count",
                     "description",
                     "topics",
                     "readme"
@@ -53,27 +50,14 @@ class Input:
             writer.writeheader()
             for row in reader:
                 repo = row["full_name"]
-                branch = row["default_branch"]
-                stars = row["stars"]
-                forks = row["forks"]
-                created = row["created_at"]
-                size = row["size"]
-                issues = row["open_issues_count"]
                 description = row["description"]
                 topics = row["topics"]
-                readme = Readme(repo, branch).asText()
+                readme = row["readme"]
                 out = {
                     "full_name": repo,
-                    "default_branch": branch,
-                    "stars": stars,
-                    "forks": forks,
-                    "created_at": created,
-                    "size": size,
-                    "open_issues_count": issues,
                     "description": description,
                     "topics": topics,
                     "readme": readme
                 }
                 writer.writerow(out)
-                print(f"Copied {repo} to {self.DESTINATION}")
-            return self.DESTINATION
+                print(f"Prepared dataset for {repo}")

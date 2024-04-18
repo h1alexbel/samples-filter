@@ -1,0 +1,910 @@
+full_name,description,topics,readme
+heysupratim/material-daterange-picker,A material Date Range Picker based on wdullaers MaterialDateTimePicker,datepicker datetimepicker material picker range-selection timepicker,"[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-MaterialDateRangePicker-brightgreen.svg?style=flat)](http://android-arsenal.com/details/1/2501)
+
+[ ![Download](https://api.bintray.com/packages/borax12/maven/material-datetime-rangepicker/images/download.svg) ](https://bintray.com/borax12/maven/material-datetime-rangepicker/_latestVersion)
+
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.borax12.materialdaterangepicker/library/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.borax12.materialdaterangepicker/library)
+
+
+Material Date and Time Picker with Range Selection
+======================================================
+
+
+Credits to the original amazing material date picker library by wdullaer - https://github.com/wdullaer/MaterialDateTimePicker
+
+## Adding to your project
+
+Add the jcenter repository information in your build.gradle file like this
+```java
+
+repositories {
+  jcenter()
+}
+
+
+dependencies {
+  implementation 'com.borax12.materialdaterangepicker:library:2.0'
+}
+
+```
+Beginning Version 2.0 now also available on Maven Central
+
+
+## Date Selection
+
+![FROM](/screenshots/2.png?raw=true)
+![TO](/screenshots/1.png?raw=true)
+
+## Time Selection
+
+![FROM](/screenshots/3.png?raw=true)
+![TO](/screenshots/4.png?raw=true)
+
+Support for Android 4.0 and up.
+
+From the original library documentation -
+
+You may also add the library as an Android Library to your project. All the library files live in ```library```.
+
+Using the  Pickers
+--------------------------------
+
+1. Implement an `OnDateSetListener` or `OnTimeSetListener`
+2. Create a ``DatePickerDialog` using the supplied factory
+
+### Implement an `OnDateSetListener`
+In order to receive the date  set in the picker, you will need to implement the `OnDateSetListener` interfaces. Typically this will be the `Activity` or `Fragment` that creates the Pickers.
+
+or
+### Implement an `OnTimeSetListener`
+In order to receive the time set in the picker, you will need to implement the `OnTimeSetListener` interfaces. Typically this will be the `Activity` or `Fragment` that creates the Pickers.
+
+```java
+
+//new onDateSet
+@Override
+public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth,int yearEnd, int monthOfYearEnd, int dayOfMonthEnd) {
+
+}
+
+@Override
+public void onTimeSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth,int yearEnd, int monthOfYearEnd, int dayOfMonthEnd) {
+        String hourString = hourOfDay < 10 ? ""0""+hourOfDay : """"+hourOfDay;
+        String minuteString = minute < 10 ? ""0""+minute : """"+minute;
+        String hourStringEnd = hourOfDayEnd < 10 ? ""0""+hourOfDayEnd : """"+hourOfDayEnd;
+        String minuteStringEnd = minuteEnd < 10 ? ""0""+minuteEnd : """"+minuteEnd;
+        String time = ""You picked the following time: From - ""+hourString+""h""+minuteString+"" To - ""+hourStringEnd+""h""+minuteStringEnd;
+
+        timeTextView.setText(time);
+
+}
+```
+
+### Create a DatePickerDialog` using the supplied factory
+You will need to create a new instance of `DatePickerDialog` using the static `newInstance()` method, supplying proper default values and a callback. Once the dialogs are configured, you can call `show()`.
+
+```java
+Calendar now = Calendar.getInstance();
+DatePickerDialog dpd = DatePickerDialog.newInstance(
+  MainActivity.this,
+  now.get(Calendar.YEAR),
+  now.get(Calendar.MONTH),
+  now.get(Calendar.DAY_OF_MONTH)
+);
+dpd.show(getFragmentManager(), ""Datepickerdialog"");
+```
+
+### Create a TimePickerDialog` using the supplied factory
+You will need to create a new instance of `TimePickerDialog` using the static `newInstance()` method, supplying proper default values and a callback. Once the dialogs are configured, you can call `show()`.
+```java
+Calendar now = Calendar.getInstance();
+TimePickerDialog tpd = TimePickerDialog.newInstance(
+                        MainActivity.this,
+                        now.get(Calendar.HOUR_OF_DAY),
+                        now.get(Calendar.MINUTE),
+                        false
+                );
+tpd.show(getFragmentManager(), ""Timepickerdialog"");
+```
+
+For other documentation regarding theming , handling orientation changes , and callbacks - check out the original documentation - https://github.com/wdullaer/MaterialDateTimePicker"
+Jude95/EasyRecyclerView,"ArrayAdapter,pull to refresh,auto load more,Header/Footer,EmptyView,ProgressView,ErrorView",,"# EasyRecyclerView
+[中文](https://github.com/Jude95/EasyRecyclerView/blob/master/README_ch.md) ｜ [English](https://github.com/Jude95/EasyRecyclerView/blob/master/README.md)
+
+Encapsulate many API about RecyclerView into the library,such as arrayAdapter,pull to refresh,auto load more,no more and error in the end,header&footer.
+The library uses a new usage of ViewHolder,decoupling the ViewHolder and Adapter.
+Adapter will do less work,adapter only direct the ViewHolder,if you use MVP,you can put adapter into presenter.ViewHolder only show the item,then you can use one ViewHolder for many Adapter.
+Part of the code modified from [Malinskiy/SuperRecyclerView](https://github.com/Malinskiy/SuperRecyclerView),make more functions handed by Adapter.
+
+
+# Dependency
+```groovy
+compile 'com.jude:easyrecyclerview:4.4.2'
+```
+
+# ScreenShot
+![recycler.gif](recycler3.gif)
+# Usage
+## EasyRecyclerView
+```xml
+<com.jude.easyrecyclerview.EasyRecyclerView
+  android:id=""@+id/recyclerView""
+  android:layout_width=""match_parent""
+  android:layout_height=""match_parent""
+  app:layout_empty=""@layout/view_empty""
+  app:layout_progress=""@layout/view_progress""
+  app:layout_error=""@layout/view_error""
+  app:recyclerClipToPadding=""true""
+  app:recyclerPadding=""8dp""
+  app:recyclerPaddingTop=""8dp""
+  app:recyclerPaddingBottom=""8dp""
+  app:recyclerPaddingLeft=""8dp""
+  app:recyclerPaddingRight=""8dp""
+  app:scrollbarStyle=""insideOverlay""//insideOverlay or insideInset or outsideOverlay or outsideInset
+  app:scrollbars=""none""//none or vertical or horizontal
+  />
+```
+
+**Attention** EasyRecyclerView is not a RecyclerView just contain a RecyclerView.use 'getRecyclerView()' to get the RecyclerView;
+
+**EmptyView&LoadingView&ErrorView**
+xml:
+```xml
+app:layout_empty=""@layout/view_empty""
+app:layout_progress=""@layout/view_progress""
+app:layout_error=""@layout/view_error""
+```
+
+code:
+```java
+void setEmptyView(View emptyView)
+void setProgressView(View progressView)
+void setErrorView(View errorView)
+```
+
+then you can show it by this whenever:
+
+```java
+void showEmpty()
+void showProgress()
+void showError()
+void showRecycler()
+```
+
+**scrollToPosition**
+```java
+void scrollToPosition(int position); // such as scroll to top
+```
+
+**control the pullToRefresh**
+```java
+void setRefreshing(boolean isRefreshing);
+void setRefreshing(final boolean isRefreshing, final boolean isCallback); //second params is callback immediately
+```
+
+
+##RecyclerArrayAdapter<T>
+there is no relation between RecyclerArrayAdapter and EasyRecyclerView.you can user any Adapter for the EasyRecyclerView,and use the RecyclerArrayAdapter for any RecyclerView.
+
+**Data Manage**
+```java
+void add(T object);
+void addAll(Collection<? extends T> collection);
+void addAll(T ... items);
+void insert(T object, int index);
+void update(T object, int index);
+void remove(T object);
+void clear();
+void sort(Comparator<? super T> comparator);
+```
+
+**Header&Footer**
+```java
+void addHeader(ItemView view)
+void addFooter(ItemView view)
+```
+
+ItemView is not a view but a view creator;
+
+```java
+public interface ItemView {
+     View onCreateView(ViewGroup parent);
+     void onBindView(View itemView);
+}
+```
+
+The onCreateView and onBindView correspond the callback in RecyclerView's Adapter,so adapter will call `onCreateView` once and `onBindView` more than once;
+It recommend that add the ItemView to Adapter after the data is loaded,initialization View in onCreateView and nothing in onBindView.
+
+ Header and Footer support `LinearLayoutManager`,`GridLayoutManager`,`StaggeredGridLayoutManager`.
+ In `GridLayoutManager` you must add this:
+```java
+//make adapter obtain a LookUp for LayoutManager，param is maxSpan。
+gridLayoutManager.setSpanSizeLookup(adapter.obtainGridSpanSizeLookUp(2));
+```
+
+**OnItemClickListener&OnItemLongClickListener**
+```java
+adapter.setOnItemClickListener(new RecyclerArrayAdapter.OnItemClickListener() {
+    @Override
+    public void onItemClick(int position) {
+        //position not contain Header
+    }
+});
+
+adapter.setOnItemLongClickListener(new RecyclerArrayAdapter.OnItemLongClickListener() {
+    @Override
+    public boolean onItemLongClick(int position) {
+        return true;
+    }
+});
+```
+equal 'itemview.setOnClickListener()' in ViewHolder.
+if you set listener after RecyclerView has layout.you should use 'notifyDataSetChange()';
+
+###the API below realized by add a Footer。
+
+**LoadMore**
+```java
+void setMore(final int res,OnMoreListener listener);
+void setMore(final View view,OnMoreListener listener);
+```
+Attention when you add null or the length of data you add is 0 ,it will finish LoadMore and show NoMore;
+also you can show NoMore manually `adapter.stopMore();`
+
+**LoadError**
+```java
+void setError(final int res,OnErrorListener listener)
+void setError(final View view,OnErrorListener listener)
+```
+use `adapter.pauseMore()` to show Error,when your loading throw an error;
+if you add data when showing Error.it will resume to load more;
+when the ErrorView display to screen again,it will resume to load more too,and callback the OnLoadMoreListener(retry).
+`adapter.resumeMore()`you can resume to load more manually,it will callback the OnLoadMoreListener immediately.
+you can put resumeMore() into the OnClickListener of ErrorView to realize click to retry.
+
+**NoMore**
+```java
+void setNoMore(final int res,OnNoMoreListener listener)
+void setNoMore(final View view,OnNoMoreListener listener)
+```
+when loading is finished(add null or empty or stop manually),it while show in the end.
+
+## BaseViewHolder\<M\>
+decoupling the ViewHolder and Adapter,new ViewHolder in Adapter and inflate view in ViewHolder.
+Example:
+
+```java
+public class PersonViewHolder extends BaseViewHolder<Person> {
+    private TextView mTv_name;
+    private SimpleDraweeView mImg_face;
+    private TextView mTv_sign;
+
+
+    public PersonViewHolder(ViewGroup parent) {
+        super(parent,R.layout.item_person);
+        mTv_name = $(R.id.person_name);
+        mTv_sign = $(R.id.person_sign);
+        mImg_face = $(R.id.person_face);
+    }
+
+    @Override
+    public void setData(final Person person){
+        mTv_name.setText(person.getName());
+        mTv_sign.setText(person.getSign());
+        mImg_face.setImageURI(Uri.parse(person.getFace()));
+    }
+}
+
+-----------------------------------------------------------------------
+
+public class PersonAdapter extends RecyclerArrayAdapter<Person> {
+    public PersonAdapter(Context context) {
+        super(context);
+    }
+
+    @Override
+    public BaseViewHolder OnCreateViewHolder(ViewGroup parent, int viewType) {
+        return new PersonViewHolder(parent);
+    }
+}
+```
+
+## Decoration
+Now there are three commonly used decoration provide for you.
+**DividerDecoration**
+Usually used in LinearLayoutManager.add divider between items.
+```java
+DividerDecoration itemDecoration = new DividerDecoration(Color.GRAY, Util.dip2px(this,0.5f), Util.dip2px(this,72),0);//color & height & paddingLeft & paddingRight
+itemDecoration.setDrawLastItem(true);//sometimes you don't want draw the divider for the last item,default is true.
+itemDecoration.setDrawHeaderFooter(false);//whether draw divider for header and footer,default is false.
+recyclerView.addItemDecoration(itemDecoration);
+```
+this is the demo:
+<image src=""http://o84n5syhk.bkt.clouddn.com/divider.jpg?imageView2/2/w/300"" width=300/>
+
+
+**SpaceDecoration**
+Usually used in GridLayoutManager and StaggeredGridLayoutManager.add space between items.
+```java
+SpaceDecoration itemDecoration = new SpaceDecoration((int) Utils.convertDpToPixel(8,this));//params is height
+itemDecoration.setPaddingEdgeSide(true);//whether add space for left and right adge.default is true.
+itemDecoration.setPaddingStart(true);//whether add top space for the first line item(exclude header).default is true.
+itemDecoration.setPaddingHeaderFooter(false);//whether add space for header and footer.default is false.
+recyclerView.addItemDecoration(itemDecoration);
+```
+this is the demo:
+<image src=""http://o84n5syhk.bkt.clouddn.com/space.jpg?imageView2/2/w/300"" width=300/>
+
+**StickHeaderDecoration**
+Group the items,add a GroupHeaderView for each group.The usage of StickyHeaderAdapter is the same with RecyclerView.Adapter.
+this part is modified from [edubarr/header-decor](https://github.com/edubarr/header-decor)
+```java
+StickyHeaderDecoration decoration = new StickyHeaderDecoration(new StickyHeaderAdapter(this));
+decoration.setIncludeHeader(false);
+recyclerView.addItemDecoration(decoration);
+```
+for example:
+<image src=""http://7xkr5d.com1.z0.glb.clouddn.com/recyclerview_sticky.png?imageView2/2/w/300"" width=300/>
+
+**for detail,see the demo**
+
+License
+-------
+
+    Copyright 2015 Jude
+
+    Licensed under the Apache License, Version 2.0 (the ""License"");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an ""AS IS"" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+
+
+
+
+"
+hanks-zyh/SmallBang,  twitter like animation for any view :heartbeat:,animation heartbeat like-button twitter,"# SmallBang
+
+twitter like animation for any view :heartbeat:
+
+<img src=""https://github.com/hanks-zyh/SmallBang/blob/master/screenshots/demo2.gif"" width=""35%"" />
+
+[Demo APK](https://github.com/hanks-zyh/SmallBang/blob/master/screenshots/demo.apk?raw=true)
+
+## Usage
+
+```groovy
+dependencies {
+    implementation 'pub.hanks:smallbang:1.2.2'
+}
+```
+
+```xml
+<xyz.hanks.library.bang.SmallBangView
+    android:id=""@+id/like_heart""
+    android:layout_width=""56dp""
+    android:layout_height=""56dp"">
+
+    <ImageView
+        android:id=""@+id/image""
+        android:layout_width=""20dp""
+        android:layout_height=""20dp""
+        android:layout_gravity=""center""
+        android:src=""@drawable/heart_selector""
+        android:text=""Hello World!""/>
+</xyz.hanks.library.bang.SmallBangView>
+```
+or
+
+```xml
+
+<xyz.hanks.library.bang.SmallBangView
+    android:id=""@+id/like_text""
+    android:layout_width=""wrap_content""
+    android:layout_height=""wrap_content""
+    app:circle_end_color=""#ffbc00""
+    app:circle_start_color=""#fa9651""
+    app:dots_primary_color=""#fa9651""
+    app:dots_secondary_color=""#ffbc00"">
+
+    <TextView
+        android:id=""@+id/text""
+        android:layout_width=""50dp""
+        android:layout_height=""20dp""
+        android:layout_gravity=""center""
+        android:gravity=""center""
+        android:text=""hanks""
+        android:textColor=""@color/text_selector""
+        android:textSize=""14sp""/>
+</xyz.hanks.library.bang.SmallBangView>
+```
+## Donate
+
+If this project help you reduce time to develop, you can give me a cup of coffee :)
+
+[![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=UGENU2RU26RUG)
+
+<img src=""https://github.com/hanks-zyh/SmallBang/blob/master/screenshots/donate.png"" width=""50%"" />
+
+## Contact & Help
+
+Please fell free to contact me if there is any problem when using the library.
+
+- **email**: zhangyuhan2014@gmail.com
+- **twitter**: https://twitter.com/zhangyuhan3030
+- **weibo**: http://weibo.com/hanksZyh
+- **blog**: http://hanks.pub
+
+welcome to commit [issue](https://github.com/hanks-zyh/SmallBang/issues) & [pr](https://github.com/hanks-zyh/SmallBang/pulls)
+
+
+---
+## License
+
+This library is licensed under the [Apache Software License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0).
+
+See [`LICENSE`](LICENSE) for full of the license text.
+
+    Copyright (C) 2015 [Hanks](https://github.com/hanks-zyh)
+
+    Licensed under the Apache License, Version 2.0 (the ""License"");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an ""AS IS"" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+"
+Gavin-ZYX/StickyDecoration,,,"# StickyDecoration
+利用`RecyclerView.ItemDecoration`实现顶部悬浮效果
+
+![效果](http://upload-images.jianshu.io/upload_images/1638147-89986d7141741cdf.gif?imageMogr2/auto-orient/strip)
+
+## 支持
+- **LinearLayoutManager**
+- **GridLayoutManager**
+- **点击事件**
+- **分割线**
+
+## 添加依赖
+项目要求： `minSdkVersion` >= 14.
+在你的`build.gradle`中 :
+```gradle
+repositories {
+    maven { url 'https://jitpack.io' }
+}
+dependencies {
+    compile 'com.github.Gavin-ZYX:StickyDecoration:1.6.1'
+}
+```
+
+**最新版本**
+[![](https://jitpack.io/v/Gavin-ZYX/StickyDecoration.svg)](https://jitpack.io/#Gavin-ZYX/StickyDecoration)
+
+## 使用
+
+#### 文字悬浮——StickyDecoration
+> **注意**
+使用recyclerView.addItemDecoration()之前，必须先调用recyclerView.setLayoutManager()；
+
+代码：
+```java
+GroupListener groupListener = new GroupListener() {
+    @Override
+    public String getGroupName(int position) {
+        //获取分组名
+        return mList.get(position).getProvince();
+    }
+};
+StickyDecoration decoration = StickyDecoration.Builder
+        .init(groupListener)
+        //重置span（使用GridLayoutManager时必须调用）
+        //.resetSpan(mRecyclerView, (GridLayoutManager) manager)
+        .build();
+...
+mRecyclerView.setLayoutManager(manager);
+//需要在setLayoutManager()之后调用addItemDecoration()
+mRecyclerView.addItemDecoration(decoration);
+```
+效果：
+
+![LinearLayoutManager](http://upload-images.jianshu.io/upload_images/1638147-f3c2cbe712aa65fb.gif?imageMogr2/auto-orient/strip)
+
+![GridLayoutManager](http://upload-images.jianshu.io/upload_images/1638147-e5e0374c896110d0.gif?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+
+**支持的方法：**
+
+| 方法 | 功能 | 默认 |
+|-|-|-|
+| setGroupBackground | 背景色 | #48BDFF |
+| setGroupHeight | 高度 | 120px |
+| setGroupTextColor | 字体颜色 | Color.WHITE |
+| setGroupTextSize | 字体大小 | 50px |
+| setDivideColor | 分割线颜色 | #CCCCCC |
+| setDivideHeight | 分割线高宽度 | 0 |
+| setTextSideMargin | 边距(靠左时为左边距  靠右时为右边距) |  10 |
+| setHeaderCount | 头部Item数量（仅LinearLayoutManager） |  0 |
+| setSticky | 是否需要吸顶效果 |  true |
+
+|方法|功能|描述|
+|-|-|-|
+| setOnClickListener | 点击事件 | 设置点击事件，返回当前分组下第一个item的position |
+| resetSpan | 重置 | 使用GridLayoutManager时必须调用 |
+
+### 自定义View悬浮——PowerfulStickyDecoration
+
+先创建布局`item_group`
+```xml
+<?xml version=""1.0"" encoding=""utf-8""?>
+<LinearLayout
+      xmlns:android=""http://schemas.android.com/apk/res/android""
+      android:id=""@+id/ll""
+      android:orientation=""horizontal""
+      ...>
+
+    <ImageView
+        android:id=""@+id/iv""
+        .../>
+
+    <TextView
+        android:id=""@+id/tv""
+        .../>
+</LinearLayout>
+```
+创建`PowerfulStickyDecoration`，实现自定`View`悬浮
+```java
+PowerGroupListener listener = new PowerGroupListener() {
+    @Override
+    public String getGroupName(int position) {
+        return mList.get(position).getProvince();
+    }
+
+    @Override
+    public View getGroupView(int position) {
+        //获取自定定义的组View
+        View view = getLayoutInflater().inflate(R.layout.item_group, null, false);
+        ((TextView) view.findViewById(R.id.tv)).setText(mList.get(position).getProvince());
+        return view;
+    }
+};
+PowerfulStickyDecoration decoration = PowerfulStickyDecoration.Builder
+        .init(listener)
+         //重置span（注意：使用GridLayoutManager时必须调用）
+        //.resetSpan(mRecyclerView, (GridLayoutManager) manager)
+        .build();
+
+  ...
+mRecyclerView.addItemDecoration(decoration);
+```
+效果：
+
+![效果](http://upload-images.jianshu.io/upload_images/1638147-3fed255296a6c3db.gif?imageMogr2/auto-orient/strip)
+
+**支持的方法：**
+
+| 方法 | 功能 | 默认 |
+| -- | -- | -- |
+| setGroupHeight | 高度 | 120px |
+| setGroupBackground | 背景色 | #48BDFF |
+| setDivideColor | 分割线颜色 | #CCCCCC |
+| setDivideHeight | 分割线高宽度 | 0 |
+| setCacheEnable | 是否使用缓存| 使用缓存 |
+| setHeaderCount | 头部Item数量(仅LinearLayoutManager) | 0 |
+| setSticky | 是否需要吸顶效果 |  true |
+
+|方法|功能|描述|
+|-|-|-|
+| setOnClickListener | 点击事件 | 设置点击事件，返回当前分组下第一个item的position以及对应的viewId |
+|  resetSpan | 重置span |使用GridLayoutManager时必须调用 |
+| notifyRedraw | 通知重新绘制 | 使用场景：网络图片加载后调用方法使用) |
+| clearCache | 清空缓存 | 在使用缓存的情况下，数据改变时需要清理缓存 |
+
+**Tips**
+
+1、若使用网络图片时，在图片加载完成后需要调用
+```java
+decoration.notifyRedraw(mRv, view, position);
+```
+
+2、使用缓存时，若数据源改变，需要调用clearCache清除数据
+
+3、点击事件穿透问题，参考demo中MyRecyclerView。[issue47](https://github.com/Gavin-ZYX/StickyDecoration/issues/37)
+
+# 更新日志
+
+----------------------------- 1.6.0 （2022-8-21）----------------------------
+
+- fix：取消缓存无效问题
+- 迁移仓库
+- 迁移到Androidx
+
+----------------------------- 1.5.3 （2020-12-15）----------------------------
+
+- 支持是否需要吸顶效果
+
+----------------------------- 1.5.2 （2019-9-3）----------------------------
+
+- fix：特殊情况下，吸顶效果不佳问题
+
+----------------------------- 1.5.1 （2019-8-8）----------------------------
+
+- fix：setHeaderCount导致显示错乱问题
+
+----------------------------- 1.5.0 （2019-6-17）----------------------------
+
+- fix：GridLayoutManager刷新后数据混乱问题
+
+----------------------------- 1.4.12 （2019-5-8）----------------------------
+
+- fix：setDivideColor不生效问题
+
+----------------------------- 1.4.9 （2018-10-9）----------------------------
+
+- fix：由于添加header导致的一些问题
+
+----------------------------- 1.4.8 （2018-08-26）----------------------------
+
+- 顶部悬浮栏点击事件穿透问题：提供处理方案
+
+----------------------------- 1.4.7 （2018-08-16）----------------------------
+
+- fix：数据变化后，布局未刷新问题
+
+----------------------------- 1.4.6 （2018-07-29）----------------------------
+
+- 修改缓存方式
+- 加入性能检测
+
+----------------------------- 1.4.5 （2018-06-17）----------------------------
+
+- 在GridLayoutManager中使用setHeaderCount方法导致布局错乱问题
+
+----------------------------- 1.4.4 （2018-06-2）----------------------------
+
+- 添加setHeaderCount方法
+- 修改README
+- 修复bug
+
+----------------------------- 1.4.3 （2018-05-27）----------------------------
+
+- 修复一些bug，更改命名
+
+----------------------------- 1.4.2 （2018-04-2）----------------------------
+
+- 增强点击事件，现在可以得到悬浮条内View点击事件（没有设置id时，返回View.NO_ID）
+
+- 修复加载更多返回null崩溃或出现多余的悬浮Item问题（把加载更多放在Item中的加载方式）
+
+----------------------------- 1.4.1 （2018-03-21）----------------------------
+
+- 默认取消缓存，避免数据改变时显示出问题
+
+- 添加clearCache方法用于清理缓存
+
+----------------------------- 1.4.0 （2018-03-04）----------------------------
+
+- 支持异步加载后的重新绘制（如网络图片加载）
+
+- 优化缓存
+
+- 优化GridLayoutManager的分割线
+
+----------------------------- 1.3.1 （2018-01-30）----------------------------
+
+- 修改测量方式
+
+----------------------------- 1.3.0 （2018-01-28）----------------------------
+
+- 删除isAlignLeft()方法，需要靠右时，直接在布局中处理就可以了。
+
+- 优化缓存机制。
+"
+square/mortar,"A simple library that makes it easy to pair thin views with dedicated controllers, isolated from most of the vagaries of the Activity life cycle.",,"# Mortar
+
+## Deprecated
+
+Mortar had a good run and served us well, but new use is strongly discouraged. The app suite at Square that drove its creation is in the process of replacing Mortar with [Square Workflow](https://square.github.io/workflow/).
+
+## What's a Mortar?
+
+Mortar provides a simplified, composable overlay for the Android lifecycle,
+to aid in the use of [Views as the modular unit of Android applications][rant].
+It leverages [Context#getSystemService][services] to act as an a la carte supplier
+of services like dependency injection, bundle persistence, and whatever else
+your app needs to provide itself.
+
+One of the most useful services Mortar can provide is its [BundleService][bundle-service],
+which gives any View (or any object with access to the Activity context) safe access to
+the Activity lifecycle's persistence bundle. For fans of the [Model View Presenter][mvp]
+pattern, we provide a persisted [Presenter][presenter] class that builds on BundleService.
+Presenters are completely isolated from View concerns. They're particularly good at
+surviving configuration changes, weathering the storm as Android destroys your portrait
+Activity and Views and replaces them with landscape doppelgangers.
+
+Mortar can similarly make [Dagger][dagger] ObjectGraphs (or [Dagger2][dagger2]
+Components) visible as system services. Or not &mdash; these services are
+completely decoupled.
+
+Everything is managed by [MortarScope][scope] singletons, typically
+backing the top level Application and Activity contexts. You can also spawn
+your own shorter lived scopes to manage transient sessions, like the state of
+an object being built by a set of wizard screens.
+
+<!--
+  This example is a little bit confusing. Maybe explain why you would want to have an extended graph for a wizard, then explain how Mortar shadows the parent graph with that extended graph.
+-->
+
+These nested scopes can shadow the services provided by higher level scopes.
+For example, a [Dagger extension graph][ogplus] specific to your wizard session
+can cover the one normally available, transparently to the wizard Views.
+Calls like `ObjectGraphService.inject(getContext(), this)` are now possible
+without considering which graph will do the injection.
+
+## The Big Picture
+
+An application will typically have a singleton MortarScope instance.
+Its job is to serve as a delegate to the app's `getSystemService` method, something like:
+
+```java
+public class MyApplication extends Application {
+  private MortarScope rootScope;
+
+  @Override public Object getSystemService(String name) {
+    if (rootScope == null) rootScope = MortarScope.buildRootScope().build(getScopeName());
+
+    return rootScope.hasService(name) ? rootScope.getService(name) : super.getSystemService(name);
+  }
+}
+```
+
+This exposes a single, core service, the scope itself. From the scope you can
+spawn child scopes, and you can register objects that implement the
+[Scoped](https://github.com/square/mortar/blob/master/mortar/src/main/java/mortar/Scoped.java#L18)
+interface with it for setup and tear-down calls.
+
+  * `Scoped#onEnterScope(MortarScope)`
+  * `Scoped#onExitScope(MortarScope)`
+
+To make a scope provide other services, like a [Dagger ObjectGraph][og],
+you register them while building the scope. That would make our Application's
+`getSystemService` method look like this:
+
+```java
+  @Override public Object getSystemService(String name) {
+    if (rootScope == null) {
+      rootScope = MortarScope.buildRootScope()
+        .with(ObjectGraphService.SERVICE_NAME, ObjectGraph.create(new RootModule()))
+        .build(getScopeName());
+    }
+
+    return rootScope.hasService(name) ? rootScope.getService(name) : super.getSystemService(name);
+  }
+```
+
+Now any part of our app that has access to a `Context` can inject itself:
+
+```java
+public class MyView extends LinearLayout {
+  @Inject SomeService service;
+
+  public MyView(Context context, AttributeSet attrs) {
+    super(context, attrs);
+    ObjectGraphService.inject(context, this);
+  }
+}
+```
+
+To take advantage of the BundleService describe above, you'll put similar code
+into your Activity. If it doesn't exist already, you'll
+build a sub-scope to back the Activity's `getSystemService` method, and
+while building it set up the `BundleServiceRunner`. You'll also notify
+the BundleServiceRunner each time `onCreate` and `onSaveInstanceState` are
+called, to make the persistence bundle available to the rest of the app.
+
+```java
+public class MyActivity extends Activity {
+  private MortarScope activityScope;
+
+  @Override public Object getSystemService(String name) {
+    MortarScope activityScope = MortarScope.findChild(getApplicationContext(), getScopeName());
+
+    if (activityScope == null) {
+      activityScope = MortarScope.buildChild(getApplicationContext()) //
+          .withService(BundleServiceRunner.SERVICE_NAME, new BundleServiceRunner())
+          .withService(HelloPresenter.class.getName(), new HelloPresenter())
+          .build(getScopeName());
+    }
+
+    return activityScope.hasService(name) ? activityScope.getService(name)
+        : super.getSystemService(name);
+  }
+
+  @Override protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    BundleServiceRunner.getBundleServiceRunner(this).onCreate(savedInstanceState);
+    setContentView(R.layout.main_view);
+  }
+
+  @Override protected void onSaveInstanceState(Bundle outState) {
+    super.onSaveInstanceState(outState);
+    BundleServiceRunner.getBundleServiceRunner(this).onSaveInstanceState(outState);
+  }
+}
+```
+
+With that in place, any object in your app can sign up with the `BundleService`
+to save and restore its state. This is nice for views, since Bundles are less
+of a hassle than the `Parcelable` objects required by `View#onSaveInstanceState`,
+and a boon to any business objects in the rest of your app.
+
+Download
+--------
+
+Download [the latest JAR][jar] or grab via Maven:
+
+```xml
+<dependency>
+    <groupId>com.squareup.mortar</groupId>
+    <artifactId>mortar</artifactId>
+    <version>(insert latest version)</version>
+</dependency>
+```
+
+Gradle:
+
+```groovy
+compile 'com.squareup.mortar:mortar:(latest version)'
+```
+
+## Full Disclosure
+
+This stuff has been in ""rapid"" development over a pretty long gestation period,
+but is finally stabilizing. We don't expect drastic changes before cutting a
+1.0 release, but we still cannot promise a stable API from release to release.
+
+Mortar is a key component of multiple Square apps, including our flagship
+[Square Register][register] app.
+
+License
+--------
+
+    Copyright 2013 Square, Inc.
+
+    Licensed under the Apache License, Version 2.0 (the ""License"");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an ""AS IS"" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+[bundle-service]: https://github.com/square/mortar/blob/master/mortar/src/main/java/mortar/bundler/BundleService.java
+[mvp]: http://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93presenter
+[dagger]: http://square.github.io/dagger/
+[dagger2]: http://google.github.io/dagger/
+[jar]: http://repository.sonatype.org/service/local/artifact/maven/redirect?r=central-proxy&g=com.squareup.mortar&a=mortar&v=LATEST
+[og]: https://square.github.io/dagger/1.x/dagger/dagger/ObjectGraph.html
+[ogplus]: https://github.com/square/dagger/blob/dagger-parent-1.1.0/core/src/main/java/dagger/ObjectGraph.java#L96
+[presenter]: https://github.com/square/mortar/blob/master/mortar/src/main/java/mortar/Presenter.java
+[rant]: http://corner.squareup.com/2014/10/advocating-against-android-fragments.html
+[register]: https://play.google.com/store/apps/details?id=com.squareup
+[scope]: https://github.com/square/mortar/blob/master/mortar/src/main/java/mortar/MortarScope.java
+[services]: http://developer.android.com/reference/android/content/Context.html#getSystemService(java.lang.String)
+"

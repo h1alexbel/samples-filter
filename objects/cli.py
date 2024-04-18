@@ -27,6 +27,7 @@ from typing import Optional
 
 import typer
 
+from .dataset import Dataset
 from objects import NAME, VERSION
 from .pre_filter import PreFilter
 from .input import Input
@@ -62,7 +63,7 @@ def filter(
     #  Let's create a class (let's call it `train` or `pipeline`) that would
     #  execute all transformation one by one.
     PreFilter(out).prepare()
-    Input(repositories).copy()
+    Dataset(Input(repositories).copy()).formulate()
     typer.echo(f"Filtering completed. Saving output to {out}...")
 
 
