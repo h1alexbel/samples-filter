@@ -23,10 +23,15 @@
 """
 Prepares outputs before running filters.
 """
+import os.path
+
+
 class PreFilter:
     def __init__(self, out):
         self.out = out
 
     def prepare(self):
+        if not os.path.exists("pipeline"):
+            os.makedirs("pipeline")
         with open(self.out, "w") as file:
             file.write("")
