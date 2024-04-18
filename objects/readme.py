@@ -23,25 +23,18 @@
 """
 GitHub Readme.
 """
-import base64
-
 import requests
 
-
 class Readme:
-    def __init__(self, repo):
+    def __init__(self, repo, branch):
         self.repo = repo
+        self.branch = branch
 
-    # @todo #19:45min Use raw.githubusercontent.com instead of api.github.com.
-    #  We should use static GitHub content hosting instead of their API
-    #  in order to prevent problems with rate limits.
-    #  Don't forget to remove this puzzle.
     def asText(self):
         response = requests.get(
-            f"https://api.github.com/repos/{self.repo}/readme",
-            headers={"Accept": "application/vnd.github.v3+json"}
+            f"https://raw.githubusercontent.com/{self.repo}/{self.branch}/README.md",
         )
         if response.status_code == 200:
-            return base64.b64decode(response.json()["content"]).decode("utf-8")
+            return response.text
         else:
-            print(f"Failed to fetch README for {self.repo}")
+            print(f"Failed to fetch README for {self.repo}@{self.branch}")

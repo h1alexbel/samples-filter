@@ -61,7 +61,7 @@ class Input:
                 issues = row["open_issues_count"]
                 description = row["description"]
                 topics = row["topics"]
-                readme = Readme(repo).asText()
+                readme = Readme(repo, branch).asText()
                 out = {
                     "full_name": repo,
                     "default_branch": branch,
