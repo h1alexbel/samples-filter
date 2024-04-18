@@ -29,18 +29,26 @@ from objects.pre_filter import PreFilter
 
 
 class TestPreFilter(unittest.TestCase):
+    DIR = "pipeline"
+
     def setUp(self):
         self.out = "test_output.csv"
         self.pre = PreFilter(self.out)
 
     def tearDown(self):
-        os.rmdir("pipeline")
+        os.rmdir(self.DIR)
         os.remove(self.out)
 
     def test_creates_pipeline_dir(self):
         self.pre.prepare()
-        self.assertTrue(os.path.exists("pipeline"))
+        self.assertTrue(
+            os.path.exists(self.DIR),
+            f"{self.DIR} was not created, but should be"
+        )
 
     def test_creates_out(self):
         self.pre.prepare()
-        self.assertTrue(os.path.exists(self.out))
+        self.assertTrue(
+            os.path.exists(self.out),
+            f"{self.out} was not created, but should be"
+        )
