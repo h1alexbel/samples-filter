@@ -40,3 +40,7 @@ class TestPreFilter(unittest.TestCase):
     def test_creates_pipeline_dir(self):
         self.pre.prepare()
         self.assertTrue(os.path.exists("pipeline"))
+
+    def test_creates_out(self):
+        self.pre.prepare()
+        self.assertTrue(os.path.exists(self.out))
