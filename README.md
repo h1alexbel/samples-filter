@@ -50,18 +50,37 @@ We take the input in the format of `repositories.csv`:
 
 ```csv
 full_name,default_branch,stars,forks,created_at,size,open_issues_count,description,topics
-heysupratim/material-daterange-picker,master,1328,269,2015-09-14T12:00:47Z,868,14,"A material Date Range Picker based on wdullaers MaterialDateTimePicker","["datepicker", "datetimepicker", "material", "picker", "range-selection", "timepicker"]"
-Jude95/EasyRecyclerView,master,2029,458,2015-07-18T13:11:48Z,11336,110,"ArrayAdapter,pull to refresh,auto load more,Header/Footer,EmptyView,ProgressView,ErrorView","[]"
-hanks-zyh/SmallBang,master,1005,158,2015-12-24T14:48:37Z,6379,6,"  twitter like animation for any view :heartbeat:","["animation", "heartbeat", "like-button", "twitter"]"
-Gavin-ZYX/StickyDecoration,master,1033,165,2017-05-31T07:38:49Z,1018,3,"","[]"
+apache/kafka,trunk,27266,13448,2011-08-15T18:06:16Z,182971,1085,"Mirror of Apache Kafka",kafka scala
+apache/flink,master,23128,12938,2014-06-07T07:00:10Z,489079,1169,"Apache Flink",big-data flink java python scala sql
+apache/cassandra,trunk,8506,3537,2009-05-21T02:10:09Z,427867,474,"Mirror of Apache Cassandra",cassandra database java
+joyoyao/superCleanMaster,master,1898,884,2015-02-12T03:37:41Z,12302,18,"[DEPRECATED] ",
+manifold-systems/manifold,master,2209,120,2017-06-07T02:37:23Z,126336,64,"Manifold is a Java compiler plugin, its features include Metaprogramming, Properties, Extension Methods, Operator Overloading, Templates, a Preprocessor, and more.",android-studio delegation duck-typing extension-methods graphql graphql-java intellij java java-development java-sql java-tooling js-java-interoperability json manifold metaprogramming preprocessor reflection-framework structural-typing template-engine type-providers
+datageartech/datagear,master,1322,316,2020-02-22T04:06:51Z,87397,2,"数据可视化分析平台，自由制作任何您想要的数据看板",bi business-intelligence chart data-analysis data-analytics data-visualization echarts
+CodingDocs/springboot-guide,master,5063,1390,2018-11-28T01:05:07Z,5354,16,"SpringBoot2.0+从入门到实战！",asynchronous dubbo mybatis rabbitmq spring-data-jpa springboot
+hanks-zyh/SmallBang,master,1005,158,2015-12-24T14:48:37Z,6379,6,"  twitter like animation for any view :heartbeat:",animation heartbeat like-button twitter
 ...
 ```
 
-?: format csv to Markdown
+this data in Markdown format looks like this:
 
-Then, for each repo in the dataset we fetch it's `README.md` file.
-Then we extract `full_name`, `description`, `topics` columns' values from
-dataset. At this point we TBD..
+| full_name                   | default_branch | stars | forks | created_at           | size   | open_issues_count | description                                                                                                                                                         | topics                                                                                                                                                                                                                                                                      |
+|-----------------------------|----------------|-------|-------|----------------------|--------|-------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| apache/kafka                | trunk          | 27266 | 13448 | 2011-08-15T18:06:16Z | 182971 | 1085              | Mirror of Apache Kafka                                                                                                                                              | kafka scala                                                                                                                                                                                                                                                                 |
+| apache/flink                | master         | 23128 | 12938 | 2014-06-07T07:00:10Z | 489079 | 1169              | Apache Flink                                                                                                                                                        | big-data flink java python scala sql                                                                                                                                                                                                                                        |
+| apache/cassandra            | trunk          | 8506  | 3537  | 2009-05-21T02:10:09Z | 427867 | 474               | Mirror of Apache Cassandra                                                                                                                                          | cassandra database java                                                                                                                                                                                                                                                     |
+| joyoyao/superCleanMaster    | master         | 1898  | 884   | 2015-02-12T03:37:41Z | 12302  | 18                | [DEPRECATED]                                                                                                                                                        |                                                                                                                                                                                                                                                                             |
+| manifold-systems/manifold   | master         | 2209  | 120   | 2017-06-07T02:37:23Z | 126336 | 64                | Manifold is a Java compiler plugin, its features include Metaprogramming, Properties, Extension Methods, Operator Overloading, Templates, a Preprocessor, and more. | android-studio delegation duck-typing extension-methods graphql graphql-java intellij java java-development java-sql java-tooling js-java-interoperability json manifold metaprogramming preprocessor reflection-framework structural-typing template-engine type-providers |
+| datageartech/datagear       | master         | 1322  | 316   | 2020-02-22T04:06:51Z | 87397  | 2                 | 数据可视化分析平台，自由制作任何您想要的数据看板                                                                                                                                            | bi business-intelligence chart data-analysis data-analytics data-visualization echarts                                                                                                                                                                                      |
+| CodingDocs/springboot-guide | master         | 5063  | 1390  | 2018-11-28T01:05:07Z | 5354   | 16                | SpringBoot2.0+从入门到实战！                                                                                                                                               | asynchronous dubbo mybatis rabbitmq spring-data-jpa springboot                                                                                                                                                                                                              |
+| hanks-zyh/SmallBang         | master         | 1005  | 158   | 2015-12-24T14:48:37Z | 6379   | 6                 | twitter like animation for any view :heartbeat:                                                                                                                     | animation heartbeat like-button twitter                                                                                                                                                                                                                                     |
+
+For each repo (identified by `full_name` column) in the dataset we fetch it's
+`README.md` file from GitHub. Then we copy all existing columns and add
+new `readme` column. Then we extract `full_name`, `description`,
+`topics`, and `readme` columns' values from dataset and prepare this data
+for further analysis.
+
+TBD..
 
 ## How to contribute
 
