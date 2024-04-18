@@ -21,17 +21,22 @@
 # SOFTWARE.
 
 """
-Prepares outputs before running filters.
+Test case for PreFilter.
 """
-import os.path
+import os
+import unittest
+from objects.pre_filter import PreFilter
 
 
-class PreFilter:
-    def __init__(self, out):
-        self.out = out
+class TestPreFilter(unittest.TestCase):
+    def setUp(self):
+        self.out = "test_output.csv"
+        self.pre = PreFilter(self.out)
 
-    def prepare(self):
-        if not os.path.exists("pipeline"):
-            os.makedirs("pipeline")
-        with open(self.out, "w") as file:
-            file.write("")
+    def tearDown(self):
+        os.rmdir("pipeline")
+        os.remove(self.out)
+
+    def test_creates_pipeline_dir(self):
+        self.pre.prepare()
+        self.assertTrue(os.path.exists("pipeline"))

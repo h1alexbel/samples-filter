@@ -33,10 +33,6 @@ class Input:
         self.name = name
 
     def copy(self):
-        # @todo #19:25min Prepare files in /pipeline directory.
-        #  We should create them before running actual processing.
-        #  For now we need to manually create files.
-        #  Don't forget to remove this puzzle.
         with open(self.name, "r") as input, open(self.DESTINATION, "w", newline="") as pipe:
             reader = csv.DictReader(input)
             writer = csv.DictWriter(
