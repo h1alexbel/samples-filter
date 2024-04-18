@@ -32,6 +32,10 @@ from transformers import BertTokenizer, BertForSequenceClassification, Trainer, 
 #  We should collect and label dataset for model training.
 #  Besides that we need to split dataset into 80% of train data,
 #  10% of validation data and 10% test sets.
+# @todo #30:35min Document model training in model/README.md.
+#  We should document our model, what is it, how we train it, and how to
+#  re-train it. Let's create README.md in the `model` directory with this
+#  info.
 class CustomDataset(Dataset):
     def __init__(self, encodings, labels):
         self.encodings = encodings
