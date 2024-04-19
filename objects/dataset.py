@@ -48,6 +48,13 @@ class Dataset:
                 ]
             )
             writer.writeheader()
+            # @todo #34:60min CSV column 'readme' is too big to read with reader.
+            #  Column that contains readme in some cases is over the limit,
+            #  which is `131072`. It this problem causes exception and
+            #  terminates next row processing. Let's try to compress +
+            #  decompress readme when writing/reading it. Another option can
+            #  be to present the whole dataset in other format, for instance
+            #  JSON. Don't forget to remove this puzzle.
             for row in reader:
                 repo = row["full_name"]
                 description = row["description"]

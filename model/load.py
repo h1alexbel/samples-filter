@@ -1,0 +1,48 @@
+# The MIT License (MIT)
+#
+# Copyright (c) 2024 Aliaksei Bialiauski
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included
+# in all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+
+"""
+Load and pre-process dataset.
+"""
+import pandas
+from sklearn.model_selection import train_test_split
+
+# @todo #34:60min Load dataset file from huggingface dataset repository.
+#  We should load dataset from huggingface dataset repo. It's located
+#  <a href="https://huggingface.co/datasets/h1alexbel/github-samples">here</a>.
+def load():
+    frame = pandas.read_csv("input.csv")
+    frame["repository"] = (
+            frame["full_name"] + " " +
+            frame["description"] + " " +
+            frame["topics"] + " " +
+            frame["readme"]
+    )
+    repos = frame["repository"].labels()
+    labels = frame["label"].labels()
+    train_repos, temp_repos, train_labels, temp_labels = (
+        train_test_split(repos, labels, test_size=0.2, random_state=42)
+    )
+    val_repos, test_repos, val_labels, test_labels = (
+        train_test_split(temp_repos, temp_labels, test_size=0.5, random_state=42)
+    )
+    return train_repos, train_labels, val_repos, val_labels, test_repos, test_labels
