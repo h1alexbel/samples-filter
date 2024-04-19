@@ -29,6 +29,7 @@ from sklearn.model_selection import train_test_split
 # @todo #34:60min Load dataset file from huggingface dataset repository.
 #  We should load dataset from huggingface dataset repo. It's located
 #  <a href="https://huggingface.co/datasets/h1alexbel/github-samples">here</a>.
+#  Let's pull it and use it.
 def load():
     frame = pandas.read_csv("input.csv")
     frame["repository"] = (
