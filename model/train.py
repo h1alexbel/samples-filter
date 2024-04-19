@@ -27,15 +27,8 @@ Run it with 'python3 train.py'.
 import torch
 from torch.utils.data import Dataset
 from transformers import BertTokenizer, BertForSequenceClassification, Trainer, TrainingArguments
+from load import load
 
-# @todo #30:90min Prepare labels and encodings for model training.
-#  We should collect and label dataset for model training.
-#  Besides that we need to split dataset into 80% of train data,
-#  10% of validation data and 10% test sets.
-# @todo #30:35min Document model training in model/README.md.
-#  We should document our model, what is it, how we train it, and how to
-#  re-train it. Let's create README.md in the `model` directory with this
-#  info.
 class CustomDataset(Dataset):
     def __init__(self, encodings, labels):
         self.encodings = encodings
@@ -53,19 +46,14 @@ class CustomDataset(Dataset):
 model = BertForSequenceClassification.from_pretrained('bert-base-uncased')
 tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
 
-# Example texts and labels
-train_texts = ["This is a sample text.", "This is another example."]
-val_texts = ["This is a validation text.", "This is another validation example."]
-train_labels = [0, 1] # Example labels
-val_labels = [1, 0] # Example labels
+train_repos, train_labels, val_repos, val_labels, test_repos, test_labels = load()
+train_encodings = tokenizer(train_repos, truncation=True, padding=True)
+val_encodings = tokenizer(val_repos, truncation=True, padding=True)
+test_encodings = tokenizer(test_repos, truncation=True, padding=True)
 
-# Tokenize your dataset
-train_encodings = tokenizer(train_texts, truncation=True, padding=True)
-val_encodings = tokenizer(val_texts, truncation=True, padding=True)
-
-# Prepare your dataset
-train_dataset = CustomDataset(train_encodings, train_labels)
-val_dataset = CustomDataset(val_encodings, val_labels)
+train = CustomDataset(train_encodings, train_labels)
+validation = CustomDataset(val_encodings, val_labels)
+test = CustomDataset(test_encodings, test_labels)
 
 # Define training arguments
 training_args = TrainingArguments(
@@ -82,8 +70,8 @@ training_args = TrainingArguments(
 trainer = Trainer(
     model=model,
     args=training_args,
-    train_dataset=train_dataset,
-    eval_dataset=val_dataset
+    train_dataset=train,
+    eval_dataset=validation
 )
 
 # Train the model
