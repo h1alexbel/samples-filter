@@ -26,23 +26,28 @@ Load and pre-process dataset.
 import pandas
 from sklearn.model_selection import train_test_split
 
+
 # @todo #34:60min Load dataset file from huggingface dataset repository.
 #  We should load dataset from huggingface dataset repo. It's located
 #  <a href="https://huggingface.co/datasets/h1alexbel/github-samples">here</a>.
 #  Let's pull it and use it.
 def load():
-    frame = pandas.read_csv("input.csv")
+    frame = pandas.read_csv("train.csv")
+    frame = frame.dropna(subset=['label'])
+    frame['label'] = frame['label'].apply(lambda x: 'positive' if x == 1.0 else 'negative')
     frame["repository"] = (
-            frame["full_name"] + " " +
-            frame["description"] + " " +
-            frame["topics"] + " " +
-            frame["readme"]
+            frame["full_name"].astype(str) + " " +
+            frame["description"].astype(str) + " " +
+            frame["topics"].astype(str) + " " +
+            frame["readme"].astype(str)
     )
-    repos = frame["repository"].labels()
-    labels = frame["label"].labels()
+    repos = frame["repository"].tolist()
+    labels = frame["label"].tolist()
     train_repos, temp_repos, train_labels, temp_labels = (
         train_test_split(repos, labels, test_size=0.2, random_state=42)
     )
+    label_mapping = {"positive": 1, "negative": 0}
+    train_labels = [label_mapping[label] for label in train_labels]
     val_repos, test_repos, val_labels, test_labels = (
         train_test_split(temp_repos, temp_labels, test_size=0.5, random_state=42)
     )

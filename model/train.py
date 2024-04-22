@@ -36,7 +36,8 @@ class CustomDataset(Dataset):
 
     def __getitem__(self, idx):
         item = {key: torch.tensor(val[idx]) for key, val in self.encodings.items()}
-        item['labels'] = torch.tensor(self.labels[idx])
+        # item['labels'] = torch.tensor(self.labels[idx])
+        item['labels'] = torch.tensor(int(self.labels[idx]), dtype=torch.long)
         return item
 
     def __len__(self):
@@ -47,6 +48,11 @@ model = BertForSequenceClassification.from_pretrained('bert-base-uncased')
 tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
 
 train_repos, train_labels, val_repos, val_labels, test_repos, test_labels = load()
+
+train_labels = [1 if label == "positive" else 0 for label in train_labels]
+val_labels = [1 if label == "positive" else 0 for label in val_labels]
+test_labels = [1 if label == "positive" else 0 for label in test_labels]
+
 train_encodings = tokenizer(train_repos, truncation=True, padding=True)
 val_encodings = tokenizer(val_repos, truncation=True, padding=True)
 test_encodings = tokenizer(test_repos, truncation=True, padding=True)
@@ -81,5 +87,5 @@ trainer.train()
 trainer.evaluate()
 
 # Save the model
-model.save_pretrained('./my_model')
-tokenizer.save_pretrained('./my_model')
+model.save_pretrained('./trained')
+tokenizer.save_pretrained('./trained')
