@@ -6,3 +6,4 @@ transformers==4.40.0
 torch==2.2.2
 pandas==2.2.2
 scikit-learn==1.4.2
+datasets==2.19.0

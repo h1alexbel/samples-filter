@@ -20,6 +20,12 @@ is `real`, while `1` means that repository is `sample` one.
 
 Full dataset used for model training is located [here](https://huggingface.co/datasets/h1alexbel/github-samples).
 
+## How to build new dataset?
+
+To build new dataset, follow these steps:
+
+TBD..
+
 ## How to train it?
 
 To train the model run `train.py` script:
