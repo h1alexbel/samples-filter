@@ -28,10 +28,6 @@ from objects import VERSION, cli
 
 runner = CliRunner()
 
-# @todo #1:30min Remove dummy test.
-#  This one is a dummy test in order to not fail the build.
-#  Let's remove it, when we will have tests for real code.
-#  Don't forget to remove this puzzle.
 def test_displays_version():
     """
     Test case for displaying version passing --version parameter.
