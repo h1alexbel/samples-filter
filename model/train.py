@@ -43,7 +43,6 @@ class CustomDataset(Dataset):
     def __len__(self):
         return len(self.labels)
 
-# Load pre-trained model and tokenizer
 model = BertForSequenceClassification.from_pretrained('bert-base-uncased')
 tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
 
@@ -61,18 +60,17 @@ train = CustomDataset(train_encodings, train_labels)
 validation = CustomDataset(val_encodings, val_labels)
 test = CustomDataset(test_encodings, test_labels)
 
-# Define training arguments
 training_args = TrainingArguments(
     output_dir='./results',
     num_train_epochs=3,
-    per_device_train_batch_size=16,
-    per_device_eval_batch_size=64,
+    per_device_train_batch_size=8,
+    per_device_eval_batch_size=32,
     warmup_steps=500,
     weight_decay=0.01,
-    logging_dir='./logs',
+    learning_rate=2e-5,
+    logging_dir='./logs'
 )
 
-# Initialize the Trainer
 trainer = Trainer(
     model=model,
     args=training_args,
@@ -80,12 +78,9 @@ trainer = Trainer(
     eval_dataset=validation
 )
 
-# Train the model
 trainer.train()
 
-# Evaluate the model
 trainer.evaluate()
 
-# Save the model
 model.save_pretrained('./trained')
 tokenizer.save_pretrained('./trained')
