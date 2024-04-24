@@ -21,71 +21,67 @@
 # SOFTWARE.
 
 """
-Train a model.
+Model training.
 Run it with 'python3 train.py'.
 """
-import torch
-from torch.utils.data import Dataset
-from transformers import BertTokenizer, BertForSequenceClassification, Trainer, TrainingArguments
-from load import load
+from datasets import load_dataset, DatasetDict
+from transformers import Trainer, TrainingArguments, AutoTokenizer, \
+    AutoModelForSequenceClassification
 
-class CustomDataset(Dataset):
-    def __init__(self, encodings, labels):
-        self.encodings = encodings
-        self.labels = labels
+from metrics import metrics
 
-    def __getitem__(self, idx):
-        item = {key: torch.tensor(val[idx]) for key, val in self.encodings.items()}
-        # item['labels'] = torch.tensor(self.labels[idx])
-        item['labels'] = torch.tensor(int(self.labels[idx]), dtype=torch.long)
-        return item
+model = AutoModelForSequenceClassification.from_pretrained(
+    "distilbert/distilbert-base-uncased",
+    num_labels=2,
+    id2label={0: "NEGATIVE", 1: "POSITIVE"},
+    label2id={"NEGATIVE": 0, "POSITIVE": 1}
+)
+tokenizer = AutoTokenizer.from_pretrained("distilbert/distilbert-base-uncased")
+dataset = load_dataset("h1alexbel/github-samples")
 
-    def __len__(self):
-        return len(self.labels)
 
-# Load pre-trained model and tokenizer
-model = BertForSequenceClassification.from_pretrained('bert-base-uncased')
-tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
+def preprocess(examples):
+    # @todo #45:60min Train model on target columns instead just full_name.
+    #  We should re-train model probably on description, topics and readme too.
+    #  Let's try to standardize the input: first go full_name and description,
+    #  than topics. README's content can be very big and can break the model.
+    #  For readme we can use some summarization model that would provide
+    #  limited-type response.
+    return tokenizer(
+        examples["full_name"],
+        truncation=True,
+        padding='max_length',
+        max_length=512
+    )
 
-train_repos, train_labels, val_repos, val_labels, test_repos, test_labels = load()
 
-train_labels = [1 if label == "positive" else 0 for label in train_labels]
-val_labels = [1 if label == "positive" else 0 for label in val_labels]
-test_labels = [1 if label == "positive" else 0 for label in test_labels]
-
-train_encodings = tokenizer(train_repos, truncation=True, padding=True)
-val_encodings = tokenizer(val_repos, truncation=True, padding=True)
-test_encodings = tokenizer(test_repos, truncation=True, padding=True)
-
-train = CustomDataset(train_encodings, train_labels)
-validation = CustomDataset(val_encodings, val_labels)
-test = CustomDataset(test_encodings, test_labels)
-
-# Define training arguments
+tokenized = dataset.map(preprocess, batched=True)
+dictionary = DatasetDict(
+    {
+        'train': tokenized['train'],
+    }
+)
+split = dictionary["train"].train_test_split(test_size=0.2)
+dictionary["train"] = split["train"]
+dictionary["validation"] = split["test"]
 training_args = TrainingArguments(
     output_dir='./results',
     num_train_epochs=3,
-    per_device_train_batch_size=16,
-    per_device_eval_batch_size=64,
+    per_device_train_batch_size=8,
+    per_device_eval_batch_size=32,
     warmup_steps=500,
     weight_decay=0.01,
-    logging_dir='./logs',
+    learning_rate=2e-5,
+    logging_dir='./logs'
 )
-
-# Initialize the Trainer
 trainer = Trainer(
     model=model,
     args=training_args,
-    train_dataset=train,
-    eval_dataset=validation
+    train_dataset=dictionary["train"],
+    eval_dataset=dictionary["validation"],
+    compute_metrics=metrics
 )
-
-# Train the model
 trainer.train()
-
-# Evaluate the model
 trainer.evaluate()
-
-# Save the model
 model.save_pretrained('./trained')
 tokenizer.save_pretrained('./trained')

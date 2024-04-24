@@ -22,41 +22,18 @@
 
 """
 Predict.
-@todo #30:90min Resolve issue with all-time negative prediction.
- We should resolve issue with negative prediction that performed all the time
- after model has been trained. Probably issue is inside train.py,
- where we probably ignore or mismatch some crucial for training parameters.
 """
-from transformers import BertTokenizer, BertForSequenceClassification
-import torch
+from transformers import pipeline
 
 # @todo #30:60min Fetch pretrained model saved in HuggingFace.
 #  Let's fetch and download pretrained model from hugging face model hub.
 #  When model is trained, we should pack it and deploy into hugging face
 #  repository and it should legal to use it here.
 #  Don't forget to remove this puzzle.
-model = BertForSequenceClassification.from_pretrained('./trained')
-tokenizer = BertTokenizer.from_pretrained('./trained')
+class Predictor:
+    def __init__(self, text):
+        self.text = text
 
-# for name, param in model.named_parameters():
-#     if not torch.isnan(param).any():
-#         print(f"found in {name}")
-
-# @todo #18:25min Give the ability to provide input_text in the request.
-#  We should give ability to pass input_text in the request, I suggest
-#  to refactor this script into object that we can call and it will respond us
-#  like here. Don't forget to remove this puzzle.
-input_text = (
-    "testing testing testing"
-)
-inputs = tokenizer(input_text, return_tensors="pt")
-outputs = model(**inputs)
-probs = torch.nn.functional.softmax(outputs.logits, dim=-1)
-
-predicted_class = torch.argmax(probs).item()
-label_mapping = {0: "negative", 1: "positive"}
-predicted_label = label_mapping[predicted_class]
-
-print("Raw logits:", outputs.logits)
-print("Probabilities:", probs)
-print(f"Predicted label: {predicted_label}")
+    def predict(self):
+        classifier = pipeline("sentiment-analysis", model="./trained")
+        print(classifier(self.text))

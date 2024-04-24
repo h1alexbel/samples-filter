@@ -48,7 +48,8 @@ setup(
     version=actual,
     packages=find_packages(),
     install_requires=[
-        'typer'
+        'typer',
+        'pyarrow==16.0.0'
     ],
     entry_points={
         'console_scripts': [
