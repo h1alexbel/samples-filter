@@ -65,17 +65,19 @@ split = dictionary["train"].train_test_split(test_size=0.2)
 dictionary["train"] = split["train"]
 dictionary["validation"] = split["test"]
 training_args = TrainingArguments(
-    output_dir='./results',
+    output_dir="github-samples-classifier",
     num_train_epochs=3,
     per_device_train_batch_size=8,
     per_device_eval_batch_size=32,
     warmup_steps=500,
     weight_decay=0.01,
     learning_rate=2e-5,
-    logging_dir='./logs'
+    logging_dir='./logs',
+    push_to_hub=True
 )
 trainer = Trainer(
     model=model,
+    tokenizer=tokenizer,
     args=training_args,
     train_dataset=dictionary["train"],
     eval_dataset=dictionary["validation"],

@@ -4,6 +4,21 @@ Directory `/model` contains ML model used for text classification
 on GitHub repositories, that consist of `full_name`, `description`, `topics`,
 and `readme`.
 
+## How to use it?
+
+You can use this _pre-trained model_ for predictions via `predictor.py`:
+
+```python
+from model.predictor import Predictor
+
+prediction = Predictor("<input here>").predict()
+print(prediction) # NEGATIVE or POSITIVE
+```
+
+`POSITIVE` prediction says that repository is not real, it contains
+examples, tutorials or samples; while `NEGATIVE` signs that repository
+is a real project/framework/library.
+
 ## Datasets
 
 Training dataset is a [CSV] file with the following columns:
@@ -28,11 +43,18 @@ TBD..
 
 ## How to train it?
 
-To train the model run `train.py` script:
+To train the model you should run this script:
 
 ```bash
+export HF_TOKEN=<your hugging face API key>
 python3 train.py
 ```
+
+Pay attention to exported `HF_TOKEN`, it needed for pushing trained model into
+[Hugging Face Model Hub](https://huggingface.co/models).
+
+Training consume approximately 30 minutes. After it successfully finished,
+all output model files will be pushed to [h1alexbel/github-samples-classifier](https://huggingface.co/h1alexbel/github-samples-classifier).
 
 You will need [Python 3.9+] installed.
 
