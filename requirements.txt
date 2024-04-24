@@ -9,4 +9,3 @@ scikit-learn==1.4.2
 datasets==2.19.0
 evaluate==0.4.1
 accelerate==0.29.3
-pyarrow==14.0.1
