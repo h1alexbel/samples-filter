@@ -4,7 +4,7 @@
 [![Dataset on HF](https://huggingface.co/datasets/huggingface/badges/resolve/main/dataset-on-hf-sm.svg)](https://huggingface.co/datasets/h1alexbel/github-samples)
 
 Directory `/model` contains ML model used for text classification
-on GitHub repositories, that consist of `full_name`, `description`, `topics`,
+of GitHub repositories, that consist of `full_name`, `description`, `topics`,
 and `readme`.
 
 ## How to use it?
@@ -53,8 +53,8 @@ export HF_TOKEN=<your hugging face API key>
 python3 train.py
 ```
 
-Pay attention to exported `HF_TOKEN`, it needed for pushing trained model into
-[Hugging Face Model Hub](https://huggingface.co/models).
+Pay attention to exported `HF_TOKEN`, it's needed for pushing trained model into
+[Hugging Face Model Hub](https://huggingface.co/docs/diffusers/en/using-diffusers/push_to_hub).
 
 Training consume approximately 30 minutes. After it successfully finished,
 all output model files will be pushed to [h1alexbel/github-samples-classifier](https://huggingface.co/h1alexbel/github-samples-classifier).
