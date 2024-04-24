@@ -1,5 +1,8 @@
 # Transformer Model
 
+[![Model on HF](https://huggingface.co/datasets/huggingface/badges/resolve/main/model-on-hf-sm.svg)](https://huggingface.co/h1alexbel/github-samples-classifier)
+[![Dataset on HF](https://huggingface.co/datasets/huggingface/badges/resolve/main/dataset-on-hf-sm.svg)](https://huggingface.co/datasets/h1alexbel/github-samples)
+
 Directory `/model` contains ML model used for text classification
 on GitHub repositories, that consist of `full_name`, `description`, `topics`,
 and `readme`.
