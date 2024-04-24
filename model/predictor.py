@@ -25,15 +25,13 @@ Predict.
 """
 from transformers import pipeline
 
-# @todo #30:60min Fetch pretrained model saved in HuggingFace.
-#  Let's fetch and download pretrained model from hugging face model hub.
-#  When model is trained, we should pack it and deploy into hugging face
-#  repository and it should legal to use it here.
-#  Don't forget to remove this puzzle.
 class Predictor:
     def __init__(self, text):
         self.text = text
 
     def predict(self):
-        classifier = pipeline("sentiment-analysis", model="./trained")
-        print(classifier(self.text))
+        classifier = pipeline(
+            "sentiment-analysis",
+            model="h1alexbel/github-samples-classifier"
+        )
+        return classifier(self.text)
