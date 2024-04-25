@@ -81,7 +81,7 @@ def filter(
                 "model": predictor.model()
             }
             writer.writerow(log)
-            print(f"repo {candidate} classified as {TextPrediction(prediction).as_text()}")
+            print(f"{candidate} classified as {TextPrediction(prediction).as_text()}")
     # print how many samples found, collect all positives -> count | read -> filter
     print(f"found {0} samples")
     # read predictions.csv and compare it with input -> remove repos with POSITIVE
