@@ -23,10 +23,13 @@
 """
 Cli runner.
 """
+import csv
 from typing import Optional
 
 import typer
 
+from .feed import Feed
+from model.predictor import Predictor
 from .dataset import Dataset
 from objects import NAME, VERSION
 from .pre_filter import PreFilter
@@ -53,17 +56,46 @@ def filter(
     """
     Filter repositories.
     """
-    typer.echo(f"Filtering {repositories}...")
-    # @todo #10:45min Filter the repositories using general-like interface.
-    #  We should execute filtering here using some general interface, so
-    #  it would easy to use either LLM or ML filters.
     # @todo #19:45 Implement chain of csv transformation.
     #  We should implement a transformation chain of csv files.
     #  For now we are just adding separate objects to this script.
     #  Let's create a class (let's call it `train` or `pipeline`) that would
     #  execute all transformation one by one.
-    PreFilter(out).prepare()
-    Dataset(Input(repositories).copy()).formulate()
+    # PreFilter(out).prepare()
+    # Dataset(Input(repositories).copy()).formulate()
+    typer.echo(f"Filtering {repositories}...")
+    feed = Feed(repositories).read()
+    accum = []
+    for candidate in feed:
+        # change to Predictor(model).predict(candidate)
+        prediction = Predictor(candidate).predict()
+        accum.append(
+            {
+                "candidate": candidate,
+                "prediction": prediction,
+                "model": "hard"
+            }
+        )
+        # repo $ classified as $
+        print(f"prediction for {candidate}: {prediction}")
+    # write all records
+    for entry in accum:
+        with open("predictions.csv", "w") as out:
+            writer = csv.DictWriter(
+                out,
+                fieldnames=[
+                    "repo",
+                    "prediction",
+                    "model"
+                ]
+            )
+            writer.writeheader()
+            log = {
+                "repo": entry.get("candidate"),
+                "prediction": entry.get("prediction"),
+                "model": entry.get("model")
+            }
+            writer.writerow(log)
     typer.echo(f"Filtering completed. Saving output to {out}...")
 
 
