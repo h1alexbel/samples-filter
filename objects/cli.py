@@ -65,37 +65,24 @@ def filter(
     # Dataset(Input(repositories).copy()).formulate()
     typer.echo(f"Filtering {repositories}...")
     feed = Feed(repositories).read()
-    accum = []
-    for candidate in feed:
-        # change to Predictor(model).predict(candidate)
-        prediction = Predictor(candidate).predict()
-        accum.append(
-            {
+    with open("predictions.csv", "w") as predictions:
+        writer = csv.DictWriter(
+            predictions,
+            fieldnames=["candidate", "prediction", "model"]
+        )
+        writer.writeheader()
+        for candidate in feed:
+            # change to Predictor(model).predict(candidate)
+            prediction = Predictor(candidate).predict()
+            log = {
                 "candidate": candidate,
                 "prediction": prediction,
                 "model": "hard"
             }
-        )
-        # repo $ classified as $
-        print(f"prediction for {candidate}: {prediction}")
-    # write all records
-    for entry in accum:
-        with open("predictions.csv", "w") as out:
-            writer = csv.DictWriter(
-                out,
-                fieldnames=[
-                    "repo",
-                    "prediction",
-                    "model"
-                ]
-            )
-            writer.writeheader()
-            log = {
-                "repo": entry.get("candidate"),
-                "prediction": entry.get("prediction"),
-                "model": entry.get("model")
-            }
             writer.writerow(log)
+            # prediction -> real/sample
+            print(f"repo {candidate} classified as {prediction}")
+    # read predictions.csv and compare it with input -> remove repos with POSITIVE
     typer.echo(f"Filtering completed. Saving output to {out}...")
 
 
