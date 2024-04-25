@@ -1,4 +1,4 @@
-# MIT License
+# The MIT License (MIT)
 #
 # Copyright (c) 2024 Aliaksei Bialiauski
 #
@@ -9,30 +9,27 @@
 # copies of the Software, and to permit persons to whom the Software is
 # furnished to do so, subject to the following conditions:
 #
-# The above copyright notice and this permission notice shall be included in all
-# copies or substantial portions of the Software.
+# The above copyright notice and this permission notice shall be included
+# in all copies or substantial portions of the Software.
 #
 # THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 # IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
 # AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
 """
-Predict.
+Model prediction in simple text format.
 """
-from transformers import pipeline
+class TextPrediction:
+    def __init__(self, pred):
+        self.pred = pred
 
-
-class Predictor:
-    def __init__(self, text):
-        self.text = text
-
-    def predict(self):
-        classifier = pipeline(
-            "sentiment-analysis",
-            model="h1alexbel/github-samples-classifier"
-        )
-        return classifier(self.text)
+    def as_text(self):
+        if self.pred[0]["label"] == "POSITIVE":
+            label = "sample"
+        else:
+            label = "real"
+        return label
