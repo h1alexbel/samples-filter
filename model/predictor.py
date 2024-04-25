@@ -27,12 +27,15 @@ from transformers import pipeline
 
 
 class Predictor:
-    def __init__(self, text):
-        self.text = text
+    def __init__(self, ref="h1alexbel/github-samples-classifier"):
+        self.ref = ref
 
-    def predict(self):
+    def predict(self, text):
         classifier = pipeline(
             "sentiment-analysis",
-            model="h1alexbel/github-samples-classifier"
+            model=self.ref
         )
-        return classifier(self.text)
+        return classifier(text)
+
+    def model(self):
+        return self.ref

@@ -73,12 +73,12 @@ def filter(
         )
         writer.writeheader()
         for candidate in feed:
-            # change to Predictor(model).predict(candidate)
-            prediction = Predictor(candidate).predict()
+            predictor = Predictor()
+            prediction = predictor.predict(candidate)
             log = {
                 "candidate": candidate,
                 "prediction": prediction,
-                "model": "hard"
+                "model": predictor.model()
             }
             writer.writerow(log)
             print(f"repo {candidate} classified as {TextPrediction(prediction).as_text()}")
