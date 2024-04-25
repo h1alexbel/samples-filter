@@ -28,6 +28,7 @@ from typing import Optional
 
 import typer
 
+from .text_out import TextOut
 from .feed import Feed
 from model.predictor import Predictor
 from .dataset import Dataset
@@ -80,8 +81,7 @@ def filter(
                 "model": "hard"
             }
             writer.writerow(log)
-            # prediction -> real/sample
-            print(f"repo {candidate} classified as {prediction}")
+            print(f"repo {candidate} classified as {TextOut(prediction).as_text()}")
     # read predictions.csv and compare it with input -> remove repos with POSITIVE
     typer.echo(f"Filtering completed. Saving output to {out}...")
 
