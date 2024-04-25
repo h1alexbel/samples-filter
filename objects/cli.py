@@ -66,6 +66,7 @@ def filter(
     # Dataset(Input(repositories).copy()).formulate()
     typer.echo(f"Filtering {repositories}...")
     feed = Feed(repositories).read()
+    predictor = Predictor()
     with open("predictions.csv", "w") as predictions:
         writer = csv.DictWriter(
             predictions,
@@ -73,7 +74,6 @@ def filter(
         )
         writer.writeheader()
         for candidate in feed:
-            predictor = Predictor()
             prediction = predictor.predict(candidate)
             log = {
                 "candidate": candidate,
