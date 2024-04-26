@@ -19,37 +19,35 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
-
-.SHELLFLAGS: -e -o pipefail -c
-.ONESHELL:
-.PHONY: install test check
-.SILENT:
-
-## The shell to use.
-SHELL := bash
-
-# Install required dependencies.
-install:
-	python3 -m pip install --upgrade pip
-	python3 -m pip install pytest pylint
-	pip install -r requirements.txt
-	pip install twine
-
-# Run pytest.
-test:
-	export PYTHONPATH=.
-	pip install .
-	python3 -m pytest tests
-
-# Measure code coverage.
-cov:
-	python3 -m pytest tests --cov --cov-fail-under=55
-
-# Check the quality of code.
-check:
-	python3 -m pylint '*.py'
-
-# Release package to PyPI.
-release:
-	python3 setup.py sdist bdist_wheel
-	python3 -m twine upload dist/*
+---
+name: codecov
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+concurrency:
+  group: codecov-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.9"]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v3
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Build
+        run: |
+          make install cov check
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
