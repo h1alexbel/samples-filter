@@ -24,7 +24,7 @@
 setup.py
 """
 import os
-from setuptools import setup, find_packages
+from setuptools import setup
 
 def version():
     """
@@ -46,7 +46,7 @@ with open('README.md', 'r', encoding='utf-8') as f:
 setup(
     name='samples-filter',
     version=actual,
-    packages=find_packages(),
+    packages=['objects', 'model'],
     install_requires=[
         'typer',
         'pyarrow==16.0.0'
