@@ -43,6 +43,8 @@ test:
 
 # Measure code coverage.
 cov:
+	export PYTHONPATH=.
+	pip install .
 	python3 -m pytest tests --cov --cov-fail-under=55
 
 # Check the quality of code.
