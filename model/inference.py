@@ -1,4 +1,4 @@
 from predictor import Predictor
 
-prediction = Predictor("invan/spring3-mvc-maven-json-hello-world").predict()
+prediction = Predictor().predict("invan/spring3-mvc-maven-json-hello-world")
 print(prediction)
