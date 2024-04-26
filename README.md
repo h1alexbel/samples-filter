@@ -96,7 +96,7 @@ make install test check
 To set up virtual environment use this set of commands:
 
 ```bash
-python3 -m venv $(pwd)
+python3 -m venv venv
 source $(pwd)/venv/bin/activate
 ```
 
