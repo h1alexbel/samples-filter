@@ -23,6 +23,8 @@
 """
 Model prediction in simple text format.
 """
+
+
 class TextPrediction:
     def __init__(self, pred):
         self.pred = pred
