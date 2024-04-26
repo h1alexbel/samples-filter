@@ -27,6 +27,8 @@ from typing import Optional
 
 import typer
 
+from .filter_pipe import FilterPipe
+from model.predictor import Predictor
 from .dataset import Dataset
 from objects import NAME, VERSION
 from .pre_filter import PreFilter
@@ -44,7 +46,7 @@ def _version_callback(value: bool) -> None:
 @app.command()
 def filter(
         repositories: str = typer.Option(
-            ..., "--repositories", help="Path to the repositories CSV file."
+            ..., "--repositories", help="Path to the input repositories CSV file."
         ),
         out: str = typer.Option(
             ..., "--out", help="Path to the output CSV file."
@@ -53,18 +55,14 @@ def filter(
     """
     Filter repositories.
     """
-    typer.echo(f"Filtering {repositories}...")
-    # @todo #10:45min Filter the repositories using general-like interface.
-    #  We should execute filtering here using some general interface, so
-    #  it would easy to use either LLM or ML filters.
-    # @todo #19:45 Implement chain of csv transformation.
-    #  We should implement a transformation chain of csv files.
-    #  For now we are just adding separate objects to this script.
-    #  Let's create a class (let's call it `train` or `pipeline`) that would
-    #  execute all transformation one by one.
-    PreFilter(out).prepare()
-    Dataset(Input(repositories).copy()).formulate()
-    typer.echo(f"Filtering completed. Saving output to {out}...")
+    # @todo #18:30min Find effective way for processing readme.
+    #  For now we are not processing readme because of
+    #  <a href="https://github.com/h1alexbel/samples-filter/issues/39">this</a>.
+    #  We need to find actual way to process readme too since it can be crucial
+    #  data as model input. Let's study papers, outlined
+    #  <a href="https://github.com/yegor256/cam/issues/227#issue-2200080559">here</a>
+    #  first, rethink it and try to implement here.
+    FilterPipe(repositories, out, Predictor(), typer).apply()
 
 
 # Run it.
