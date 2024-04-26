@@ -14,11 +14,11 @@ You can use this _pre-trained model_ for predictions via `predictor.py`:
 ```python
 from model.predictor import Predictor
 
-prediction = Predictor("<input here>").predict()
+prediction = Predictor().predict("<input here>")
 print(prediction) # NEGATIVE or POSITIVE
 ```
 
-`POSITIVE` prediction says that repository is not real, it contains
+`POSITIVE` prediction says that repository is not real, since it contains
 examples, tutorials or samples; while `NEGATIVE` signs that repository
 is a real project/framework/library.
 
@@ -53,10 +53,10 @@ export HF_TOKEN=<your hugging face API key>
 python3 train.py
 ```
 
-Pay attention to exported `HF_TOKEN`, it's needed for pushing trained model into
+Pay attention to the exported `HF_TOKEN`, it's needed for pushing trained model into
 [Hugging Face Model Hub](https://huggingface.co/docs/diffusers/en/using-diffusers/push_to_hub).
 
-Training consume approximately 30 minutes. After it successfully finished,
+Training will take approximately 30 minutes. After it successfully finished,
 all output model files will be pushed to [h1alexbel/github-samples-classifier](https://huggingface.co/h1alexbel/github-samples-classifier).
 
 You will need [Python 3.9+] installed.
