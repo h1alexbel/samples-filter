@@ -23,7 +23,7 @@
 """
 Command-line entry point.
 """
-from objects import cli, NAME
+from src import cli, NAME
 
 # Entry point.
 def main():

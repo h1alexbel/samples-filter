@@ -9,12 +9,13 @@ and `readme`.
 
 ## How to use it?
 
-You can use this _pre-trained model_ for predictions via `predictor.py`:
+You can use this _pre-trained model_ for predictions like that:
 
 ```python
-from model.predictor import Predictor
+from transformers import pipeline
 
-prediction = Predictor().predict("<input here>")
+classifier = pipeline("sentiment-analysis", model="h1alexbel/github-samples-classifier")
+prediction = classifier("<intput here>")
 print(prediction) # NEGATIVE or POSITIVE
 ```
 
@@ -34,7 +35,7 @@ Training dataset is a [CSV] file with the following columns:
 All these columns will be combined into single text frame called `repository`.
 Besides all above, dataset has `label` column too.
 It used for repository classification, by assigning `0` we are saying that repository
-is `real`, while `1` means that repository is `sample` one.
+is `REAL`, while `1` means that repository is `SAMPLE` one.
 
 Full dataset used for model training is located [here](https://huggingface.co/datasets/h1alexbel/github-samples).
 

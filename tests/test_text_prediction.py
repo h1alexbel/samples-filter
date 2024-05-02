@@ -25,7 +25,7 @@ Test case for TextOut.
 """
 import unittest
 
-from objects.text_prediction import TextPrediction
+from src.text_prediction import TextPrediction
 
 
 class TestTextOut(unittest.TestCase):

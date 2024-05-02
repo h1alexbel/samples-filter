@@ -26,8 +26,8 @@ Test case for Dataset.
 import os
 import unittest
 
-from objects.dataset import Dataset
-from objects.pre_filter import PreFilter
+from src.dataset import Dataset
+from src.pre_filter import PreFilter
 
 class TestDataset(unittest.TestCase):
     OUT = "out"

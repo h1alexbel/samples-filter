@@ -28,11 +28,8 @@ from typing import Optional
 import typer
 
 from .filter_pipe import FilterPipe
-from model.predictor import Predictor
-from .dataset import Dataset
-from objects import NAME, VERSION
-from .pre_filter import PreFilter
-from .input import Input
+from predictor import Predictor
+from src import NAME, VERSION
 
 app = typer.Typer()
 

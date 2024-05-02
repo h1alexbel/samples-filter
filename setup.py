@@ -46,14 +46,14 @@ with open('README.md', 'r', encoding='utf-8') as f:
 setup(
     name='samples-filter',
     version=actual,
-    packages=['objects', 'model'],
+    packages=['src'],
     install_requires=[
         'typer',
         'pyarrow==16.0.0'
     ],
     entry_points={
         'console_scripts': [
-            'samples-filter=objects.__main__:main',
+            'samples-filter=src.__main__:main',
         ],
     },
     author='Aliaksei Bialiauski',
