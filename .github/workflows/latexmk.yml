@@ -23,6 +23,7 @@
 name: latexmk
 on:
   push:
+permissions: write-all
 jobs:
   latexmk:
     runs-on: ubuntu-22.04
