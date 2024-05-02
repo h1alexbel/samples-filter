@@ -22,7 +22,6 @@
 
 """
 Model training.
-Run it with 'python3 train.py'.
 """
 from datasets import load_dataset, DatasetDict
 from transformers import Trainer, TrainingArguments, AutoTokenizer, \
