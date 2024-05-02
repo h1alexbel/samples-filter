@@ -28,7 +28,7 @@ from typing import Optional
 import typer
 
 from .filter_pipe import FilterPipe
-from predictor import Predictor
+from .predictor import Predictor
 from src import NAME, VERSION
 
 app = typer.Typer()
