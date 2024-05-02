@@ -25,7 +25,7 @@ Test case for PreFilter.
 """
 import os
 import unittest
-from objects.pre_filter import PreFilter
+from src.pre_filter import PreFilter
 
 
 class TestPreFilter(unittest.TestCase):

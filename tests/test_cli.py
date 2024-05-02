@@ -24,7 +24,7 @@ Test case for cli.py.
 """
 from typer.testing import CliRunner
 
-from objects import VERSION, cli
+from src import VERSION, cli
 
 runner = CliRunner()
 

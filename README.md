@@ -19,7 +19,7 @@ E.g. [leeowenowen/rxjava-examples](https://github.com/leeowenowen/rxjava-example
 [streaming-with-flink/examples-java](https://github.com/streaming-with-flink/examples-java),
 [redisson/redisson-examples](https://github.com/redisson/redisson-examples).
 
-**Motivation**. During the work on [cam](https://github.com/yegor256/cam) project,
+**Motivation**. During the work on [CaM] project,
 where we're building datasets with open source Java programs,
 we [discovered](https://github.com/yegor256/cam/issues/227)
 the need for filtering repositories that contain
@@ -41,45 +41,12 @@ then, execute:
 samples-filter filter --repositories=repos.csv --out=filtered.csv
 ```
 
-For `--repositories` you should provide a name of **existing** [CSV](https://en.wikipedia.org/wiki/Comma-separated_values)
-dataset with GitHub repositories, and name for the output file in `--out`
-(it will be created automatically).
+For `--repositories` you should provide a name of **existing** [CSV] dataset
+with GitHub repositories, and name for the output file in `--out`
+(it will be created automatically). If you feel missed, try `--help` and tool
+will explain to you what you should do.
 
 ## Filtering method
-
-We take the input in the format of `repositories.csv`:
-
-```csv
-full_name,default_branch,stars,forks,created_at,size,open_issues_count,description,topics
-apache/kafka,trunk,27266,13448,2011-08-15T18:06:16Z,182971,1085,"Mirror of Apache Kafka",kafka scala
-apache/flink,master,23128,12938,2014-06-07T07:00:10Z,489079,1169,"Apache Flink",big-data flink java python scala sql
-apache/cassandra,trunk,8506,3537,2009-05-21T02:10:09Z,427867,474,"Mirror of Apache Cassandra",cassandra database java
-joyoyao/superCleanMaster,master,1898,884,2015-02-12T03:37:41Z,12302,18,"[DEPRECATED] ",
-manifold-systems/manifold,master,2209,120,2017-06-07T02:37:23Z,126336,64,"Manifold is a Java compiler plugin, its features include Metaprogramming, Properties, Extension Methods, Operator Overloading, Templates, a Preprocessor, and more.",android-studio delegation duck-typing extension-methods graphql graphql-java intellij java java-development java-sql java-tooling js-java-interoperability json manifold metaprogramming preprocessor reflection-framework structural-typing template-engine type-providers
-datageartech/datagear,master,1322,316,2020-02-22T04:06:51Z,87397,2,"数据可视化分析平台，自由制作任何您想要的数据看板",bi business-intelligence chart data-analysis data-analytics data-visualization echarts
-CodingDocs/springboot-guide,master,5063,1390,2018-11-28T01:05:07Z,5354,16,"SpringBoot2.0+从入门到实战！",asynchronous dubbo mybatis rabbitmq spring-data-jpa springboot
-hanks-zyh/SmallBang,master,1005,158,2015-12-24T14:48:37Z,6379,6,"  twitter like animation for any view :heartbeat:",animation heartbeat like-button twitter
-...
-```
-
-this data in Markdown format looks like this:
-
-| full_name                   | default_branch | stars | forks | created_at           | size   | open_issues_count | description                                                                                                                                                         | topics                                                                                                                                                                                                                                                                      |
-|-----------------------------|----------------|-------|-------|----------------------|--------|-------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| apache/kafka                | trunk          | 27266 | 13448 | 2011-08-15T18:06:16Z | 182971 | 1085              | Mirror of Apache Kafka                                                                                                                                              | kafka scala                                                                                                                                                                                                                                                                 |
-| apache/flink                | master         | 23128 | 12938 | 2014-06-07T07:00:10Z | 489079 | 1169              | Apache Flink                                                                                                                                                        | big-data flink java python scala sql                                                                                                                                                                                                                                        |
-| apache/cassandra            | trunk          | 8506  | 3537  | 2009-05-21T02:10:09Z | 427867 | 474               | Mirror of Apache Cassandra                                                                                                                                          | cassandra database java                                                                                                                                                                                                                                                     |
-| joyoyao/superCleanMaster    | master         | 1898  | 884   | 2015-02-12T03:37:41Z | 12302  | 18                | [DEPRECATED]                                                                                                                                                        |                                                                                                                                                                                                                                                                             |
-| manifold-systems/manifold   | master         | 2209  | 120   | 2017-06-07T02:37:23Z | 126336 | 64                | Manifold is a Java compiler plugin, its features include Metaprogramming, Properties, Extension Methods, Operator Overloading, Templates, a Preprocessor, and more. | android-studio delegation duck-typing extension-methods graphql graphql-java intellij java java-development java-sql java-tooling js-java-interoperability json manifold metaprogramming preprocessor reflection-framework structural-typing template-engine type-providers |
-| datageartech/datagear       | master         | 1322  | 316   | 2020-02-22T04:06:51Z | 87397  | 2                 | 数据可视化分析平台，自由制作任何您想要的数据看板                                                                                                                                            | bi business-intelligence chart data-analysis data-analytics data-visualization echarts                                                                                                                                                                                      |
-| CodingDocs/springboot-guide | master         | 5063  | 1390  | 2018-11-28T01:05:07Z | 5354   | 16                | SpringBoot2.0+从入门到实战！                                                                                                                                               | asynchronous dubbo mybatis rabbitmq spring-data-jpa springboot                                                                                                                                                                                                              |
-| hanks-zyh/SmallBang         | master         | 1005  | 158   | 2015-12-24T14:48:37Z | 6379   | 6                 | twitter like animation for any view :heartbeat:                                                                                                                     | animation heartbeat like-button twitter                                                                                                                                                                                                                                     |
-
-For each repo (identified by `full_name` column) in the dataset we fetch it's
-`README.md` file from GitHub. Then we copy all existing columns and add
-new `readme` column. Then we extract `full_name`, `description`,
-`topics`, and `readme` columns' values from dataset and prepare this data
-for further analysis.
 
 TBD..
 
@@ -91,7 +58,7 @@ provided they don't violate our quality standards. To avoid frustration,
 before sending us your pull request please run full build:
 
 ```bash
-make install test check
+make install cov check
 ```
 
 To set up virtual environment use this set of commands:
@@ -101,5 +68,9 @@ python3 -m venv venv
 source $(pwd)/venv/bin/activate
 ```
 
-You will need [Python 3.9+](https://www.python.org/downloads/release/python-390)
+You will need [Python 3.11+]
 installed.
+
+[CaM]: https://github.com/yegor256/cam
+[CSV]: https://en.wikipedia.org/wiki/Comma-separated_values
+[Python 3.11+]: https://www.python.org/downloads/release/python-3110
