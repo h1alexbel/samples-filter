@@ -25,7 +25,7 @@ Combine csv files into one.
 """
 import pandas
 
-print("combining datasets into single one...")
+print("Combining datasets into single one...")
 built = pandas.concat(
     [
         pandas.read_csv("repos.csv", on_bad_lines='skip'),
@@ -37,5 +37,5 @@ built = pandas.concat(
 )
 print(f"Number of rows in the built dataset: {len(built)}")
 target = "dataset.csv"
-print(f"flushing combined csv to {target}")
+print(f"Flushing combined csv to {target}")
 built.to_csv(target, index=False)
