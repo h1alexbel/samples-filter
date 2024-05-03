@@ -117,16 +117,15 @@ loop do
     found[i[:full_name]] = {
       full_name: i[:full_name],
       default_branch: i[:default_branch],
-      stars: i[:stargazers_count],
-      forks: i[:forks_count],
-      created_at: i[:created_at].iso8601,
-      size: i[:size],
-      open_issues_count: i[:open_issues_count],
       description: "\"#{i[:description]}\"",
-      topics: Array(i[:topics]).join(' ')
+      # stars: i[:stargazers_count],
+      # forks: i[:forks_count],
+      created_at: i[:created_at].iso8601,
+      # size: i[:size],
+      # open_issues_count: i[:open_issues_count],
+      # topics: Array(i[:topics]).join(' ')
     }
-    puts "Found #{i[:full_name].inspect} GitHub repo ##{found.count} \
-    (#{i[:forks_count]} forks, #{i[:stargazers_count]} stars}"
+    puts "Found #{i[:full_name].inspect} GitHub repo ##{found.count}"
   end
   puts "Found #{count} repositories in page ##{page}"
   break if found.count >= opts[:total]
