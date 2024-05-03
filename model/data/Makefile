@@ -22,7 +22,7 @@
 
 .SHELLFLAGS: -e -o pipefail -c
 .ONESHELL:
-.PHONY: install test check
+.PHONY: clean dataset
 .SILENT:
 
 ## The shell to use.
@@ -38,3 +38,6 @@ dataset:
 	ruby discover-repos.rb --total=83 --query-append=samples --min-stars=20 --csv=samples.csv --tex=samples.tex
 	ruby discover-repos.rb --total=83 --query-append=guides --min-stars=20 --csv=guides.csv --tex=guides.tex
 	python3 combine.py
+	python3 fetch.py
+	python3 remove_branch.py
+	python3 label.py
