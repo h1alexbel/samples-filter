@@ -4,8 +4,7 @@
 [![Dataset on HF](https://huggingface.co/datasets/huggingface/badges/resolve/main/dataset-on-hf-sm.svg)](https://huggingface.co/datasets/h1alexbel/github-samples)
 
 Directory `/model` contains ML model used for text classification
-of GitHub repositories, that consist of `full_name`, `description`, `topics`,
-and `readme`.
+of GitHub repositories.
 
 ## How to use it?
 
@@ -32,12 +31,15 @@ make clean dataset
 ```
 
 The building process will take you approximately 5 minutes.
-Now, you should have `dataset.csv` containing all the repos together.
+Now, you should have `train.csv` containing all the repos together.
 
 Training dataset is a [CSV] file with the following columns:
 
 * `full_name` for repository name, e.g. `yegor256/takes`
-* ?
+* `description` for repository description
+* `created_at` for when repository was created, e.g. `2015-07-14T12:58:49Z`
+* `readme` for repository's README.md
+* `label` for labeling repositories as real (`0`) and sample (`1`)
 
 Full dataset used for model training is located [here](https://huggingface.co/datasets/h1alexbel/github-samples).
 
