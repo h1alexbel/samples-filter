@@ -25,17 +25,14 @@ Combine csv files into one.
 """
 import pandas
 
-# examples = pandas.read_csv('data/examples.csv')
-# samples = pandas.read_csv('data/samples.csv')
-# tutorials = pandas.read_csv('data/tutorials.csv')
-# combined = pandas.concat([examples, samples, tutorials], ignore_index=True)
-# combined.to_csv('dataset.csv', index=False)
-
-# @todo #41:45min Combine all the csv files into merge.csv.
-#  We should combine all 4 files: default.csv, examples.csv, samples.csv,
-#  and tutorials.csv (all should have readme, use input.py for this) into one
-#  big file named merge.csv. Don't forget to remove this puzzle.
-input = pandas.read_csv('data/input.csv')
-dataset = pandas.read_csv('data/dataset.csv')
-combined = pandas.concat([input, dataset], ignore_index=True)
-combined.to_csv('train.csv', index=False)
+built = pandas.concat(
+    [
+        pandas.read_csv("repos.csv", on_bad_lines='skip'),
+        pandas.read_csv("examples.csv", on_bad_lines='skip'),
+        pandas.read_csv("samples.csv", on_bad_lines='skip'),
+        pandas.read_csv("guides.csv", on_bad_lines='skip')
+    ],
+    ignore_index=True
+)
+print(f"Number of rows in the built dataset: {len(built)}")
+built.to_csv("dataset.csv", index=False)

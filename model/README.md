@@ -23,27 +23,23 @@ print(prediction) # NEGATIVE or POSITIVE
 examples, tutorials or samples; while `NEGATIVE` signs that repository
 is a real project/framework/library.
 
-## Datasets
+## How to build new dataset?
+
+To build new dataset, run this:
+
+```bash
+make clean dataset
+```
+
+The building process will take you approximately 5 minutes.
+Now, you should have `dataset.csv` containing all the repos together.
 
 Training dataset is a [CSV] file with the following columns:
 
 * `full_name` for repository name, e.g. `yegor256/takes`
-* `description` for repository description
-* `topics` for repository topics
-* `readme` with repository's README.md content
-
-All these columns will be combined into single text frame called `repository`.
-Besides all above, dataset has `label` column too.
-It used for repository classification, by assigning `0` we are saying that repository
-is `REAL`, while `1` means that repository is `SAMPLE` one.
+* ?
 
 Full dataset used for model training is located [here](https://huggingface.co/datasets/h1alexbel/github-samples).
-
-## How to build new dataset?
-
-To build new dataset, follow these steps:
-
-TBD..
 
 ## How to train it?
 
