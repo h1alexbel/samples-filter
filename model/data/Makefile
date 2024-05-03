@@ -33,11 +33,8 @@ clean:
 
 # Build new dataset.
 dataset:
-	@echo "Starting dataset build at $(shell date '+%Y-%m-%d %H:%M:%S')"
 	ruby discover-repos.rb --total=750 --csv=repos.csv --tex=repos.tex
 	ruby discover-repos.rb --total=84 --query-append=examples --min-stars=20 --csv=examples.csv --tex=examples.tex
 	ruby discover-repos.rb --total=83 --query-append=samples --min-stars=20 --csv=samples.csv --tex=samples.tex
 	ruby discover-repos.rb --total=83 --query-append=guides --min-stars=20 --csv=guides.csv --tex=guides.tex
 	python3 combine.py
-	@echo "Finished dataset build at $(shell date '+%Y-%m-%d %H:%M:%S')"
-	@echo "Dataset build duration: $(shell date -u -d @$$(($(shell date -u +%s) - $(shell date -u +%s))))"
