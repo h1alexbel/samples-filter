@@ -29,7 +29,7 @@
 SHELL := bash
 
 clean:
-	rm -f dataset.csv repos.csv examples.csv samples.csv guides.csv repos.tex examples.tex samples.tex guides.tex
+	rm -f *.csv *.tex
 
 # Build new dataset.
 dataset:
