@@ -7,7 +7,7 @@ pandas==2.2.2
 scikit-learn==1.4.2
 datasets==2.19.0
 evaluate==0.4.1
-accelerate==0.29.3
+accelerate==0.30.0
 pyarrow==16.0.0
 pytest==8.2.0
 pytest-cov==5.0.0
