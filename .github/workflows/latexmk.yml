@@ -23,6 +23,7 @@
 name: latexmk
 on:
   push:
+    paths: 'paper/**'
 permissions: write-all
 jobs:
   latexmk:
