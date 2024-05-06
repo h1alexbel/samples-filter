@@ -56,3 +56,4 @@ print(classification_report(l_test, predicted))
 target = "rf-classifier.joblib"
 print(f"Saving the model to... {target}")
 dump(model, target)
+dump(vectorizer, "rf-vec.joblib")
