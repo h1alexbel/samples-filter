@@ -22,7 +22,7 @@
 
 .SHELLFLAGS: -e -o pipefail -c
 .ONESHELL:
-.PHONY: install test check
+.PHONY: install test check release
 .SILENT:
 
 ## The shell to use.

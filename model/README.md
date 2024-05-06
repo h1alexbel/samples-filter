@@ -1,12 +1,36 @@
-# Transformer Model
+# Model
 
 [![Model on HF](https://huggingface.co/datasets/huggingface/badges/resolve/main/model-on-hf-sm.svg)](https://huggingface.co/h1alexbel/github-samples-classifier)
 [![Dataset on HF](https://huggingface.co/datasets/huggingface/badges/resolve/main/dataset-on-hf-sm.svg)](https://huggingface.co/datasets/h1alexbel/github-samples)
 
-Directory `/model` contains ML model used for text classification
+Directory `/model` contains ML models used for classification
 of GitHub repositories.
 
 ## How to use it?
+
+You can use these models for repository classification:
+
+* [Random-Forest model](#random-forest-model)
+* [Text Transformer model](#transformer-model)
+
+## Random-Forest model
+
+In order to use trained model with [Random-Forest] learning algorithm:
+
+```python
+from joblib import load
+
+model = load('rf-classifier.joblib')
+vectorizer = load("rf-vec.joblib")
+input = "<input repository>"
+prediction = model.predict(vectorizer.transform([input]))
+
+print(prediction[0]) # 0 or 1
+```
+
+`0` means that repository is real, while `1` means repository is sample.
+
+## Transformer model
 
 You can use this _pre-trained model_ for predictions like that:
 
@@ -30,7 +54,7 @@ To build new dataset, run this:
 make clean dataset
 ```
 
-The building process will take you approximately 5 minutes.
+The building process will take you approximately 7 minutes.
 Now, you should have `train.csv` containing all the repos together.
 
 Training dataset is a [CSV] file with the following columns:
@@ -45,11 +69,17 @@ Full dataset used for model training is located [here](https://huggingface.co/da
 
 ## How to train it?
 
-To train the model you should run this script:
+To train Random-Forest model, run this script:
+
+```bash
+make trainrf
+```
+
+If you want to train transformer model, you should run this script:
 
 ```bash
 export HF_TOKEN=<your hugging face API key>
-python3 train.py
+make transformer
 ```
 
 Pay attention to the exported `HF_TOKEN`, it's needed for pushing trained model into
@@ -60,5 +90,6 @@ all output model files will be pushed to [h1alexbel/github-samples-classifier](h
 
 You will need [Python 3.9+] installed.
 
+[Random-Forest]: https://en.wikipedia.org/wiki/Random_forest
 [CSV]: https://en.wikipedia.org/wiki/Comma-separated_values
 [Python 3.9+]: https://www.python.org/downloads/release/python-390
