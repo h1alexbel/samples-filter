@@ -1,4 +1,24 @@
-# rename to rf.py
+# MIT License
+#
+# Copyright (c) 2024 Aliaksei Bialiauski
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
 import numpy
 import pandas
 import nltk
@@ -12,7 +32,9 @@ from joblib import dump
 
 nltk.download("punkt")
 nltk.download("stopwords")
-# upload dataset to HuggingFace and fetch it from there.
+# @todo #75:30min Read CSV file from HuggingFace.
+#  We should fetch the whole CSV file uploaded to HuggingFace.
+#  This will help us to use the dataset without building it each time.
 frame = pandas.read_csv("../data/train.csv")
 
 
@@ -55,5 +77,9 @@ print(classification_report(l_test, predicted))
 
 target = "rf-classifier.joblib"
 print(f"Saving the model to... {target}")
+# @todo #75:40min Upload model and vectorizer as .joblib files to some file
+#  storage. In order to reuse already trained model, we should upload those
+#  files to file storage, or maybe even to HuggingFace. After it's uploaded we
+#  can fetch it and use #load function.
 dump(model, target)
 dump(vectorizer, "rf-vec.joblib")

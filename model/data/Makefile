@@ -22,7 +22,7 @@
 
 .SHELLFLAGS: -e -o pipefail -c
 .ONESHELL:
-.PHONY: clean dataset
+.PHONY: clean dataset trainrf transformer
 .SILENT:
 
 ## The shell to use.
@@ -41,3 +41,17 @@ dataset:
 	python3 fetch.py
 	python3 remove_branch.py
 	python3 label.py
+
+# Train model with Random-Forest algorithm.
+# @todo #75:25min Commands `trainrf` and `transformer` won't work without switching directories.
+#  For now commands `trainrf` and `transformer` won't work without switching
+#  directories before execution. Let's move this Makefile's commands to the
+#  root Makefile, since it probably will be  more convenient to execute one
+#  command without switching directories. To make it happen, we should make all
+#  commands directory contexted inside the command.
+trainrf:
+	python3 random-forest.py
+
+# Train text transformer.
+transformer:
+	python3 transformer.py
