@@ -36,39 +36,48 @@
     This paper is about something new.
 \end{abstract}
 \begin{document}
-    \maketitle
+\maketitle
 
 
-    \section{Introduction}\label{sec:introduction}
-    TBD..
+\section{Introduction}\label{sec:introduction}
+TBD.. \citet{testCitation}
 
 
-    \section{Related Work}\label{sec:related}
+\section{Related Work}\label{sec:related}
 
 
-    \section{Research Method}\label{sec:method}
-    The following research questions were identified:
-    \begin{description}
-        \item[RQ1] Do text transformers can predict classes based on text?
-        \item[RQ2] Which technique performs better in task to classify GitHub repositories on real and sample?
-    \end{description}
+\section{Research Method}\label{sec:method}
+The goal of this study is to understand whether GitHub repositories can be
+classified as sample or real. This leads to the following research questions:
+\begin{description}
+    \item[RQ1] Do text transformers can predict classes based on text?
+    \item[RQ2] Which technique performs better in task to classify GitHub repositories on real and sample?
+\end{description}
+
+    First, we prepared a dataset of 1,000 public GitHub repositories.
+    It is important to have both: real projects and repositories with examples.
+    We distributed number of repositories between real and samples 750 and 250
+    respectively.
+
+    Second, we label our dataset,\ldots
 
 
-    \section{Results}\label{sec:results}
+\section{Results}\label{sec:results}
+TBD..
+
+\section{Limitations}\label{sec:limitations}
 
 
-    \section{Limitations}\label{sec:limitations}
+\section{Discussion}\label{sec:discussion}
 
 
-    \section{Discussion}\label{sec:discussion}
+\section{Conclusion}\label{sec:conclusion}
 
 
-    \section{Conclusion}\label{sec:conclusion}
+\section{Acknowledgements}\label{sec:acks}
 
-
-    \section{Acknowledgements}\label{sec:acks}
-
-    \bibliographystyle{ACM-Reference-Format}
-    \cite{testCitation}
-    \bibliography{paper}
+{\raggedright
+\bibliographystyle{ACM-Reference-Format}
+\bibliography{paper}}
+\vfill\eject
 \end{document}
