@@ -1,8 +1,8 @@
 *.aux
 *.fdb_latexmk
 *.log
-article.pdf
-_eolang/
+paper.pdf
+out/
 *.bbl
 *.blg
 *.fls
