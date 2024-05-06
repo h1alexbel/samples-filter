@@ -23,6 +23,7 @@
 \documentclass[sigplan,nonacm,review]{acmart}
 \usepackage[utf8]{inputenc}
 \usepackage{natbib}
+\usepackage{paralist}
 \title{?}
 \author{Aliaksei Bialiauski}
 \orcid{0009-0007-1155-2571}
@@ -58,9 +59,24 @@ classified as sample or real. This leads to the following research questions:
 First, we prepared a dataset of 1,000 public GitHub repositories.
 It is important to have both: real projects and repositories with examples.
 We distributed number of repositories between real and samples 750 and 250
-respectively.
+respectively. For each GitHub repository we collected the following features:
+\begin{inparaenum}[1)]
+    \item description
+    \item README
+    \item ?
+\end{inparaenum}
 
-Second, we label our dataset,\ldots
+Second, we label our dataset using numeric labels. The real repository labeled
+as 0, while sample one labeled as 1. We utilize script to automate process of
+labeling with the help of pattern matching. We run pattern matcher for
+repository's full name e.g.: yegor256/takes, apache/kafka. \ldots
+
+For instance, leeowenowen/rxjava-examples will match, while objectionary/eo won't match.
+\ldots
+
+Third, \ldots
+
+% readme: 1) input?, 2) nulls?
 
 
 \section{Results}\label{sec:results}
