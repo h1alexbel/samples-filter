@@ -35,7 +35,7 @@ nltk.download("stopwords")
 # @todo #75:30min Read CSV file from HuggingFace.
 #  We should fetch the whole CSV file uploaded to HuggingFace.
 #  This will help us to use the dataset without building it each time.
-frame = pandas.read_csv("../data/train.csv")
+frame = pandas.read_csv("data/train.csv")
 
 
 def preprocess(text):
@@ -82,4 +82,4 @@ print(f"Saving the model to... {target}")
 #  files to file storage, or maybe even to HuggingFace. After it's uploaded we
 #  can fetch it and use #load function.
 dump(model, target)
-dump(vectorizer, "rf-vec.joblib")
+dump(vectorizer, "rf/rf-vec.joblib")
