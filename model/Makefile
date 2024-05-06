@@ -22,7 +22,7 @@
 
 .SHELLFLAGS: -e -o pipefail -c
 .ONESHELL:
-.PHONY: clean dataset trainrf transformer
+.PHONY: $(DATA_FOLDER)/clean $(DATA_FOLDER)/dataset trainrf transformer
 .SILENT:
 
 ## The shell to use.
