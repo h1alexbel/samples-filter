@@ -8,6 +8,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics import classification_report
+from joblib import dump
 
 nltk.download("punkt")
 nltk.download("stopwords")
@@ -52,3 +53,6 @@ print("Evaluating the model...")
 predicted = model.predict(ttf)
 print(classification_report(l_test, predicted))
 
+target = "rf-classifier.joblib"
+print(f"Saving the model to... {target}")
+dump(model, target)
