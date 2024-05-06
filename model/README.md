@@ -51,7 +51,7 @@ is a real project/framework/library.
 To build new dataset, run this:
 
 ```bash
-make clean dataset
+make data/dataset
 ```
 
 The building process will take you approximately 7 minutes.
@@ -61,8 +61,10 @@ Training dataset is a [CSV] file with the following columns:
 
 * `full_name` for repository name, e.g. `yegor256/takes`
 * `description` for repository description
-* `created_at` for when repository was created, e.g. `2015-07-14T12:58:49Z`
 * `readme` for repository's README.md
+* `created_at` for when repository was created, e.g. `2015-07-14T12:58:49Z`
+* `last_commit` for date of last commit in repository, e.g. `2017-07-14T13:14:24Z`
+* `commits` for number of commits in the repository
 * `label` for labeling repositories as real (`0`) and sample (`1`)
 
 Full dataset used for model training is located [here](https://huggingface.co/datasets/h1alexbel/github-samples).
