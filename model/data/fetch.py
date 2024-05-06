@@ -23,11 +23,10 @@
 """
 Fetch missing columns from GitHub API: readme, last_commit.
 """
-import time
 
-from last_commit import LastCommit
-from src.readme import Readme
 import pandas
+
+from src.readme import Readme
 
 raw = pandas.read_csv("dataset.csv")
 raw["last_commit"] = None

@@ -30,7 +30,7 @@ To build new dataset, run this:
 make clean dataset
 ```
 
-The building process will take you approximately 5 minutes.
+The building process will take you approximately 7 minutes.
 Now, you should have `train.csv` containing all the repos together.
 
 Training dataset is a [CSV] file with the following columns:
