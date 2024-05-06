@@ -28,8 +28,10 @@
 ## The shell to use.
 SHELL := bash
 
+# Data folder.
 DATA_FOLDER := data
 
+# Clean .csv and .tex files.
 $(DATA_FOLDER)/clean:
 	cd $(DATA_FOLDER) && \
 	rm -f *.csv *.tex
@@ -45,7 +47,6 @@ $(DATA_FOLDER)/dataset:
 	python3 fetch.py
 	python3 remove_branch.py
 	python3 label.py
-# upload to huggingface
 
 # Train model with Random-Forest algorithm.
 trainrf:
