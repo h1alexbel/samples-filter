@@ -18,14 +18,10 @@ You can use these models for repository classification:
 In order to use trained model with [Random-Forest] learning algorithm:
 
 ```python
-from joblib import load
+from src.rf_model import RfModel
 
-model = load('rf-classifier.joblib')
-vectorizer = load("rf-vec.joblib")
-input = "<input repository>"
-prediction = model.predict(vectorizer.transform([input]))
-
-print(prediction[0]) # 0 or 1
+prediction = RfModel().predict("<input here>")
+print(prediction) # 0 or 1
 ```
 
 `0` means that repository is real, while `1` means that repository is sample.
