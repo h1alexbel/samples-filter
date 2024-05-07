@@ -32,10 +32,9 @@ from joblib import dump
 
 nltk.download("punkt")
 nltk.download("stopwords")
-# @todo #75:30min Read CSV file from HuggingFace.
-#  We should fetch the whole CSV file uploaded to HuggingFace.
-#  This will help us to use the dataset without building it each time.
-frame = pandas.read_csv("data/train.csv")
+frame = pandas.read_csv(
+    "https://raw.githubusercontent.com/h1alexbel/samples-filter/dataset/train.csv"
+)
 
 
 def preprocess(text):
@@ -77,9 +76,5 @@ print(classification_report(l_test, predicted))
 
 target = "rf-classifier.joblib"
 print(f"Saving the model to... {target}")
-# @todo #75:40min Upload model and vectorizer as .joblib files to some file
-#  storage. In order to reuse already trained model, we should upload those
-#  files to file storage, or maybe even to HuggingFace. After it's uploaded we
-#  can fetch it and use #load function.
 dump(model, target)
-dump(vectorizer, "rf/rf-vec.joblib")
+dump(vectorizer, "rf-vec.joblib")
