@@ -45,7 +45,9 @@ jobs:
           make install cov check
           cd model
           make data/dataset
+          ls
           mkdir dataset
+          ls
           cp train.csv dataset
       - uses: JamesIves/github-pages-deploy-action@v4.6.0
         with:
