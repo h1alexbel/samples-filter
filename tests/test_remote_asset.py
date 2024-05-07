@@ -32,7 +32,8 @@ Test case for RemoteAsset.
 class TestRemoteAsset(unittest.TestCase):
 
     def tearDown(self):
-        os.remove("rf-vec.joblib")
+        if os.path.exists("rf-vec.joblib"):
+            os.remove("rf-vec.joblib")
 
     def test_dumps_assets(self):
         dump = RemoteAsset("rf-vec.joblib").dump()
@@ -40,3 +41,9 @@ class TestRemoteAsset(unittest.TestCase):
             os.path.exists(dump),
             f"{dump} was not created, but should be"
         )
+
+    def test_fails_invalid_ref(self):
+        with self.assertRaises(
+                FileNotFoundError,
+        ):
+            RemoteAsset("invalid-ref.joblib").dump()

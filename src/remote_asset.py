@@ -41,4 +41,4 @@ class RemoteAsset:
                 vfile.write(response.content)
                 return vfile.name
         else:
-            print(f"Failed to fetch ref: {self.ref}")
+            raise FileNotFoundError(f"Failed to fetch ref: {self.ref}")
