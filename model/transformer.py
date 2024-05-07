@@ -19,13 +19,8 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
-
-"""
-Model training.
-"""
+from transformers import TrainingArguments, Trainer, AutoModelForSequenceClassification, AutoTokenizer
 from datasets import load_dataset, DatasetDict
-from transformers import Trainer, TrainingArguments, AutoTokenizer, \
-    AutoModelForSequenceClassification
 
 from metrics import metrics
 
@@ -36,35 +31,38 @@ model = AutoModelForSequenceClassification.from_pretrained(
     label2id={"NEGATIVE": 0, "POSITIVE": 1}
 )
 tokenizer = AutoTokenizer.from_pretrained("distilbert/distilbert-base-uncased")
-dataset = load_dataset("h1alexbel/github-samples")
 
 
+# @todo #75:45min: Compose train.csv data as input text.
+#  We should compose data in one string like described
+#  <a href="https://github.com/h1alexbel/samples-filter/issues/75#issuecomment-2094153280">here</a>.
+#  Before training, let's concat strings and embed them into some string
+#  template, like this: "Description: {description}, created at: {created}, ...".
 def preprocess(examples):
-    # @todo #45:60min Train model on target columns instead just full_name.
-    #  We should re-train model probably on description, topics and readme too.
-    #  Let's try to standardize the input: first go full_name and description,
-    #  than topics. README's content can be very big and can break the model.
-    #  For readme we can use some summarization model that would provide
-    #  limited-type response.
+    examples['description'] = ['' if item is None else item for item in examples['description']]
+    # examples['readme'] = ['' if item is None else item for item in examples['readme']]
+    # text = ' '.join(examples['description']) + ' ' + ' '.join(examples['readme'])
     return tokenizer(
-        examples["full_name"],
+        examples["description"],
         truncation=True,
-        padding='max_length',
-        max_length=512
+        max_length=tokenizer.model_max_length,
+        padding='max_length'
     )
 
 
-tokenized = dataset.map(preprocess, batched=True)
+dataset = load_dataset("h1alexbel/github-readmes")
+tokens = dataset.map(preprocess, batched=True)
+
 dictionary = DatasetDict(
     {
-        'train': tokenized['train'],
+        'train': tokens['train'],
     }
 )
 split = dictionary["train"].train_test_split(test_size=0.2)
 dictionary["train"] = split["train"]
 dictionary["validation"] = split["test"]
 training_args = TrainingArguments(
-    output_dir="github-samples-classifier",
+    output_dir="github-samples-tclassifier",
     num_train_epochs=3,
     per_device_train_batch_size=8,
     per_device_eval_batch_size=32,
@@ -72,7 +70,6 @@ training_args = TrainingArguments(
     weight_decay=0.01,
     learning_rate=2e-5,
     logging_dir='./logs',
-    push_to_hub=True
 )
 trainer = Trainer(
     model=model,
@@ -84,5 +81,13 @@ trainer = Trainer(
 )
 trainer.train()
 trainer.evaluate()
-model.save_pretrained('./trained')
-tokenizer.save_pretrained('./trained')
+model.save_pretrained(
+    "github-samples-tclassifier",
+    push_to_hub=True,
+    repo_id="github-samples-tclassifier"
+)
+tokenizer.save_pretrained(
+    "github-samples-tclassifier",
+    push_to_hub=True,
+    repo_id="github-samples-tclassifier"
+)
