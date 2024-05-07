@@ -46,10 +46,6 @@ with GitHub repositories, and name for the output file in `--out`
 (it will be created automatically). If you feel missed, try `--help` and tool
 will explain to you what you should do.
 
-## Filtering method
-
-TBD..
-
 ## How to contribute
 
 Fork repository, make changes, send us a [pull request](https://www.yegor256.com/2014/04/15/github-guidelines.html).
