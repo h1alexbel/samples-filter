@@ -42,7 +42,7 @@ jobs:
           gem install fileutils
           gem install slop
           gem install octokit
-          make install check
+          make install cov check
           cd model
           make data/dataset
           mkdir dataset
