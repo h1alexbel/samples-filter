@@ -94,8 +94,7 @@ Training dataset is a [CSV] file with the following columns:
 * `label` for labeling repositories as real (`0`) and sample (`1`)
 
 Full dataset used for model training is located [here](https://github.com/h1alexbel/samples-filter/blob/dataset/train.csv).
-To refresh it, [dataset workflow](https://github.com/h1alexbel/samples-filter/actions/workflows/dataset.yml)
-triggering is needed. 
+To refresh it, trigger [dataset workflow](https://github.com/h1alexbel/samples-filter/actions/workflows/dataset.yml).
 
 You will need [Python 3.9+] and [Ruby 3.3+] installed.
 
