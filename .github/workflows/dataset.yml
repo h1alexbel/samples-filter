@@ -39,6 +39,9 @@ jobs:
         with:
           python-version: "3.9"
       - run: |
+          gem install fileutils
+          gem install slop
+          gem install octokit
           make install check
           cd model
           make data/dataset
