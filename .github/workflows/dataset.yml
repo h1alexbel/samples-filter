@@ -50,6 +50,6 @@ jobs:
       - uses: JamesIves/github-pages-deploy-action@v4.6.0
         with:
           branch: dataset
-          folder: dataset
+          folder: model/dataset
           clean: false
         if: github.ref == 'refs/heads/master'
