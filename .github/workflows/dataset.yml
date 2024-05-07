@@ -25,7 +25,7 @@ on:
   workflow_dispatch:
 permissions: write-all
 jobs:
-  latexmk:
+  build:
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
