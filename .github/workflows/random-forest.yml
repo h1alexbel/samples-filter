@@ -19,39 +19,35 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
-
-.SHELLFLAGS: -e -o pipefail -c
-.ONESHELL:
-.PHONY: $(DATA_FOLDER)/clean $(DATA_FOLDER)/dataset trainrf transformer
-.SILENT:
-
-## The shell to use.
-SHELL := bash
-
-# Data folder.
-DATA_FOLDER := data
-
-# Clean .csv and .tex files.
-$(DATA_FOLDER)/clean:
-	cd $(DATA_FOLDER) && \
-	rm -f *.csv *.tex
-
-# Build new dataset.
-$(DATA_FOLDER)/dataset:
-	cd $(DATA_FOLDER) && \
-	ruby discover-repos.rb --total=750 --csv=repos.csv --tex=repos.tex
-	ruby discover-repos.rb --total=84 --query-append=examples --min-stars=20 --csv=examples.csv --tex=examples.tex
-	ruby discover-repos.rb --total=83 --query-append=samples --min-stars=20 --csv=samples.csv --tex=samples.tex
-	ruby discover-repos.rb --total=83 --query-append=guides --min-stars=20 --csv=guides.csv --tex=guides.tex
-	python3 combine.py
-	python3 fetch.py
-	python3 remove_branch.py
-	python3 label.py
-
-# Train model with Random-Forest algorithm.
-random-forest:
-	python3 random-forest.py
-
-# Train text transformer.
-transformer:
-	python3 transformer.py
+---
+name: random-forest
+on:
+  workflow_dispatch:
+permissions: write-all
+jobs:
+  train:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+      - run: sudo apt-get install -y python3-pygments && sudo pip3 install pygments
+      - run: sudo apt-get -y install ghostscript
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.3"
+          bundler-cache: true
+      - uses: actions/setup-python@v3
+        with:
+          python-version: "3.9"
+      - run: |
+          make install cov check
+          cd model
+          make random-forest
+          mkdir random-forest
+          cp rf-classifier.joblib random-forest
+          cp rf-vec.joblib random-forest
+      - uses: JamesIves/github-pages-deploy-action@v4.6.0
+        with:
+          branch: random-forest
+          folder: model/random-forest
+          clean: false
+        if: github.ref == 'refs/heads/master'

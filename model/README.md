@@ -51,7 +51,7 @@ is a real project/framework/library.
 To train Random-Forest model, run this script:
 
 ```bash
-make trainrf
+make random-forest
 ```
 
 After training successfully ended you should have `.joblib` files for both,
@@ -93,7 +93,8 @@ Training dataset is a [CSV] file with the following columns:
 * `commits` for number of commits in the repository
 * `label` for labeling repositories as real (`0`) and sample (`1`)
 
-Full dataset used for model training is located [here](https://huggingface.co/datasets/h1alexbel/github-samples).
+Full dataset used for model training is located [here](https://github.com/h1alexbel/samples-filter/blob/dataset/train.csv).
+To refresh it, trigger [dataset workflow](https://github.com/h1alexbel/samples-filter/actions/workflows/dataset.yml).
 
 You will need [Python 3.9+] and [Ruby 3.3+] installed.
 
