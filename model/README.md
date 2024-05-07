@@ -33,7 +33,7 @@ You can use this _pre-trained model_ for predictions like that:
 ```python
 from transformers import pipeline
 
-classifier = pipeline("sentiment-analysis", model="h1alexbel/github-samples-classifier")
+classifier = pipeline("sentiment-analysis", model="h1alexbel/github-samples-tclassifier")
 prediction = classifier("<intput here>")
 print(prediction) # NEGATIVE or POSITIVE
 ```
