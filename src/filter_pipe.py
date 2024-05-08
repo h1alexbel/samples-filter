@@ -47,7 +47,7 @@ class FilterPipe:
         with open("predictions.csv", "w") as predictions:
             writer = csv.DictWriter(
                 predictions,
-                fieldnames=["candidate", "prediction", "model"]
+                fieldnames=["candidate", "input", "prediction", "model"]
             )
             writer.writeheader()
             samples = []
@@ -55,17 +55,20 @@ class FilterPipe:
                 f"Predicting... (all predictions will be saved into {predictions.name})"
             )
             for candidate in feed:
-                prediction = instance.predict(candidate)
+                identifier = candidate["id"]
+                text = candidate["input"]
+                prediction = instance.predict(text)
                 log = {
-                    "candidate": candidate,
+                    "candidate": identifier,
+                    "input": text,
                     "prediction": prediction,
                     "model": instance.name()
                 }
                 writer.writerow(log)
                 answer = TextPrediction(prediction, instance.name()).as_text()
-                self.typer.echo(f"{candidate} classified as {answer}")
+                self.typer.echo(f"{identifier} classified as {answer}")
                 if answer == "sample":
-                    samples.append(candidate)
+                    samples.append(identifier)
         self.typer.echo(f"found {len(samples)} samples")
         with open(self.repos, "r") as source, open(self.output, "w") as target:
             reader = csv.DictReader(source)
