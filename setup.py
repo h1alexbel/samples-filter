@@ -52,7 +52,7 @@ setup(
         "pyarrow",
         "joblib",
         "requests",
-        "transformer",
+        "transformers",
         "torch"
     ],
     entry_points={
