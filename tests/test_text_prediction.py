@@ -28,11 +28,11 @@ import unittest
 from src.text_prediction import TextPrediction
 
 
-class TestTextOut(unittest.TestCase):
+class TestTextPrediction(unittest.TestCase):
 
     def test_prints_as_real(self):
         prediction = [{'label': 'NEGATIVE', 'score': 1.0}]
-        text = TextPrediction(prediction).as_text()
+        text = TextPrediction(prediction, "transformer").as_text()
         expected = "real"
         self.assertEqual(
             text,
@@ -42,7 +42,7 @@ class TestTextOut(unittest.TestCase):
 
     def test_prints_as_sample(self):
         prediction = [{'label': 'POSITIVE', 'score': 1.0}]
-        text = TextPrediction(prediction).as_text()
+        text = TextPrediction(prediction, "test").as_text()
         expected = "sample"
         self.assertEqual(
             text,
@@ -54,4 +54,24 @@ class TestTextOut(unittest.TestCase):
         with self.assertRaises(
                 TypeError,
         ):
-            TextPrediction("<invalid input>").as_text()
+            TextPrediction("<invalid input>", "test").as_text()
+
+    def test_transforms_rf_positive_predicts(self):
+        prediction = [0]
+        text = TextPrediction(prediction, "rf").as_text()
+        expected = "sample"
+        self.assertEqual(
+            text,
+            expected,
+            f"output '{text}' for {prediction} does not match with expected {expected}"
+        )
+
+    def test_transforms_rf_negative_predicts(self):
+        prediction = [1]
+        text = TextPrediction(prediction, "rf").as_text()
+        expected = "real"
+        self.assertEqual(
+            text,
+            expected,
+            f"output '{text}' for {prediction} does not match with expected {expected}"
+        )

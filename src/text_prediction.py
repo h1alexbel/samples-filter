@@ -26,11 +26,17 @@ Model prediction in simple text format.
 
 
 class TextPrediction:
-    def __init__(self, pred):
+    def __init__(self, pred, name):
         self.pred = pred
+        self.model = name
 
     def as_text(self):
-        if self.pred[0]["label"] == "POSITIVE":
+        if self.model == "rf":
+            if self.pred == [0]:
+                label = "sample"
+            else:
+                label = "real"
+        elif self.pred[0]["label"] == "POSITIVE":
             label = "sample"
         else:
             label = "real"
