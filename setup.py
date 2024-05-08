@@ -48,8 +48,12 @@ setup(
     version=actual,
     packages=['src'],
     install_requires=[
-        'typer',
-        'pyarrow==16.0.0'
+        "typer",
+        "pyarrow",
+        "joblib",
+        "requests",
+        "transformer",
+        "torch"
     ],
     entry_points={
         'console_scripts': [
