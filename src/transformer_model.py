@@ -33,3 +33,6 @@ class TransformerModel:
 
     def predict(self, input):
         return self.classifier.predict(input)
+
+    def name(self):
+        return "transformer"

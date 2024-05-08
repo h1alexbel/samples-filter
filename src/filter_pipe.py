@@ -30,10 +30,10 @@ Filter pipe.
 
 
 class FilterPipe:
-    def __init__(self, repos, output, predictor, typer):
+    def __init__(self, repos, output, mdl, typer):
         self.repos = repos
         self.output = output
-        self.predictor = predictor
+        self.model = mdl
         self.typer = typer
 
     # @todo #18:60min Create integration test case for filter_pipe.py.
@@ -41,12 +41,13 @@ class FilterPipe:
     #  together with model prediction, files creation and other things happening
     #  in #apply(). Don't forget to remove this puzzle.
     def apply(self):
-        self.typer.echo(f"Filtering {self.repos}...")
+        instance = self.model()
+        self.typer.echo(f"Filtering {self.repos} with {instance.name()}...")
         feed = Feed(self.repos).read()
         with open("predictions.csv", "w") as predictions:
             writer = csv.DictWriter(
                 predictions,
-                fieldnames=["candidate", "prediction", "model"]
+                fieldnames=["candidate", "input", "prediction", "model"]
             )
             writer.writeheader()
             samples = []
@@ -54,17 +55,20 @@ class FilterPipe:
                 f"Predicting... (all predictions will be saved into {predictions.name})"
             )
             for candidate in feed:
-                prediction = self.predictor.predict(candidate)
+                identifier = candidate["id"]
+                text = candidate["input"]
+                prediction = instance.predict(text)
                 log = {
-                    "candidate": candidate,
+                    "candidate": identifier,
+                    "input": text,
                     "prediction": prediction,
-                    "model": self.predictor.model()
+                    "model": instance.name()
                 }
                 writer.writerow(log)
-                answer = TextPrediction(prediction).as_text()
-                self.typer.echo(f"{candidate} classified as {answer}")
+                answer = TextPrediction(prediction, instance.name()).as_text()
+                self.typer.echo(f"{identifier} classified as {answer}")
                 if answer == "sample":
-                    samples.append(candidate)
+                    samples.append(identifier)
         self.typer.echo(f"found {len(samples)} samples")
         with open(self.repos, "r") as source, open(self.output, "w") as target:
             reader = csv.DictReader(source)

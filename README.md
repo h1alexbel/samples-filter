@@ -46,6 +46,10 @@ with GitHub repositories, and name for the output file in `--out`
 (it will be created automatically). If you feel missed, try `--help` and tool
 will explain to you what you should do.
 
+Optionally, you can decide which [model](/model/README.md) to use for
+filtering via `--model`. You can pass either `rf` (the default one), or
+`transformer`.
+
 ## How to contribute
 
 Fork repository, make changes, send us a [pull request](https://www.yegor256.com/2014/04/15/github-guidelines.html).

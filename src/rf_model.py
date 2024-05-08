@@ -35,3 +35,6 @@ class RfModel:
 
     def predict(self, input):
         return self.model.predict(self.vectorizer.transform([input]))
+
+    def name(self):
+        return "rf"

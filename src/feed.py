@@ -30,11 +30,24 @@ class Feed:
     def __init__(self, file):
         self.file = file
 
+    # @todo #105:60min Process all fields required as inputs.
+    #  We should process all fields required as inputs: full_name, readme,
+    #  created_at, last_commit. In case of transformer we should do it in a
+    #  prompt way, like repository advanced description. Check
+    #  <a href="https://github.com/h1alexbel/samples-filter/issues/75#issuecomment-2094153280">this</a>.
     def read(self):
         with open(self.file, "r") as input:
+            csv.field_size_limit(2 * 1024 * 1024 * 1024)
             reader = csv.DictReader(input)
             feed = []
             for row in reader:
                 name = row["full_name"]
-                feed.append(name)
+                description = row["description"]
+                lines = description
+                feed.append(
+                    {
+                        "id": name,
+                        "input": lines
+                    }
+                )
             return feed

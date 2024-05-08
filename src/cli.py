@@ -27,8 +27,8 @@ from typing import Optional
 
 import typer
 
+from .model_map import ModelMap
 from .filter_pipe import FilterPipe
-from .predictor import Predictor
 from src import NAME, VERSION
 
 app = typer.Typer()
@@ -47,11 +47,15 @@ def filter(
         ),
         out: str = typer.Option(
             ..., "--out", help="Path to the output CSV file."
+        ),
+        model: str = typer.Option(
+            "rf", "--model", help="Which ML model to use."
         )
 ):
     """
     Filter repositories.
     """
+    models = ModelMap().build()
     # @todo #18:30min Find effective way for processing readme.
     #  For now we are not processing readme because of
     #  <a href="https://github.com/h1alexbel/samples-filter/issues/39">this</a>.
@@ -59,7 +63,7 @@ def filter(
     #  data as model input. Let's study papers, outlined
     #  <a href="https://github.com/yegor256/cam/issues/227#issue-2200080559">here</a>
     #  first, rethink it and try to implement here.
-    FilterPipe(repositories, out, Predictor(), typer).apply()
+    FilterPipe(repositories, out, models.get(model), typer).apply()
 
 
 # Run it.
