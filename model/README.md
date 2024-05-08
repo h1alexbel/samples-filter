@@ -1,8 +1,5 @@
 # Model
 
-[![Model on HF](https://huggingface.co/datasets/huggingface/badges/resolve/main/model-on-hf-sm.svg)](https://huggingface.co/h1alexbel/github-samples-classifier)
-[![Dataset on HF](https://huggingface.co/datasets/huggingface/badges/resolve/main/dataset-on-hf-sm.svg)](https://huggingface.co/datasets/h1alexbel/github-samples)
-
 Directory `/model` contains ML models used for classification
 of GitHub repositories.
 
@@ -31,11 +28,10 @@ print(prediction) # 0 or 1
 You can use this _pre-trained model_ for predictions like that:
 
 ```python
-from transformers import pipeline
+from src.transformer_model import TransformerModel
 
-classifier = pipeline("sentiment-analysis", model="h1alexbel/github-samples-tclassifier")
-prediction = classifier("<intput here>")
-print(prediction) # NEGATIVE or POSITIVE
+prediction = TransformerModel().predict("<input here>")
+print(prediction) # POSITIVE or NEGATIVE
 ```
 
 `POSITIVE` prediction says that repository is not real, since it contains
@@ -50,8 +46,10 @@ To train Random-Forest model, run this script:
 make random-forest
 ```
 
-After training successfully ended you should have `.joblib` files for both,
-vectorizer and model.
+After training successfully ended, you should have `.joblib` files for both,
+vectorizer and model. Latest model version is [here](https://github.com/h1alexbel/samples-filter/tree/random-forest).
+To publish a new, trigger [random-forest.yml](https://github.com/h1alexbel/samples-filter/actions/workflows/random-forest.yml)
+workflow.
 
 If you want to train transformer model, you should run this script:
 
@@ -60,11 +58,14 @@ export HF_TOKEN=<your hugging face API key>
 make transformer
 ```
 
-Pay attention to the exported `HF_TOKEN`, it's needed for pushing trained model into
-[Hugging Face Model Hub](https://huggingface.co/docs/diffusers/en/using-diffusers/push_to_hub).
+Pay attention to the exported `HF_TOKEN`, it's needed for [pushing](https://huggingface.co/docs/transformers/v4.15.0/en/model_sharing)
+trained model into Hugging Face Model Hub.
 
-Training will take approximately 30 minutes. After it successfully finished,
-all output model files will be pushed to [h1alexbel/github-samples-classifier](https://huggingface.co/h1alexbel/github-samples-classifier).
+Training will take approximately 10 minutes. After it successfully finished,
+all output model files will be pushed to [h1alexbel/github-samples-tclassifier](https://huggingface.co/h1alexbel/github-samples-tclassifier).
+
+To do it remote, trigger [transformer.yml](https://github.com/h1alexbel/samples-filter/actions/workflows/transformer.yml)
+workflow.
 
 You will need [Python 3.9+] installed.
 
@@ -90,7 +91,8 @@ Training dataset is a [CSV] file with the following columns:
 * `label` for labeling repositories as real (`0`) and sample (`1`)
 
 Full dataset used for model training is located [here](https://github.com/h1alexbel/samples-filter/blob/dataset/train.csv).
-To refresh it, trigger [dataset workflow](https://github.com/h1alexbel/samples-filter/actions/workflows/dataset.yml).
+To refresh it, trigger [dataset.yml](https://github.com/h1alexbel/samples-filter/actions/workflows/dataset.yml)
+workflow.
 
 You will need [Python 3.9+] and [Ruby 3.3+] installed.
 
