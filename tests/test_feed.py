@@ -19,34 +19,35 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
-import csv
+import unittest
+
+from src.feed import Feed
 
 """
-Feed.
+Test case for feed.py.
 """
 
 
-class Feed:
-    def __init__(self, file):
-        self.file = file
+class TestFeed(unittest.TestCase):
 
-    # @todo #109:90min Feed `readme`, `last_commit`, `created_at`, and `commits`.
-    #  We should feed other important fields too. For now we can feed readme,
-    #  but transformer model can't process it since input tensor is too big.
-    #  Let's resolve that problem and feed readme.
-    def read(self):
-        with open(self.file, "r") as input:
-            csv.field_size_limit(2 * 1024 * 1024 * 1024)
-            reader = csv.DictReader(input)
-            feed = []
-            for row in reader:
-                name = row["full_name"]
-                description = row["description"]
-                lines = description
-                feed.append(
-                    {
-                        "id": name,
-                        "input": lines
-                    }
-                )
-            return feed
+    def test_reads_feed(self):
+        feed = Feed("tests/test-feed.csv").read()
+        expected = [
+            {
+                'id': 'totond/TextPathView',
+                'input': 'A View with text path animation!'
+            },
+            {
+                'id': 'square/mortar',
+                'input': 'A simple library that makes it easy to pair thin views with dedicated controllers, isolated from most of the vagaries of the Activity life cycle.'
+            },
+            {
+                'id': 'joyoyao/superCleanMaster',
+                'input': '[DEPRECATED] '
+            }
+        ]
+        self.assertEqual(
+            feed,
+            expected,
+            f"Received feed {feed} does not match with expected {expected}"
+        )

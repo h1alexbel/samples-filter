@@ -21,6 +21,7 @@
 # SOFTWARE.
 import csv
 
+from .input import Input
 from .feed import Feed
 from .text_prediction import TextPrediction
 
@@ -43,7 +44,7 @@ class FilterPipe:
     def apply(self):
         instance = self.model()
         self.typer.echo(f"Filtering {self.repos} with {instance.name()}...")
-        feed = Feed(self.repos).read()
+        feed = Feed(Input(self.repos).copy()).read()
         with open("predictions.csv", "w") as predictions:
             writer = csv.DictWriter(
                 predictions,

@@ -27,6 +27,7 @@ from typing import Optional
 
 import typer
 
+from .pre_filter import PreFilter
 from .model_map import ModelMap
 from .filter_pipe import FilterPipe
 from src import NAME, VERSION
@@ -55,14 +56,8 @@ def filter(
     """
     Filter repositories.
     """
+    PreFilter(out).prepare()
     models = ModelMap().build()
-    # @todo #18:30min Find effective way for processing readme.
-    #  For now we are not processing readme because of
-    #  <a href="https://github.com/h1alexbel/samples-filter/issues/39">this</a>.
-    #  We need to find actual way to process readme too since it can be crucial
-    #  data as model input. Let's study papers, outlined
-    #  <a href="https://github.com/yegor256/cam/issues/227#issue-2200080559">here</a>
-    #  first, rethink it and try to implement here.
     FilterPipe(repositories, out, models.get(model), typer).apply()
 
 
