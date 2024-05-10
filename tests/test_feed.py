@@ -31,7 +31,7 @@ Test case for feed.py.
 class TestFeed(unittest.TestCase):
 
     def test_reads_feed(self):
-        feed = Feed("test-feed.csv").read()
+        feed = Feed("tests/test-feed.csv").read()
         expected = [
             {
                 'id': 'totond/TextPathView',
