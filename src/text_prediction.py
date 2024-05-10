@@ -32,7 +32,7 @@ class TextPrediction:
 
     def as_text(self):
         if self.model == "rf":
-            if self.pred == [0]:
+            if self.pred == [1]:
                 label = "sample"
             else:
                 label = "real"

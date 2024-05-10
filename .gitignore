@@ -18,4 +18,5 @@ pipeline/
 .factorypath
 pyvenv.cfg
 .coverage
-*.csv
+predictions.csv
+out.csv

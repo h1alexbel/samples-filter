@@ -57,7 +57,7 @@ class TestTextPrediction(unittest.TestCase):
             TextPrediction("<invalid input>", "test").as_text()
 
     def test_transforms_rf_positive_predicts(self):
-        prediction = [0]
+        prediction = [1]
         text = TextPrediction(prediction, "rf").as_text()
         expected = "sample"
         self.assertEqual(
@@ -67,7 +67,7 @@ class TestTextPrediction(unittest.TestCase):
         )
 
     def test_transforms_rf_negative_predicts(self):
-        prediction = [1]
+        prediction = [0]
         text = TextPrediction(prediction, "rf").as_text()
         expected = "real"
         self.assertEqual(
