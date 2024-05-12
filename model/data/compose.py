@@ -42,7 +42,13 @@ frame["text"] = (
         "Description: " + frame["description"].fillna('NULL') + '; ' +
         "README.md: " + frame["readme"]
 ).astype(str)
-frame.drop(columns=["full_name", "description", "readme", "created_at"]).to_csv(
-    target, index=False
-)
+frame.drop(
+    columns=[
+        "full_name",
+        "description",
+        "readme",
+        "created_at",
+        "last_commit"
+    ]
+).to_csv(target, index=False)
 print(f"Composed columns flushed to {target}")
