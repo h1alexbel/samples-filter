@@ -84,7 +84,7 @@ Training dataset is a [CSV] file with the following columns:
 
 * `full_name` for repository name, e.g. `yegor256/takes`
 * `description` for repository description
-* `readme` for repository's README.md
+* `readme` for repository's README.md file
 * `created_at` for when repository was created, e.g. `2015-07-14T12:58:49Z`
 * `last_commit` for date of last commit in repository, e.g. `2017-07-14T13:14:24Z`
 * `commits` for number of commits in the repository

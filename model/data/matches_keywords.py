@@ -33,7 +33,9 @@ keywords = [
     "samples",
     "tutorials",
     "guide",
-    "guides"
+    "guides",
+    "master-class",
+    "masterclass"
 ]
 
 
