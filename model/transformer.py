@@ -33,11 +33,6 @@ model = AutoModelForSequenceClassification.from_pretrained(
 tokenizer = AutoTokenizer.from_pretrained("distilbert/distilbert-base-uncased")
 
 
-# @todo #75:45min: Compose train.csv data as input text.
-#  We should compose data in one string like described
-#  <a href="https://github.com/h1alexbel/samples-filter/issues/75#issuecomment-2094153280">here</a>.
-#  Before training, let's concat strings and embed them into some string
-#  template, like this: "Description: {description}, created at: {created}, ...".
 def preprocess(examples):
     examples['description'] = ['' if item is None else item for item in examples['description']]
     # examples['readme'] = ['' if item is None else item for item in examples['readme']]
