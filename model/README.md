@@ -78,9 +78,11 @@ make data/dataset
 ```
 
 The building process will take you approximately 7 minutes.
-Now, you should have `train.csv` containing all the repos together.
+Now, you should have both `train.csv` and `text.csv` containing all the repos
+together.
 
-Training dataset is a [CSV] file with the following columns:
+`train.csv` is a [random-forest](#random-forest-model) training dataset, this
+is [CSV] file with the following columns:
 
 * `full_name` for repository name, e.g. `yegor256/takes`
 * `description` for repository description
@@ -90,8 +92,18 @@ Training dataset is a [CSV] file with the following columns:
 * `commits` for number of commits in the repository
 * `label` for labeling repositories as real (`0`) and sample (`1`)
 
-Full dataset used for model training is located [here](https://github.com/h1alexbel/samples-filter/blob/dataset/train.csv).
-To refresh it, trigger [dataset.yml](https://github.com/h1alexbel/samples-filter/actions/workflows/dataset.yml)
+While `text.csv` contains these columns:
+
+* `text` for compiled repository information, it includes repo name,
+description, readme, creation date, last commit, and amount of commits
+* `label` for labeling repositories as real (`0`) and sample (`1`)
+
+This `text.csv` file is used for training of [transformer model](#transformer-model).
+
+Dataset used for model training are located here:
+[train.csv](https://github.com/h1alexbel/samples-filter/blob/dataset/train.csv),
+[text.csv](https://github.com/h1alexbel/samples-filter/blob/dataset/text.csv)
+To refresh them, trigger [dataset.yml](https://github.com/h1alexbel/samples-filter/actions/workflows/dataset.yml)
 workflow.
 
 You will need [Python 3.9+] and [Ruby 3.3+] installed.
