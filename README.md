@@ -47,8 +47,8 @@ with GitHub repositories, and name for the output file in `--out`
 will explain to you what you should do.
 
 Optionally, you can decide which [model](/model/README.md) to use for
-filtering via `--model`. You can pass either `rf` (the default one), or
-`transformer`.
+filtering via `--model`. You can pass either `transformer` (the default one), or
+`rf`.
 
 ## How to contribute
 
