@@ -50,7 +50,7 @@ def filter(
             ..., "--out", help="Path to the output CSV file."
         ),
         model: str = typer.Option(
-            "rf", "--model", help="Which ML model to use."
+            "transformer", "--model", help="Which ML model to use."
         )
 ):
     """
