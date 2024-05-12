@@ -47,6 +47,7 @@ jobs:
           make data/dataset
           mkdir dataset
           cp data/train.csv dataset
+          cp data/text.csv dataset
       - uses: JamesIves/github-pages-deploy-action@v4.6.0
         with:
           branch: dataset
