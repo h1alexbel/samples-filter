@@ -81,7 +81,7 @@ The building process will take you approximately 7 minutes.
 Now, you should have both `train.csv` and `text.csv` containing all the repos
 together.
 
-`train.csv` is a [random-forest](#random-forest-model) training dataset, this
+`train-rf.csv` is a [random-forest](#random-forest-model) training dataset, this
 is [CSV] file with the following columns:
 
 * `full_name` for repository name, e.g. `yegor256/takes`
@@ -92,13 +92,16 @@ is [CSV] file with the following columns:
 * `commits` for number of commits in the repository
 * `label` for labeling repositories as real (`0`) and sample (`1`)
 
-While `text.csv` contains these columns:
+While `train-t.csv` contains these columns:
 
 * `text` for compiled repository information, it includes repo name,
 description, readme, creation date, last commit, and amount of commits
 * `label` for labeling repositories as real (`0`) and sample (`1`)
 
-This `text.csv` file is used for training of [transformer model](#transformer-model).
+This `train-t.csv` file is used for training of [transformer model](#transformer-model).
+
+Validation sets are named `validation-tf.csv` and `validation-t.csv`
+respectively.
 
 Dataset used for model training are located here:
 [train.csv](https://github.com/h1alexbel/samples-filter/blob/dataset/train.csv),
