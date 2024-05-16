@@ -50,6 +50,7 @@ Optionally, you can decide which [model](/model/README.md) to use for
 filtering via `--model`. You can pass either `transformer` (the default one), or
 `ml`.
 
+**Warning!**
 Versions `<=0.5.1` utilized models based on supervised learning algorithms,
 such as [Random-Forest] and [fine-tuned] transformer model based on
 [DistilBERT]. Besides that models were able to handle [binary classification]
