@@ -1,11 +1,11 @@
 # Model
 
-Directory `/model` contains ML models used for classification
-of GitHub repositories.
+Directory `/model` contains ML models used for detecting sample
+repositories (SR).
 
 ## How to use it?
 
-You can use these models for repository classification:
+You can use these models for detecting SRs:
 
 * [Random-Forest model](#random-forest-model)
 * [Text Transformer model](#transformer-model)
@@ -17,26 +17,20 @@ In order to use trained model with [Random-Forest] learning algorithm:
 ```python
 from src.rf_model import RfModel
 
-prediction = RfModel().predict("<input here>")
-print(prediction) # 0 or 1
+rating = RfModel().predict("<input here>")
+print(rating) # probability that repository is a SR
 ```
-
-`0` means that repository is real, while `1` means that repository is sample.
 
 ## Transformer model
 
-You can use this _pre-trained model_ for predictions like that:
+You can use this transformer model for detecting SRs too:
 
 ```python
 from src.transformer_model import TransformerModel
 
-prediction = TransformerModel().predict("<input here>")
-print(prediction) # POSITIVE or NEGATIVE
+rating = TransformerModel().predict("<input here>")
+print(rating) # probability that repository is a SR
 ```
-
-`POSITIVE` prediction says that repository is not real, since it contains
-examples, tutorials or samples; while `NEGATIVE` signs that repository
-is a real project/framework/library.
 
 ## How to train it?
 
@@ -64,7 +58,7 @@ trained model into Hugging Face Model Hub.
 Training will take approximately 10 minutes. After it successfully finished,
 all output model files will be pushed to [h1alexbel/github-samples-tclassifier](https://huggingface.co/h1alexbel/github-samples-tclassifier).
 
-To do it remote, trigger [transformer.yml](https://github.com/h1alexbel/samples-filter/actions/workflows/transformer.yml)
+To do it remotely, trigger [transformer.yml](https://github.com/h1alexbel/samples-filter/actions/workflows/transformer.yml)
 workflow.
 
 You will need [Python 3.9+] installed.
@@ -84,19 +78,17 @@ together.
 `train.csv` is a [random-forest](#random-forest-model) training dataset, this
 is [CSV] file with the following columns:
 
-* `full_name` for repository name, e.g. `yegor256/takes`
+* `full_name` for repository name, e.g. `apache/kafka`
 * `description` for repository description
 * `readme` for repository's README.md file
 * `created_at` for when repository was created, e.g. `2015-07-14T12:58:49Z`
 * `last_commit` for date of last commit in repository, e.g. `2017-07-14T13:14:24Z`
-* `commits` for number of commits in the repository
-* `label` for labeling repositories as real (`0`) and sample (`1`)
+* `commits` for number of commits in the repository, e.g. `1024`
 
 While `text.csv` contains these columns:
 
 * `text` for compiled repository information, it includes repo name,
 description, readme, creation date, last commit, and amount of commits
-* `label` for labeling repositories as real (`0`) and sample (`1`)
 
 This `text.csv` file is used for training of [transformer model](#transformer-model).
 
