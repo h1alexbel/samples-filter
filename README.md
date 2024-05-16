@@ -13,8 +13,9 @@
 [![Known Vulnerabilities](https://snyk.io/test/github/h1alexbel/samples-filter/badge.svg)](https://snyk.io/test/github/h1alexbel/samples-filter)
 
 Samples-filter is a command-line filter
-for GitHub repositories that contain `samples`,
-instead of real project or framework or library.
+for GitHub repositories that contain sample repositories (SR),
+that mostly contain educational or demonstration materials supposed to be copied
+instead of reused as a dependency, like framework or library.
 E.g. [leeowenowen/rxjava-examples](https://github.com/leeowenowen/rxjava-examples),
 [streaming-with-flink/examples-java](https://github.com/streaming-with-flink/examples-java),
 [redisson/redisson-examples](https://github.com/redisson/redisson-examples).
@@ -22,10 +23,9 @@ E.g. [leeowenowen/rxjava-examples](https://github.com/leeowenowen/rxjava-example
 **Motivation**. During the work on [CaM] project,
 where we're building datasets with open source Java programs,
 we [discovered](https://github.com/yegor256/cam/issues/227)
-the need for filtering repositories that contain
-not a real code, but rather samples, tutorials or examples.
-This repository is portable command-line tool that filters those
-sample repositories.
+the need for filtering out repositories that contain samples, tutorials or
+examples. This repository is portable command-line tool that filters those
+repositories.
 
 ## How to use
 
@@ -48,7 +48,14 @@ will explain to you what you should do.
 
 Optionally, you can decide which [model](/model/README.md) to use for
 filtering via `--model`. You can pass either `transformer` (the default one), or
-`rf`.
+`ml`.
+
+Versions `<=0.5.1` utilized models based on supervised learning algorithms,
+such as [Random-Forest] and [fine-tuned] transformer model based on
+[DistilBERT]. Besides that models were able to handle [binary classification]
+only. In contrast, latest versions using models that are based on
+[unsupervised learning](https://en.wikipedia.org/wiki/Unsupervised_learning),
+and can output the `rating` of how input repository is similar to SR.
 
 ## How to contribute
 
@@ -72,5 +79,9 @@ You will need [Python 3.11+]
 installed.
 
 [CaM]: https://github.com/yegor256/cam
+[Random-Forest]: https://en.wikipedia.org/wiki/Random_forest
+[fine-tuned]: https://huggingface.co/docs/transformers/en/tasks/sequence_classification
+[DistilBERT]: https://huggingface.co/distilbert/distilbert-base-uncased
+[binary classification]: https://en.wikipedia.org/wiki/Binary_classification
 [CSV]: https://en.wikipedia.org/wiki/Comma-separated_values
 [Python 3.11+]: https://www.python.org/downloads/release/python-3110

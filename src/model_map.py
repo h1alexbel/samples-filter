@@ -31,6 +31,6 @@ class ModelMap:
         map = {}
         from src.rf_model import RfModel
         from src.transformer_model import TransformerModel
-        map["rf"] = RfModel
+        map["ml"] = RfModel
         map["transformer"] = TransformerModel
         return map

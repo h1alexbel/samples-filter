@@ -51,45 +51,51 @@ TBD.. \citet{testCitation}
 
 \section{Research Method}\label{sec:method}
 The goal of this study is to understand whether GitHub repositories can be
-classified as sample or real. This leads to the following research questions:
+classified as sample or real. For this task we used state-of-art transformer
+models for text classification. This leads to the following research questions:
 \begin{description}
-    \item[RQ1] Do text transformers can predict classes based on text?
-    \item[RQ2] Which technique performs better in task to classify GitHub repositories on real and sample?
+    \item[RQ1] Can transformers classify GitHub repository on real and
+    sample based on text data gained about repository?
+    \item[RQ2] Can transformers outperform traditional ML classification
+    algorithms like Random-Forest in task of classifying GitHub repositories on
+    real and sample?
+    \item[RQ3] What is the most suitable technique for classifying GitHub
+    repositories on real and sample?
 \end{description}
 
-First, we prepared a training dataset of 1,000 public GitHub repositories.
-It is important to have both: real projects and repositories with examples.
-We distributed number of repositories between real and samples 750 and 250
-respectively. Sample repositories were queried like that: 84 repositories
-that contain \ff{examples} in their name, 83 repositories named with
-\ff{samples}, and 83 contain \ff{guides} in their name.
-For each GitHub repository we collected the following features:
-\begin{inparaenum}[1)]
-    \item \ff{description}: repository's description
-    \item \ff{readme}: README.md file
-    \item \ff{created\_at}: date when repository was created
-    \item \ff{last\_commit}: latest commit date
-    \item \ff{commits}: total amount of commits
-\end{inparaenum}
-
-Second, we label our dataset using numeric labels. The real repository labeled
-as 0, while sample one labeled as 1. To automate the process of labeling we
-utilize pattern-matching script. We run pattern matching for repository's full
-name e.g.: \ff{yegor256/takes}, \ff{apache/kafka}, and it's description. For
-instance, \ff{leeowenowen/rxjava-examples} will match, while
-\ff{objectionary/eo} won't.
-
-% feed different data?
-Third, we prepare dataset to be presented to the model as input. For this
-purpose we preprocess data using techniques of tokenization and stopwords
-removal. After this step, we feed this dataset by learning both, machine
-learning model with Random-Forest algorithm, and deep learning text
-transformers as motivated in RQ2.
-
-Finally, we collect and compare the results, produced by trained models.
-
-All GitHub repositories we collected are public repositories with more than
-20 stars.
+%First, we prepared a training dataset of 1,000 public GitHub repositories.
+%It is important to have both: real projects and repositories with examples.
+%We distributed number of repositories between real and samples 750 and 250
+%respectively. Sample repositories were queried like that: 84 repositories
+%that contain \ff{examples} in their name, 83 repositories named with
+%\ff{samples}, and 83 contain \ff{guides} in their name.
+%For each GitHub repository we collected the following features:
+%\begin{inparaenum}[1)]
+%    \item \ff{description}: repository's description
+%    \item \ff{readme}: README.md file
+%    \item \ff{created\_at}: date when repository was created
+%    \item \ff{last\_commit}: latest commit date
+%    \item \ff{commits}: total amount of commits
+%\end{inparaenum}
+%
+%Second, we label our dataset using numeric labels. The real repository labeled
+%as 0, while sample one labeled as 1. To automate the process of labeling we
+%utilize pattern-matching script. We run pattern matching for repository's full
+%name e.g.: \ff{yegor256/takes}, \ff{apache/kafka}, and it's description. For
+%instance, \ff{leeowenowen/rxjava-examples} will match, while
+%\ff{objectionary/eo} won't.
+%
+%% feed different data?
+%Third, we prepare dataset to be presented to the model as input. For this
+%purpose we preprocess data using techniques of tokenization and stopwords
+%removal. After this step, we feed this dataset by learning both, machine
+%learning model with Random-Forest algorithm, and deep learning text
+%transformers as motivated in RQ2.
+%
+%Finally, we collect and compare the results, produced by trained models.
+%
+%All GitHub repositories we collected are public repositories with more than
+%20 stars.
 
 
 \section{Results}\label{sec:results}
