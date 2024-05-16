@@ -53,7 +53,7 @@ filtering via `--model`. You can pass either `transformer` (the default one), or
 Versions `<=0.5.1` utilized models based on supervised learning algorithms,
 such as [Random-Forest] and [fine-tuned] transformer model based on
 [DistilBERT]. Besides that models were able to handle [binary classification]
-only. In contrast, latest versions using models that are based on 
+only. In contrast, latest versions using models that are based on
 [unsupervised learning](https://en.wikipedia.org/wiki/Unsupervised_learning),
 and can output the `rating` of how input repository is similar to SR.
 
