@@ -13,8 +13,9 @@
 [![Known Vulnerabilities](https://snyk.io/test/github/h1alexbel/samples-filter/badge.svg)](https://snyk.io/test/github/h1alexbel/samples-filter)
 
 Samples-filter is a command-line filter
-for GitHub repositories that contain `samples`,
-instead of real project or framework or library.
+for GitHub repositories that contain sample repositories (SR),
+that mostly contain educational or demonstration materials supposed to be copied
+instead of reused as a dependency, like framework or library.
 E.g. [leeowenowen/rxjava-examples](https://github.com/leeowenowen/rxjava-examples),
 [streaming-with-flink/examples-java](https://github.com/streaming-with-flink/examples-java),
 [redisson/redisson-examples](https://github.com/redisson/redisson-examples).
@@ -22,10 +23,9 @@ E.g. [leeowenowen/rxjava-examples](https://github.com/leeowenowen/rxjava-example
 **Motivation**. During the work on [CaM] project,
 where we're building datasets with open source Java programs,
 we [discovered](https://github.com/yegor256/cam/issues/227)
-the need for filtering repositories that contain
-not a real code, but rather samples, tutorials or examples.
-This repository is portable command-line tool that filters those
-sample repositories.
+the need for filtering out repositories that contain samples, tutorials or
+examples. This repository is portable command-line tool that filters those
+repositories.
 
 ## How to use
 
@@ -48,7 +48,7 @@ will explain to you what you should do.
 
 Optionally, you can decide which [model](/model/README.md) to use for
 filtering via `--model`. You can pass either `transformer` (the default one), or
-`rf`.
+`ml`.
 
 ## How to contribute
 
