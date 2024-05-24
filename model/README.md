@@ -8,7 +8,8 @@ repositories (SR).
 You can use these models for detecting SRs:
 
 * [Random-Forest model](#random-forest-model)
-* [Text Transformer model](#transformer-model)
+* [Isolation forest model](#isolation-forest-model)
+* [Transformer model](#transformer-model)
 
 ## Random-Forest model
 
@@ -20,6 +21,10 @@ from src.rf_model import RfModel
 rating = RfModel().predict("<input here>")
 print(rating) # probability that repository is a SR
 ```
+
+## Isolation forest model
+
+TBD..
 
 ## Transformer model
 
@@ -65,42 +70,23 @@ You will need [Python 3.9+] installed.
 
 ## How to build new dataset?
 
-To build new dataset, run this:
+Dataset used for model training are located here:
+[train.csv](https://github.com/h1alexbel/samples-filter/blob/dataset/train.csv)
+To refresh it, run either on cloud VM or locally this container:
 
 ```bash
-make data/dataset
+docker run --detach --name=dataset --rm --volume "$(pwd):/dataset" \
+  -e "DEPLOY_KEY=XXX" \
+  --oom-kill-disable \
+  h1alexbel/srdataset:0.0.1 "make -e >/dataset/make.log 2>&1"
 ```
 
-The building process will take you approximately 7 minutes.
-Now, you should have both `train.csv` and `text.csv` containing all the repos
-together.
+The building process can take a while. After it completed, you should have
+`dataset.csv` file with all collected repositories.
 
-`train.csv` is a [random-forest](#random-forest-model) training dataset, this
-is [CSV] file with the following columns:
-
-* `full_name` for repository name, e.g. `apache/kafka`
-* `description` for repository description
-* `readme` for repository's README.md file
-* `created_at` for when repository was created, e.g. `2015-07-14T12:58:49Z`
-* `last_commit` for date of last commit in repository, e.g. `2017-07-14T13:14:24Z`
-* `commits` for number of commits in the repository, e.g. `1024`
-
-While `text.csv` contains these columns:
-
-* `text` for compiled repository information, it includes repo name,
-description, readme, creation date, last commit, and amount of commits
-
-This `text.csv` file is used for training of [transformer model](#transformer-model).
-
-Dataset used for model training are located here:
-[train.csv](https://github.com/h1alexbel/samples-filter/blob/dataset/train.csv),
-[text.csv](https://github.com/h1alexbel/samples-filter/blob/dataset/text.csv)
-To refresh them, trigger [dataset.yml](https://github.com/h1alexbel/samples-filter/actions/workflows/dataset.yml)
-workflow.
-
-You will need [Python 3.9+] and [Ruby 3.3+] installed.
+You will need [Python 3.9+] and [Docker] installed.
 
 [Random-Forest]: https://en.wikipedia.org/wiki/Random_forest
 [CSV]: https://en.wikipedia.org/wiki/Comma-separated_values
 [Python 3.9+]: https://www.python.org/downloads/release/python-390
-[Ruby 3.3+]: https://www.ruby-lang.org/en/documentation/installation
+[Docker]: https://www.docker.com
