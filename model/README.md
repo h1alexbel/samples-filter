@@ -77,7 +77,5 @@ process can take a while. After it completed, you should have `dataset.csv`
 file with all collected repositories.
 
 [Random-Forest]: https://en.wikipedia.org/wiki/Random_forest
-[search query]: https://docs.github.com/en/search-github/searching-on-github/searching-for-repositories
-[GitHub PATs]: https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens
 [Python 3.9+]: https://www.python.org/downloads/release/python-390
 [srdataset]: https://github.com/h1alexbel/srdataset
