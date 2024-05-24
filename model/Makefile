@@ -28,26 +28,13 @@
 ## The shell to use.
 SHELL := bash
 
-# Data folder.
-DATA_FOLDER := data
-
-# Clean .csv and .tex files.
-$(DATA_FOLDER)/clean:
-	cd $(DATA_FOLDER) && \
-	rm -f *.csv *.tex
-
-# Build new dataset.
-$(DATA_FOLDER)/dataset:
-	cd $(DATA_FOLDER) && \
-	ruby discover-repos.rb --total=750 --csv=repos.csv --tex=repos.tex
-	ruby discover-repos.rb --total=84 --query-append=examples --min-stars=20 --csv=examples.csv --tex=examples.tex
-	ruby discover-repos.rb --total=83 --query-append=samples --min-stars=20 --csv=samples.csv --tex=samples.tex
-	ruby discover-repos.rb --total=83 --query-append=guides --min-stars=20 --csv=guides.csv --tex=guides.tex
-	python3 combine.py
-	python3 fetch.py
-	python3 remove_branch.py
-	python3 label.py
-	python3 compose.py
+# Train model with isolation forest algorithm.
+# @todo #129:90min Train isolation forest model.
+#  We need to find out how to properly train isolation forest model with
+#  gathered data in order to detect anomalies (SRs). Don't forget to remove
+#  this puzzle.
+isolation-forest:
+	echo "training model based on isolation forest algorithm..."
 
 # Train model with Random-Forest algorithm.
 random-forest:
