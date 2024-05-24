@@ -72,35 +72,12 @@ You will need [Python 3.9+] installed.
 
 Dataset used for model training are located here:
 [train.csv](https://github.com/h1alexbel/samples-filter/blob/dataset/train.csv)
-To refresh it, run this either on cloud VM or locally:
-
-```bash
-docker run --detach --name=dataset --rm --volume "$(pwd):/dataset" \
-  -e "DEPLOY_KEY=XXX" \
-  -e "DEPLOY_DESTINATION=h1alexbel/samples-filter" \
-  -e "DEPLOY_BRANCH=dataset" \
-  -e "SEARCH_QUERY=<query>" \
-  -e "START_DATE=2019-01-01" \
-  -e "END_DATE=2024-05-01" \
-  -e "PATS=pats.txt" \
-  --oom-kill-disable \
-  h1alexbel/srdataset:0.0.1 "make -e >/dataset/make.log 2>&1"
-```
-
-Where `XXX` is a [GitHub PAT] with WRITE permissions to
-`h1alexbel/samples-filter`, `dataset` branch, which is place, where all output
-files will be delivered, `<query>` is the [search query] to the GitHub API,
-`2019-01-01` is a start date to search the repositories those were created at
-this date, `2024-05-01` is an end to search the repositories those were created
-at this date, `pats.txt` is file contains a number of [GitHub PATs].
-
-The building process can take a while. After it completed, you should have
-`dataset.csv` file with all collected repositories.
-
-You will need [Python 3.9+] and [Docker] installed.
+To refresh it, run [srdataset] either on cloud VM or locally. The building
+process can take a while. After it completed, you should have `dataset.csv`
+file with all collected repositories.
 
 [Random-Forest]: https://en.wikipedia.org/wiki/Random_forest
 [search query]: https://docs.github.com/en/search-github/searching-on-github/searching-for-repositories
 [GitHub PATs]: https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens
 [Python 3.9+]: https://www.python.org/downloads/release/python-390
-[Docker]: https://www.docker.com
+[srdataset]: https://github.com/h1alexbel/srdataset
