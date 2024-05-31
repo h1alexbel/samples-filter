@@ -30,6 +30,7 @@ SHELL := bash
 
 # Install required tools.
 install:
+	pip install -r requirements.txt
 	pip install .
 	python3 tools.py
 

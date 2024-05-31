@@ -57,5 +57,6 @@ jobs:
           python-version: 3.11
       - name: Run model tests
         run: |
+          python3 -m pip install --upgrade pip
           cd models
           make install test
