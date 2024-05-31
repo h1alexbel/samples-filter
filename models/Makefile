@@ -19,43 +19,37 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
----
-name: py
-on:
-  push:
-    branches:
-      - master
-  pull_request:
-    branches:
-      - master
-concurrency:
-  group: py-${{ github.ref }}
-  cancel-in-progress: true
-jobs:
-  build:
-    runs-on: ubuntu-20.04
-    strategy:
-      fail-fast: false
-      matrix:
-        python-version: ["3.9", "3.10", "3.11"]
-    steps:
-      - uses: actions/checkout@v3
-      - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v3
-        with:
-          python-version: ${{ matrix.python-version }}
-      - name: Build
-        run: |
-          make install test check
-  model_tests:
-    runs-on: ubuntu-20.04
-    steps:
-      - uses: actions/checkout@v3
-      - name: Set up Python 3.11
-        uses: actions/setup-python@v3
-        with:
-          python-version: 3.11
-      - name: Run model tests
-        run: |
-          cd models
-          make install test
+
+.SHELLFLAGS: -e -o pipefail -c
+.ONESHELL:
+.PHONY: install test $(DATA_FOLDER)/clean $(DATA_FOLDER)/dataset trainrf transformer
+.SILENT:
+
+## The shell to use.
+SHELL := bash
+
+# Install required tools.
+install:
+	pip install .
+	python3 tools.py
+
+# Run tests.
+test:
+	export PYTHONPATH=.
+	python3 -m pytest model_tests
+
+# Train model with isolation forest algorithm.
+# @todo #129:90min Train isolation forest model.
+#  We need to find out how to properly train isolation forest model with
+#  gathered data in order to detect anomalies (SRs). Don't forget to remove
+#  this puzzle.
+isolation-forest:
+	echo "training model based on isolation forest algorithm..."
+
+# Train model with Random-Forest algorithm.
+random-forest:
+	python3 random-forest.py
+
+# Train text transformer.
+transformer:
+	python3 transformer.py

@@ -19,27 +19,22 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
+import re
 
-.SHELLFLAGS: -e -o pipefail -c
-.ONESHELL:
-.PHONY: $(DATA_FOLDER)/clean $(DATA_FOLDER)/dataset trainrf transformer
-.SILENT:
+from nltk.corpus import stopwords
+from nltk.stem import WordNetLemmatizer
 
-## The shell to use.
-SHELL := bash
 
-# Train model with isolation forest algorithm.
-# @todo #129:90min Train isolation forest model.
-#  We need to find out how to properly train isolation forest model with
-#  gathered data in order to detect anomalies (SRs). Don't forget to remove
-#  this puzzle.
-isolation-forest:
-	echo "training model based on isolation forest algorithm..."
+class PreName:
+    def __init__(self, origin):
+        self.origin = origin
 
-# Train model with Random-Forest algorithm.
-random-forest:
-	python3 random-forest.py
-
-# Train text transformer.
-transformer:
-	python3 transformer.py
+    def tokens(self):
+        name = self.origin.lower()
+        name = re.split(r'[/\-_]', name)
+        tokens = name
+        stops = set(stopwords.words('english'))
+        filtered = [word for word in tokens if word not in stops]
+        lemmatizer = WordNetLemmatizer()
+        lemmatized = [lemmatizer.lemmatize(word) for word in filtered]
+        return lemmatized

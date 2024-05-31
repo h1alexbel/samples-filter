@@ -46,7 +46,7 @@ with GitHub repositories, and name for the output file in `--out`
 (it will be created automatically). If you feel missed, try `--help` and tool
 will explain to you what you should do.
 
-Optionally, you can decide which [model](/model/README.md) to use for
+Optionally, you can decide which [model](/models/README.md) to use for
 filtering via `--model`. You can pass either `transformer` (the default one), or
 `ml`.
 
