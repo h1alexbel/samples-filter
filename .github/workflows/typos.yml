@@ -20,24 +20,17 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 ---
-name: xcop
-on:
+name: typos
+'on':
   push:
     branches:
       - master
   pull_request:
     branches:
       - master
-concurrency:
-  group: xcop-${{ github.ref }}
-  cancel-in-progress: true
 jobs:
-  xcop:
+  typos:
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b # v4
-      - uses: g4s8/xcop-action@v1.3
-        with:
-          files: |
-            **/*.xsl
-            **/*.xml
+      - uses: actions/checkout@v4
+      - uses: crate-ci/typos@master
