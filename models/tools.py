@@ -19,25 +19,11 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
----
-name: xcop
-on:
-  push:
-    branches:
-      - master
-  pull_request:
-    branches:
-      - master
-concurrency:
-  group: xcop-${{ github.ref }}
-  cancel-in-progress: true
-jobs:
-  xcop:
-    runs-on: ubuntu-22.04
-    steps:
-      - uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b # v4
-      - uses: g4s8/xcop-action@v1.3
-        with:
-          files: |
-            **/*.xsl
-            **/*.xml
+import nltk
+
+"""
+Download assets from nltk.
+"""
+nltk.download('punkt')
+nltk.download('stopwords')
+nltk.download('wordnet')

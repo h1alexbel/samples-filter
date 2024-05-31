@@ -19,32 +19,10 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
+from setuptools import setup, find_packages
 
-"""
-Last commit for GitHub repository.
-@todo #75:45min Find a way to fetch date of last commit without using API.
- GitHub API usage has quite soft rate limits. Even with authentication, it
- can't process whole dataset (approx 1k) rows. Moreover, we can't let to pass
- the credentials in the CLI package. Let's investigate the ways to parse last
- commit date without API.
-"""
-import json
-
-import requests
-
-
-class LastCommit:
-    def __init__(self, auth, repo):
-        self.auth = auth
-        self.repo = repo
-
-    def when(self):
-        response = requests.get(
-            f"https://api.github.com/repos/{self.repo}/commits",
-            headers={
-                "Authorization": self.auth
-            }
-        )
-        date = json.loads(response.content)[0]["commit"]["author"]["date"]
-        print(f"For {self.repo} last commit was at {date}")
-        return date
+setup(
+    name='samples-filter-models',
+    version='0.0.0',
+    packages=find_packages(),
+)

@@ -19,9 +19,38 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
----
-errors:
-  - aliaksei.bialiauski@hey.com
-tags:
-  - pdd
-  - bug
+
+.SHELLFLAGS: -e -o pipefail -c
+.ONESHELL:
+.PHONY: install test $(DATA_FOLDER)/clean $(DATA_FOLDER)/dataset trainrf transformer
+.SILENT:
+
+## The shell to use.
+SHELL := bash
+
+# Install required tools.
+install:
+	pip install -r requirements.txt
+	pip install .
+	python3 tools.py
+
+# Run tests.
+test:
+	export PYTHONPATH=.
+	python3 -m pytest model_tests
+
+# Train model with isolation forest algorithm.
+# @todo #129:90min Train isolation forest model.
+#  We need to find out how to properly train isolation forest model with
+#  gathered data in order to detect anomalies (SRs). Don't forget to remove
+#  this puzzle.
+isolation-forest:
+	echo "training model based on isolation forest algorithm..."
+
+# Train model with Random-Forest algorithm.
+random-forest:
+	python3 random-forest.py
+
+# Train text transformer.
+transformer:
+	python3 transformer.py

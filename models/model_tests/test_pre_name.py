@@ -19,9 +19,28 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
----
-errors:
-  - aliaksei.bialiauski@hey.com
-tags:
-  - pdd
-  - bug
+import unittest
+
+from model.pre_name import PreName
+
+"""
+Test cases for PreName.
+"""
+
+
+class TestPreName(unittest.TestCase):
+
+    def test_preprocesses_name(self):
+        input = "streaming-with-flink/examples-java"
+        tokens = PreName(input).tokens()
+        expected = [
+            "streaming",
+            "flink",
+            "example",
+            "java"
+        ]
+        self.assertEqual(
+            tokens,
+            expected,
+            f"received tokens {tokens} for input {input} do not match with expected {expected}"
+        )

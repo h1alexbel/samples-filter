@@ -1,6 +1,6 @@
 # Model
 
-Directory `/model` contains ML models used for detecting sample
+Directory `/models` contains ML models used for detecting sample
 repositories (SR).
 
 ## How to use it?
