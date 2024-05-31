@@ -19,22 +19,32 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
-import re
-from nltk.corpus import stopwords
-from nltk.stem import PorterStemmer, WordNetLemmatizer
-
-topics = ["java", "examples", "flink", "streaming"]
-topics = [topic.lower() for topic in topics]
-
-topics = [re.sub(r'[^a-z0-9\s]', '', topic) for topic in topics]
-stop_words = set(stopwords.words('english'))
-topics = [topic for topic in topics if topic not in stop_words]
-
-lemmatizer = WordNetLemmatizer()
-lemmatized = [lemmatizer.lemmatize(topic) for topic in topics]
-
-# @todo #140:25min F
-ready = lemmatized
-
-print("Original Topics:", topics)
-print("Processed Topics:", ready)
+---
+name: license
+on:
+  push:
+  pull_request:
+jobs:
+  license:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - run: |
+          set -e
+          find . -type f \( \
+            -name "LICENSE.*" \
+            -o -name "*.yml" \
+            -o -name "*.py" \) > files.txt
+          header="Copyright (c) 2024 Aliaksei Bialiauski"
+          failed="false"
+          while IFS= read -r file; do
+            if ! grep -q "$header" "$file"; then
+              failed="true"
+              echo "No license in: $file"
+            fi
+          done < files.txt
+          if [ "${failed}" == "true" ]; then
+            exit 1
+          fi
