@@ -19,34 +19,25 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
+import unittest
 
-.SHELLFLAGS: -e -o pipefail -c
-.ONESHELL:
-.PHONY: install test if transformer
-.SILENT:
+from model.embeddings import Embeddings
 
-## The shell to use.
-SHELL := bash
+"""
+Test cases for Embeddings. 
+"""
 
-# Install required tools.
-install:
-	pip install -r requirements.txt
-	pip install .
-	python3 tools.py
 
-# Run tests.
-test:
-	export PYTHONPATH=.
-	python3 -m pytest model_tests
+class TestEmbeddings(unittest.TestCase):
 
-# Train model with isolation forest algorithm.
-# @todo #129:90min Train isolation forest model.
-#  We need to find out how to properly train isolation forest model with
-#  gathered data in order to detect anomalies (SRs). Don't forget to remove
-#  this puzzle.
-if:
-	echo "training model based on isolation forest algorithm..."
-
-# Train text transformer.
-transformer:
-	python3 transformer.py
+    def test_generates_embeddings_for_tokens(self):
+        shape = Embeddings(
+            ["apache", "kafka", "examples", "learning"],
+            4
+        ).embed().shape
+        expected = (4, 768)
+        self.assertEqual(
+            shape,
+            expected,
+            f"received matrix's shape {shape} does not match with expected {expected}"
+        )

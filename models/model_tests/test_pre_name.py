@@ -33,12 +33,7 @@ class TestPreName(unittest.TestCase):
     def test_preprocesses_name(self):
         input = "streaming-with-flink/examples-java"
         tokens = PreName(input).tokens()
-        expected = [
-            "streaming",
-            "flink",
-            "example",
-            "java"
-        ]
+        expected = ["streaming", "flink", "example", "java"]
         self.assertEqual(
             tokens,
             expected,

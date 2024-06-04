@@ -19,34 +19,25 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
+import numpy as np
 
-.SHELLFLAGS: -e -o pipefail -c
-.ONESHELL:
-.PHONY: install test if transformer
-.SILENT:
+"""
+Vectorizes the embedding matrixes with a scalar values.
+"""
 
-## The shell to use.
-SHELL := bash
 
-# Install required tools.
-install:
-	pip install -r requirements.txt
-	pip install .
-	python3 tools.py
+class Vector:
+    def __init__(self, *matrixes, **scalars):
+        self.matrixes = [np.array(mat) for mat in matrixes]
+        self.scalars = {key: val for key, val in scalars.items()}
 
-# Run tests.
-test:
-	export PYTHONPATH=.
-	python3 -m pytest model_tests
-
-# Train model with isolation forest algorithm.
-# @todo #129:90min Train isolation forest model.
-#  We need to find out how to properly train isolation forest model with
-#  gathered data in order to detect anomalies (SRs). Don't forget to remove
-#  this puzzle.
-if:
-	echo "training model based on isolation forest algorithm..."
-
-# Train text transformer.
-transformer:
-	python3 transformer.py
+    def plain(self):
+        flattened = []
+        for matrix in self.matrixes:
+            flattened.append(matrix.flatten())
+        vector = np.concatenate(flattened)
+        scals = []
+        for scalar in self.scalars.values():
+            scals.append(np.reshape(scalar, (-1,)).astype(float))
+        values = np.concatenate(scals)
+        return np.concatenate((vector, values))
