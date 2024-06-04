@@ -1,6 +1,6 @@
 typer==0.3.2
 colorama==0.4.4
-requests==2.32.0
+requests==2.32.3
 transformers==4.40.0
 torch==2.2.2
 pandas==2.2.2
