@@ -21,7 +21,7 @@
 # SOFTWARE.
 import unittest
 
-from pre_readme import PreReadme
+from model.pre_readme import PreReadme
 
 """
 Test cases for PreReadme.
