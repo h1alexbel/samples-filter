@@ -37,7 +37,7 @@ class TestPreReadme(unittest.TestCase):
             This repository hosts Java code examples for
             ["Stream Processing with Apache Flink"](//link).
 
-            **Note:** The Java examples are not comlete yet. <br>
+            **Note:** The Java examples are not complete yet. <br>
             The [Scala examples](#scala) placed here.
             """).tokens()
         expected = [
@@ -45,7 +45,7 @@ class TestPreReadme(unittest.TestCase):
             "apache", "flink", "repository", "host",
             "java", "code", "examples", "stream",
             "process", "apache", "flinklink", "note",
-            "java", "examples", "comlete", "yet",
+            "java", "examples", "complete", "yet",
             "scala", "examplesscala", "place"
         ]
         self.assertEqual(
