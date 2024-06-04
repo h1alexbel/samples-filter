@@ -35,8 +35,7 @@ class PreName:
 
     def tokens(self):
         name = self.origin.lower()
-        name = re.split(r'[/\-_]', name)
-        tokens = name
+        tokens = re.split(r'[/\-_]', name)
         stops = set(stopwords.words('english'))
         filtered = [word for word in tokens if word not in stops]
         lemmatizer = WordNetLemmatizer()
