@@ -19,23 +19,25 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
-import unittest
-
-from model.pre_name import PreName
+import numpy as np
 
 """
-Test cases for PreName.
+Vectorizes the embedding matrixes with a scalar values.
 """
 
 
-class TestPreName(unittest.TestCase):
+class Vector:
+    def __init__(self, *matrixes, **scalars):
+        self.matrixes = [np.array(mat) for mat in matrixes]
+        self.scalars = {key: val for key, val in scalars.items()}
 
-    def test_preprocesses_name(self):
-        input = "streaming-with-flink/examples-java"
-        tokens = PreName(input).tokens()
-        expected = ["streaming", "flink", "example", "java"]
-        self.assertEqual(
-            tokens,
-            expected,
-            f"received tokens {tokens} for input {input} do not match with expected {expected}"
-        )
+    def plain(self):
+        flattened = []
+        for matrix in self.matrixes:
+            flattened.append(matrix.flatten())
+        vector = np.concatenate(flattened)
+        scals = []
+        for scalar in self.scalars.values():
+            scals.append(np.reshape(scalar, (-1,)).astype(float))
+        values = np.concatenate(scals)
+        return np.concatenate((vector, values))

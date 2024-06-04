@@ -21,21 +21,28 @@
 # SOFTWARE.
 import unittest
 
-from model.pre_name import PreName
+from vector import Vector
 
 """
-Test cases for PreName.
+Test cases for Vector.
 """
 
 
-class TestPreName(unittest.TestCase):
+class TestVector(unittest.TestCase):
 
-    def test_preprocesses_name(self):
-        input = "streaming-with-flink/examples-java"
-        tokens = PreName(input).tokens()
-        expected = ["streaming", "flink", "example", "java"]
+    def test_vectorizes_embeddings_and_scalars(self):
+        plain = Vector(
+            [[1.1, 2.1], [3.1, 4.1]],
+            [[1.2, 2.2], [3.2, 4.2]],
+            cpd=1,
+            rc=0.01,
+            ic=0.5
+        ).plain().tolist()
+        expected = [
+            1.1, 2.1, 3.1, 4.1, 1.2, 2.2, 3.2, 4.2, 1, 0.01, 0.5
+        ]
         self.assertEqual(
-            tokens,
+            plain,
             expected,
-            f"received tokens {tokens} for input {input} do not match with expected {expected}"
+            f"received vector {plain} does not match with expected {expected}"
         )
