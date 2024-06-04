@@ -21,7 +21,7 @@
 # SOFTWARE.
 import unittest
 
-from embeddings import Embeddings
+from model.embeddings import Embeddings
 
 """
 Test cases for Embeddings. 

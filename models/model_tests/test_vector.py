@@ -21,7 +21,7 @@
 # SOFTWARE.
 import unittest
 
-from vector import Vector
+from model.vector import Vector
 
 """
 Test cases for Vector.
