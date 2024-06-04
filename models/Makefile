@@ -22,7 +22,7 @@
 
 .SHELLFLAGS: -e -o pipefail -c
 .ONESHELL:
-.PHONY: install test $(DATA_FOLDER)/clean $(DATA_FOLDER)/dataset trainrf transformer
+.PHONY: install test if transformer
 .SILENT:
 
 ## The shell to use.
@@ -44,12 +44,8 @@ test:
 #  We need to find out how to properly train isolation forest model with
 #  gathered data in order to detect anomalies (SRs). Don't forget to remove
 #  this puzzle.
-isolation-forest:
+if:
 	echo "training model based on isolation forest algorithm..."
-
-# Train model with Random-Forest algorithm.
-random-forest:
-	python3 random-forest.py
 
 # Train text transformer.
 transformer:
