@@ -28,10 +28,10 @@ docker run -e "GH_TOKEN=..." abialiauski/samples-filter-models model/<model-name
 
 For `<model-name>` you should provide a name of Python script for training, for
 instance `isolation-forest` or `t_bert`. For `GH_TOKEN` you should provide a
-GitHub PAT for pushing `isolation-forest` model files into `results` branch of
-this `h1alexbel/samples-filter`. If you are training `t_bert` model, and you
-want to export output model files, then pass `-e "HF_TOKEN=..."` to push them to the
-[HuggingFace].
+[GitHub PAT] for pushing `isolation-forest` model files into `results` branch
+of this `h1alexbel/samples-filter`. If you are training `t_bert` model, and you
+want to export output model files, then pass `-e "HF_TOKEN=..."` to push them
+to the [HuggingFace].
 
 You will need [Docker] installed.
 
