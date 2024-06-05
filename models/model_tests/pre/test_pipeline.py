@@ -21,7 +21,7 @@
 # SOFTWARE.
 import unittest
 
-from model.pipeline import Pipeline
+from model.pre.pipeline import Pipeline
 
 """
 Test cases for Pipeline.

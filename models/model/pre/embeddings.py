@@ -39,6 +39,7 @@ class Embeddings:
         print(f"Encoder: {self.tokenizer}, {self.model}, output length: {self.length}")
         inputs = []
         masks = []
+        # too many problem
         for tokens in self.tokens:
             ids = self.tokenizer.encode_plus(
                 tokens,

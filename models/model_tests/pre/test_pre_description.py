@@ -21,19 +21,19 @@
 # SOFTWARE.
 import unittest
 
-from model.pre_name import PreName
+from model.pre.pre_description import PreDescription
 
 """
-Test cases for PreName.
+Test cases for PreDescription.
 """
 
 
-class TestPreName(unittest.TestCase):
+class TestPreDescription(unittest.TestCase):
 
-    def test_preprocesses_name(self):
-        input = "streaming-with-flink/examples-java"
-        tokens = PreName(input).tokens()
-        expected = ["streaming", "flink", "example", "java"]
+    def test_preprocess_description(self):
+        input = "This repository hosts Java examples"
+        tokens = PreDescription(input).tokens()
+        expected = ["repository", "host", "java", "examples"]
         self.assertEqual(
             tokens,
             expected,

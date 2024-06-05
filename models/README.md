@@ -7,66 +7,33 @@ repositories (SR).
 
 You can use these models for detecting SRs:
 
-* [Random-Forest model](#random-forest-model)
-* [Isolation forest model](#isolation-forest-model)
-* [Transformer model](#transformer-model)
+* [Isolation forest model](#if-model)
+* [Transformer model based on BERT](#transformer-bert-model)
 
-## Random-Forest model
-
-In order to use trained model with [Random-Forest] learning algorithm:
-
-```python
-from src.rf_model import RfModel
-
-rating = RfModel().predict("<input here>")
-print(rating) # probability that repository is a SR
-```
-
-## Isolation forest model
+## IF model
 
 TBD..
 
-## Transformer model
+## Transformer BERT model
 
-You can use this transformer model for detecting SRs too:
-
-```python
-from src.transformer_model import TransformerModel
-
-rating = TransformerModel().predict("<input here>")
-print(rating) # probability that repository is a SR
-```
+TBD..
 
 ## How to train it?
 
-To train Random-Forest model, run this script:
+To train models, run this:
 
 ```bash
-make random-forest
+docker run -e "GH_TOKEN=..." abialiauski/samples-filter-models model/<model-name>.py
 ```
 
-After training successfully ended, you should have `.joblib` files for both,
-vectorizer and model. Latest model version is [here](https://github.com/h1alexbel/samples-filter/tree/random-forest).
-To publish a new, trigger [random-forest.yml](https://github.com/h1alexbel/samples-filter/actions/workflows/random-forest.yml)
-workflow.
+For `<model-name>` you should provide a name of Python script for training, for
+instance `isolation-forest` or `t_bert`. For `GH_TOKEN` you should provide a
+GitHub PAT for pushing `isolation-forest` model files into `results` branch of
+this `h1alexbel/samples-filter`. If you are training `t_bert` model, and you
+want to export output model files, then pass `-e "HF_TOKEN=..."` to push them to the
+[HuggingFace].
 
-If you want to train transformer model, you should run this script:
-
-```bash
-export HF_TOKEN=<your hugging face API key>
-make transformer
-```
-
-Pay attention to the exported `HF_TOKEN`, it's needed for [pushing](https://huggingface.co/docs/transformers/v4.15.0/en/model_sharing)
-trained model into Hugging Face Model Hub.
-
-Training will take approximately 10 minutes. After it successfully finished,
-all output model files will be pushed to [h1alexbel/github-samples-tclassifier](https://huggingface.co/h1alexbel/github-samples-tclassifier).
-
-To do it remotely, trigger [transformer.yml](https://github.com/h1alexbel/samples-filter/actions/workflows/transformer.yml)
-workflow.
-
-You will need [Python 3.9+] installed.
+You will need [Docker] installed.
 
 ## How to build new dataset?
 
@@ -74,8 +41,21 @@ Dataset used for model training are located here:
 [train.csv](https://github.com/h1alexbel/samples-filter/blob/dataset/train.csv)
 To refresh it, run [srdataset] either on cloud VM or locally. The building
 process can take a while. After it completed, you should have `dataset.csv`
-file with all collected repositories.
+file with all collected repositories with the following structure:
 
-[Random-Forest]: https://en.wikipedia.org/wiki/Random_forest
-[Python 3.9+]: https://www.python.org/downloads/release/python-390
+* `name`: repository full name, e.g. `redisson/redisson-examples`.
+* `readme`: repository README.md file.
+* `description`: repository description.
+* `topics`: a set of repository topics, e.g. `[apache, streaming, kafka]`
+* `CPD`: commits per day calculated metric.
+* `RC`: published releases to commits ratio.
+* `IC`: issues to commits ratio.
+
+All features must be preprocessed and vectorized using [pipeline.py].
+Once you have vectors, you can [feed](#how-to-train-it) them to the models.
+
+[GitHub PAT]: https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens
+[HuggingFace]: https://huggingface.co/models
+[Docker]: https://docs.docker.com/get-docker
 [srdataset]: https://github.com/h1alexbel/srdataset
+[pipeline.py]: https://github.com/h1alexbel/samples-filter/blob/master/models/model/pre/pipeline.py

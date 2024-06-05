@@ -21,20 +21,23 @@
 # SOFTWARE.
 import unittest
 
-from model.pre_topics import PreTopics
+from model.pre.embeddings import Embeddings
 
 """
-Test cases for PreTopics.
+Test cases for Embeddings. 
 """
 
 
-class TestPreTopics(unittest.TestCase):
+class TestEmbeddings(unittest.TestCase):
 
-    def test_preprocesses_topics(self):
-        tokens = PreTopics(["java", "examples", "flink", "streaming"]).tokens()
-        expected = ["java", "example", "flink", "streaming"]
+    def test_generates_embeddings_for_tokens(self):
+        shape = Embeddings(
+            ["apache", "kafka", "examples", "learning"],
+            4
+        ).embed().shape
+        expected = (4, 768)
         self.assertEqual(
-            tokens,
+            shape,
             expected,
-            f"received tokens {tokens} do not match with expected {expected}"
+            f"received matrix's shape {shape} does not match with expected {expected}"
         )

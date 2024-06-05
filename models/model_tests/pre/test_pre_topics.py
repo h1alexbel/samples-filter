@@ -21,21 +21,20 @@
 # SOFTWARE.
 import unittest
 
-from model.pre_description import PreDescription
+from model.pre.pre_topics import PreTopics
 
 """
-Test cases for PreDescription.
+Test cases for PreTopics.
 """
 
 
-class TestPreDescription(unittest.TestCase):
+class TestPreTopics(unittest.TestCase):
 
-    def test_preprocess_description(self):
-        input = "This repository hosts Java examples"
-        tokens = PreDescription(input).tokens()
-        expected = ["repository", "host", "java", "examples"]
+    def test_preprocesses_topics(self):
+        tokens = PreTopics(["java", "examples", "flink", "streaming"]).tokens()
+        expected = ["java", "example", "flink", "streaming"]
         self.assertEqual(
             tokens,
             expected,
-            f"received tokens {tokens} for input: {input} do not match with expected {expected}"
+            f"received tokens {tokens} do not match with expected {expected}"
         )
