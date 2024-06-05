@@ -19,26 +19,48 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
-import re
+import unittest
 
-from nltk.corpus import stopwords
-from nltk.stem import WordNetLemmatizer
+from model.pipeline import Pipeline
 
 """
-Repository topics preprocessing.
+Test cases for Pipeline.
 """
 
 
-class PreTopics:
-    def __init__(self, topics):
-        self.topics = topics
+class TestPipeline(unittest.TestCase):
 
-    def tokens(self):
-        lower = [topic.lower() for topic in self.topics]
-        split = [re.sub(r'[^a-z0-9\s]', '', topic) for topic in lower]
-        stops = set(stopwords.words('english'))
-        split = [topic for topic in split if topic not in stops]
-        lemmatizer = WordNetLemmatizer()
-        ready = [lemmatizer.lemmatize(topic) for topic in split]
-        print(f"Preprocessed {self.topics} to {ready}")
-        return ready
+    def test_vectorizes_repository(self):
+        repository = {
+            "name": "h1alexbel/fakehub",
+            "readme": """
+            # fakehub
+            
+            # How to use
+            
+            first, install it like this:
+            
+            ```bash
+            brew install fakehub
+            ```
+            
+            then, run it:
+            
+            ```bash
+            fakehub start
+            ```
+            """,
+            "description": "fakehub description",
+            "topics": ["rust", "github", "mock-api", "testing"],
+            "cpd": 5.2,
+            "rc": 0.04,
+            "ic": 0.25
+        }
+        vector = Pipeline(repository).apply().tolist()
+        size = len(vector)
+        expected = 569859
+        self.assertEqual(
+            size,
+            expected,
+            f"received vector size {size} for vector {vector} does not match with expected {expected}"
+        )
