@@ -39,4 +39,6 @@ class PreTopics:
         stops = set(stopwords.words('english'))
         split = [topic for topic in split if topic not in stops]
         lemmatizer = WordNetLemmatizer()
-        return [lemmatizer.lemmatize(topic) for topic in split]
+        ready = [lemmatizer.lemmatize(topic) for topic in split]
+        print(f"Preprocessed {self.topics} to {ready}")
+        return ready

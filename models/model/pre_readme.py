@@ -42,4 +42,6 @@ class PreReadme:
         stops.update(['b', 'bash'])
         filtered = [word for word in tokens if word not in stops]
         lemmatizer = WordNetLemmatizer()
-        return [lemmatizer.lemmatize(word, pos='v') for word in filtered]
+        ready = [lemmatizer.lemmatize(word, pos='v') for word in filtered]
+        print(f"Preprocessed {self.content} to: {ready}")
+        return ready
