@@ -58,9 +58,28 @@ class TestPipeline(unittest.TestCase):
         }
         vector = Pipeline(repository).apply().tolist()
         size = len(vector)
+        cpd = repository["cpd"]
+        has_cpd = cpd in vector
+        rc = repository["rc"]
+        has_rc = rc in vector
+        ic = repository["ic"]
+        has_ic = ic in vector
         expected = 569859
         self.assertEqual(
             size,
             expected,
             f"received vector size {size} for vector {vector} does not match with expected {expected}"
         )
+        self.assertTrue(
+            has_cpd,
+            f"received vector {vector} does not have CPD value: {cpd}, but should"
+        )
+        self.assertTrue(
+            has_rc,
+            f"received vector {vector} does not have RC value: {rc}, but should"
+        )
+        self.assertTrue(
+            has_ic,
+            f"received vector {vector} does not have IC value: {ic}, but should"
+        )
+
