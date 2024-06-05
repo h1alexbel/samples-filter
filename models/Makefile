@@ -22,7 +22,7 @@
 
 .SHELLFLAGS: -e -o pipefail -c
 .ONESHELL:
-.PHONY: install test if transformer
+.PHONY: install test
 .SILENT:
 
 ## The shell to use.
@@ -38,15 +38,3 @@ install:
 test:
 	export PYTHONPATH=.
 	python3 -m pytest model_tests
-
-# Train model with isolation forest algorithm.
-# @todo #129:90min Train isolation forest model.
-#  We need to find out how to properly train isolation forest model with
-#  gathered data in order to detect anomalies (SRs). Don't forget to remove
-#  this puzzle.
-if:
-	echo "training model based on isolation forest algorithm..."
-
-# Train text transformer.
-transformer:
-	python3 transformer.py
