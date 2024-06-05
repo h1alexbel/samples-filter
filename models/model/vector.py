@@ -22,7 +22,7 @@
 import numpy as np
 
 """
-Vectorizes the embedding matrixes with a scalar values.
+Vectorizes the embedding matrixes with a scalar values into single vector.
 """
 
 
