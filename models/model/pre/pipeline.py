@@ -49,10 +49,10 @@ class Pipeline:
         readme = PreReadme(self.repository["readme"]).tokens()
         description = PreDescription(self.repository["description"]).tokens()
         topics = PreTopics(self.repository["topics"]).tokens()
-        e_name = Embeddings(" ".join(name), 30).embed()
-        e_readme = Embeddings(" ".join(readme), 512).embed()
-        e_description = Embeddings(" ".join(description), 100).embed()
-        e_topics = Embeddings(" ".join(topics), 100).embed()
+        e_name = Embeddings(name, 30).embed()
+        e_readme = Embeddings(readme, 512).embed()
+        e_description = Embeddings(description, 100).embed()
+        e_topics = Embeddings(topics, 100).embed()
         return Vector(
             e_name,
             e_readme,
