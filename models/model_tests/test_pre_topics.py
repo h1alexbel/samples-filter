@@ -21,21 +21,20 @@
 # SOFTWARE.
 import unittest
 
-from model.pre_name import PreName
+from model.pre_topics import PreTopics
 
 """
-Test cases for PreName.
+Test cases for PreTopics.
 """
 
 
-class TestPreName(unittest.TestCase):
+class TestPreTopics(unittest.TestCase):
 
-    def test_preprocesses_name(self):
-        input = "streaming-with-flink/examples-java"
-        tokens = PreName(input).tokens()
-        expected = ["streaming", "flink", "example", "java"]
+    def test_preprocesses_topics(self):
+        tokens = PreTopics(["java", "examples", "flink", "streaming"]).tokens()
+        expected = ["java", "example", "flink", "streaming"]
         self.assertEqual(
             tokens,
             expected,
-            f"received tokens {tokens} for input: {input} do not match with expected {expected}"
+            f"received tokens {tokens} do not match with expected {expected}"
         )

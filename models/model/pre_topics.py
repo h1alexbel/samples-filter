@@ -19,23 +19,24 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
-import unittest
+import re
 
-from model.pre_name import PreName
+from nltk.corpus import stopwords
+from nltk.stem import WordNetLemmatizer
 
 """
-Test cases for PreName.
+Repository topics preprocessing.
 """
 
 
-class TestPreName(unittest.TestCase):
+class PreTopics:
+    def __init__(self, topics):
+        self.topics = topics
 
-    def test_preprocesses_name(self):
-        input = "streaming-with-flink/examples-java"
-        tokens = PreName(input).tokens()
-        expected = ["streaming", "flink", "example", "java"]
-        self.assertEqual(
-            tokens,
-            expected,
-            f"received tokens {tokens} for input: {input} do not match with expected {expected}"
-        )
+    def tokens(self):
+        lower = [topic.lower() for topic in self.topics]
+        split = [re.sub(r'[^a-z0-9\s]', '', topic) for topic in lower]
+        stops = set(stopwords.words('english'))
+        split = [topic for topic in split if topic not in stops]
+        lemmatizer = WordNetLemmatizer()
+        return [lemmatizer.lemmatize(topic) for topic in split]

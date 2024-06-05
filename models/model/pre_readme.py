@@ -19,23 +19,27 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
-import unittest
-
-from model.pre_name import PreName
+import re
+from nltk import WordNetLemmatizer
+from nltk.corpus import stopwords
+from nltk.tokenize import word_tokenize
 
 """
-Test cases for PreName.
+Repository README preprocessing.
 """
 
 
-class TestPreName(unittest.TestCase):
+class PreReadme:
+    def __init__(self, content):
+        self.content = content
 
-    def test_preprocesses_name(self):
-        input = "streaming-with-flink/examples-java"
-        tokens = PreName(input).tokens()
-        expected = ["streaming", "flink", "example", "java"]
-        self.assertEqual(
-            tokens,
-            expected,
-            f"received tokens {tokens} for input: {input} do not match with expected {expected}"
-        )
+    def tokens(self):
+        lower = self.content.lower()
+        no_tags = re.sub(r'<.*?>', '', lower)
+        no_puncts = re.sub(r'[^\w\s]', '', no_tags)
+        tokens = word_tokenize(no_puncts)
+        stops = set(stopwords.words('english'))
+        stops.update(['b', 'bash'])
+        filtered = [word for word in tokens if word not in stops]
+        lemmatizer = WordNetLemmatizer()
+        return [lemmatizer.lemmatize(word, pos='v') for word in filtered]
