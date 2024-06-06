@@ -34,7 +34,7 @@ class PreReadme:
         self.content = content
 
     def tokens(self):
-        lower = self.content.lower()
+        lower = str(self.content).lower()
         no_tags = re.sub(r'<.*?>', '', lower)
         no_puncts = re.sub(r'[^\w\s]', '', no_tags)
         tokens = word_tokenize(no_puncts)
@@ -42,6 +42,4 @@ class PreReadme:
         stops.update(['b', 'bash'])
         filtered = [word for word in tokens if word not in stops]
         lemmatizer = WordNetLemmatizer()
-        ready = [lemmatizer.lemmatize(word, pos='v') for word in filtered]
-        print(f"Preprocessed {self.content} to: {ready}")
-        return ready
+        return [lemmatizer.lemmatize(word, pos='v') for word in filtered]

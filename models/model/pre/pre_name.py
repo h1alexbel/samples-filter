@@ -39,6 +39,4 @@ class PreName:
         stops = set(stopwords.words('english'))
         filtered = [word for word in tokens if word not in stops]
         lemmatizer = WordNetLemmatizer()
-        ready = [lemmatizer.lemmatize(word) for word in filtered]
-        print(f"Preprocessed {self.origin} to: {ready}")
-        return ready
+        return [lemmatizer.lemmatize(word) for word in filtered]

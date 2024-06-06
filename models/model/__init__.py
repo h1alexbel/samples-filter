@@ -19,25 +19,3 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
-import re
-
-from nltk import word_tokenize, WordNetLemmatizer
-from nltk.corpus import stopwords
-
-"""
-Repository description preprocessing.
-"""
-
-
-class PreDescription:
-    def __init__(self, text):
-        self.text = text
-
-    def tokens(self):
-        lower = self.text.lower()
-        no_puncts = re.sub(r'[^\w\s]', '', lower)
-        tokens = word_tokenize(no_puncts)
-        stops = set(stopwords.words('english'))
-        filtered = [word for word in tokens if word not in stops]
-        lemmatizer = WordNetLemmatizer()
-        return [lemmatizer.lemmatize(word, pos='v') for word in filtered]
