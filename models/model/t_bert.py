@@ -20,21 +20,9 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-.SHELLFLAGS: -e -o pipefail -c
-.ONESHELL:
-.PHONY: install test
-.SILENT:
-
-## The shell to use.
-SHELL := bash
-
-# Install required tools.
-install:
-	pip install -r requirements.txt
-	pip install .
-	python3 tools.py
-
-# Run tests.
-test:
-	export PYTHONPATH=.
-	python3 -m pytest model_tests
+# Train model based on BERT.
+# @todo #129:90min Train BERT transformer model.
+#  We need to find out how to properly train BERT model with
+#  gathered data in order to detect anomalies (SRs). Don't forget to remove
+#  this puzzle.
+print("training BERT based model...")

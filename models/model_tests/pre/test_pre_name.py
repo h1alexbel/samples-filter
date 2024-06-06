@@ -19,22 +19,23 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
+import unittest
 
-.SHELLFLAGS: -e -o pipefail -c
-.ONESHELL:
-.PHONY: install test
-.SILENT:
+from model.pre.pre_name import PreName
 
-## The shell to use.
-SHELL := bash
+"""
+Test cases for PreName.
+"""
 
-# Install required tools.
-install:
-	pip install -r requirements.txt
-	pip install .
-	python3 tools.py
 
-# Run tests.
-test:
-	export PYTHONPATH=.
-	python3 -m pytest model_tests
+class TestPreName(unittest.TestCase):
+
+    def test_preprocesses_name(self):
+        input = "streaming-with-flink/examples-java"
+        tokens = PreName(input).tokens()
+        expected = ["streaming", "flink", "example", "java"]
+        self.assertEqual(
+            tokens,
+            expected,
+            f"received tokens {tokens} for input: {input} do not match with expected {expected}"
+        )

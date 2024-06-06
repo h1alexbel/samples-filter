@@ -21,21 +21,35 @@
 # SOFTWARE.
 import unittest
 
-from model.pre_description import PreDescription
+from model.pre.pre_readme import PreReadme
 
 """
-Test cases for PreDescription.
+Test cases for PreReadme.
 """
 
 
-class TestPreDescription(unittest.TestCase):
+class TestPreReadme(unittest.TestCase):
 
-    def test_preprocess_description(self):
-        input = "This repository hosts Java examples"
-        tokens = PreDescription(input).tokens()
-        expected = ["repository", "host", "java", "examples"]
+    def test_preprocesses_readme_in_tokens(self):
+        tokens = PreReadme("""
+            ## Java Examples for Stream Processing with Apache Flink
+
+            This repository hosts Java code examples for
+            ["Stream Processing with Apache Flink"](//link).
+
+            **Note:** The Java examples are not complete yet. <br>
+            The [Scala examples](#scala) placed here.
+            """).tokens()
+        expected = [
+            "java", "examples", "stream", "process",
+            "apache", "flink", "repository", "host",
+            "java", "code", "examples", "stream",
+            "process", "apache", "flinklink", "note",
+            "java", "examples", "complete", "yet",
+            "scala", "examplesscala", "place"
+        ]
         self.assertEqual(
             tokens,
             expected,
-            f"received tokens {tokens} for input: {input} do not match with expected {expected}"
+            f"received tokens {tokens} do not match with expected {expected}"
         )

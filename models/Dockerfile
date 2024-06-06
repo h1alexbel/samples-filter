@@ -19,22 +19,12 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
-
-.SHELLFLAGS: -e -o pipefail -c
-.ONESHELL:
-.PHONY: install test
-.SILENT:
-
-## The shell to use.
-SHELL := bash
-
-# Install required tools.
-install:
-	pip install -r requirements.txt
-	pip install .
-	python3 tools.py
-
-# Run tests.
-test:
-	export PYTHONPATH=.
-	python3 -m pytest model_tests
+FROM python:3.11-slim AS stage
+WORKDIR /app
+COPY . .
+RUN pip install --no-cache-dir -r requirements.txt
+RUN python3 tools.py
+FROM python:3.11-slim as distilled
+WORKDIR /app
+COPY --from=stage /app/model ./model
+ENTRYPOINT ["python3"]

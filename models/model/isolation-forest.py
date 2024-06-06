@@ -19,23 +19,10 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
-import unittest
 
-from model.pre_name import PreName
-
-"""
-Test cases for PreName.
-"""
-
-
-class TestPreName(unittest.TestCase):
-
-    def test_preprocesses_name(self):
-        input = "streaming-with-flink/examples-java"
-        tokens = PreName(input).tokens()
-        expected = ["streaming", "flink", "example", "java"]
-        self.assertEqual(
-            tokens,
-            expected,
-            f"received tokens {tokens} for input: {input} do not match with expected {expected}"
-        )
+# Train model with isolation forest algorithm.
+# @todo #129:90min Train isolation forest model.
+#  We need to find out how to properly train isolation forest model with
+#  gathered data in order to detect anomalies (SRs). Don't forget to remove
+#  this puzzle.
+print("training IF model...")

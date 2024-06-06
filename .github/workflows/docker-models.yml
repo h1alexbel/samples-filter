@@ -19,22 +19,29 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
-import unittest
-
-from model.pre_topics import PreTopics
-
-"""
-Test cases for PreTopics.
-"""
-
-
-class TestPreTopics(unittest.TestCase):
-
-    def test_preprocesses_topics(self):
-        tokens = PreTopics(["java", "examples", "flink", "streaming"]).tokens()
-        expected = ["java", "example", "flink", "streaming"]
-        self.assertEqual(
-            tokens,
-            expected,
-            f"received tokens {tokens} do not match with expected {expected}"
-        )
+---
+name: docker-models
+'on':
+  push:
+    tags:
+      - '*'
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build
+        run: |
+          cd models
+          make install test
+      - name: Push to docker.io
+        uses: mr-smithers-excellent/docker-build-push@v6
+        with:
+          image: abialiauski/samples-filter-models
+          tags: ${{ github.ref_name }}, latest
+          dockerfile: Dockerfile
+          registry: docker.io
+          username: abialiauski
+          password: ${{ secrets.DOCKER_PASSWORD }}

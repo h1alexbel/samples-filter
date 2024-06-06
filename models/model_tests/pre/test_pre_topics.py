@@ -21,33 +21,18 @@
 # SOFTWARE.
 import unittest
 
-from model.pre_readme import PreReadme
+from model.pre.pre_topics import PreTopics
 
 """
-Test cases for PreReadme.
+Test cases for PreTopics.
 """
 
 
-class TestPreReadme(unittest.TestCase):
+class TestPreTopics(unittest.TestCase):
 
-    def test_preprocesses_readme_in_tokens(self):
-        tokens = PreReadme("""
-            ## Java Examples for Stream Processing with Apache Flink
-
-            This repository hosts Java code examples for
-            ["Stream Processing with Apache Flink"](//link).
-
-            **Note:** The Java examples are not complete yet. <br>
-            The [Scala examples](#scala) placed here.
-            """).tokens()
-        expected = [
-            "java", "examples", "stream", "process",
-            "apache", "flink", "repository", "host",
-            "java", "code", "examples", "stream",
-            "process", "apache", "flinklink", "note",
-            "java", "examples", "complete", "yet",
-            "scala", "examplesscala", "place"
-        ]
+    def test_preprocesses_topics(self):
+        tokens = PreTopics(["java", "examples", "flink", "streaming"]).tokens()
+        expected = ["java", "example", "flink", "streaming"]
         self.assertEqual(
             tokens,
             expected,

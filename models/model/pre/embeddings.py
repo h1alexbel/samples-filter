@@ -39,6 +39,11 @@ class Embeddings:
         print(f"Encoder: {self.tokenizer}, {self.model}, output length: {self.length}")
         inputs = []
         masks = []
+        # @todo #143:30min We generate embeddings for each token instead of the whole unit.
+        #   For now, we generate embeddings for each token. We probably should
+        #   generate embeddings for joined tokens as one unit. In this case we
+        #   can try to replace preprocessing steps with a huggingface tokenizers.
+        #   Let's validate this assumption.
         for tokens in self.tokens:
             ids = self.tokenizer.encode_plus(
                 tokens,

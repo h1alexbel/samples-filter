@@ -19,22 +19,25 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
+import unittest
 
-.SHELLFLAGS: -e -o pipefail -c
-.ONESHELL:
-.PHONY: install test
-.SILENT:
+from model.pre.embeddings import Embeddings
 
-## The shell to use.
-SHELL := bash
+"""
+Test cases for Embeddings. 
+"""
 
-# Install required tools.
-install:
-	pip install -r requirements.txt
-	pip install .
-	python3 tools.py
 
-# Run tests.
-test:
-	export PYTHONPATH=.
-	python3 -m pytest model_tests
+class TestEmbeddings(unittest.TestCase):
+
+    def test_generates_embeddings_for_tokens(self):
+        shape = Embeddings(
+            ["apache", "kafka", "examples", "learning"],
+            4
+        ).embed().shape
+        expected = (4, 768)
+        self.assertEqual(
+            shape,
+            expected,
+            f"received matrix's shape {shape} does not match with expected {expected}"
+        )

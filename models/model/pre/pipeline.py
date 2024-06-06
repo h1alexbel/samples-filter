@@ -20,12 +20,12 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-from model.embeddings import Embeddings
-from model.pre_description import PreDescription
-from model.pre_name import PreName
-from model.pre_readme import PreReadme
-from model.pre_topics import PreTopics
-from model.vector import Vector
+from model.pre.embeddings import Embeddings
+from model.pre.pre_description import PreDescription
+from model.pre.pre_name import PreName
+from model.pre.pre_readme import PreReadme
+from model.pre.pre_topics import PreTopics
+from model.pre.vector import Vector
 
 """
 Pipeline.

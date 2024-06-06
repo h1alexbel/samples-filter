@@ -21,23 +21,21 @@
 # SOFTWARE.
 import unittest
 
-from model.embeddings import Embeddings
+from model.pre.pre_description import PreDescription
 
 """
-Test cases for Embeddings. 
+Test cases for PreDescription.
 """
 
 
-class TestEmbeddings(unittest.TestCase):
+class TestPreDescription(unittest.TestCase):
 
-    def test_generates_embeddings_for_tokens(self):
-        shape = Embeddings(
-            ["apache", "kafka", "examples", "learning"],
-            4
-        ).embed().shape
-        expected = (4, 768)
+    def test_preprocess_description(self):
+        input = "This repository hosts Java examples"
+        tokens = PreDescription(input).tokens()
+        expected = ["repository", "host", "java", "examples"]
         self.assertEqual(
-            shape,
+            tokens,
             expected,
-            f"received matrix's shape {shape} does not match with expected {expected}"
+            f"received tokens {tokens} for input: {input} do not match with expected {expected}"
         )
