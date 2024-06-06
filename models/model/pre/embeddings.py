@@ -19,7 +19,7 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
-from transformers import BertTokenizer, BertModel
+from transformers import BertTokenizer, BertModel, AutoTokenizer
 import torch
 
 """
@@ -27,39 +27,21 @@ Generate embeddings for a set of tokens.
 """
 
 
+# text -> numerical representations -> vector
+# 768, defined by the BERT architecture
 class Embeddings:
-    def __init__(self, tokens, length, encoder="bert-base-uncased"):
-        self.tokens = tokens
+    def __init__(self, raw, length, tokenizer):
+        self.raw = raw
         self.length = length
-        self.tokenizer = BertTokenizer.from_pretrained(encoder)
-        self.model = BertModel.from_pretrained(encoder)
+        self.tokenizer = tokenizer
 
     def embed(self):
-        print(f"Generating embeddings for {self.tokens}")
-        print(f"Encoder: {self.tokenizer}, {self.model}, output length: {self.length}")
-        inputs = []
-        masks = []
-        # @todo #143:30min We generate embeddings for each token instead of the whole unit.
-        #   For now, we generate embeddings for each token. We probably should
-        #   generate embeddings for joined tokens as one unit. In this case we
-        #   can try to replace preprocessing steps with a huggingface tokenizers.
-        #   Let's validate this assumption.
-        for tokens in self.tokens:
-            ids = self.tokenizer.encode_plus(
-                tokens,
-                add_special_tokens=True,
-                return_tensors='pt',
-                padding='max_length',
-                truncation=True,
-                max_length=self.length
-            )
-            inputs.append(ids["input_ids"])
-            masks.append(ids["attention_mask"])
-        inputs = torch.cat(inputs, dim=0)
-        masks = torch.cat(masks, dim=0)
-        with torch.no_grad():
-            outputs = self.model(inputs, attention_mask=masks)
-            states = outputs.last_hidden_state
-        embeddings = states[0].numpy()
-        print(f"Generated embeddings {embeddings}")
-        return embeddings
+        tokens = self.tokenizer.tokenize(
+            self.raw,
+            padding=True,
+            truncation=True,
+            return_tensors='pt'
+        )
+        ids = self.tokenizer.convert_tokens_to_ids(tokens)
+        final = self.tokenizer.prepare_for_model(ids)
+        return final

@@ -19,23 +19,3 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
-import unittest
-
-from model.pre.pre_description import PreDescription
-
-"""
-Test cases for PreDescription.
-"""
-
-
-class TestPreDescription(unittest.TestCase):
-
-    def test_preprocess_description(self):
-        input = "This repository hosts Java examples"
-        tokens = PreDescription(input).tokens()
-        expected = ["repository", "host", "java", "examples"]
-        self.assertEqual(
-            tokens,
-            expected,
-            f"received tokens {tokens} for input: {input} do not match with expected {expected}"
-        )

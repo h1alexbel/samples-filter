@@ -22,6 +22,7 @@
 import unittest
 
 from model.pre.pipeline import Pipeline
+from transformers import AutoTokenizer
 
 """
 Test cases for Pipeline.
@@ -51,12 +52,13 @@ class TestPipeline(unittest.TestCase):
             ```
             """,
             "description": "fakehub description",
-            "topics": ["rust", "github", "mock-api", "testing"],
+            "topics": "rust,github,mock-api,testing",
             "cpd": 5.2,
             "rc": 0.04,
             "ic": 0.25
         }
-        vector = Pipeline(repository).apply().tolist()
+        tokenizer = AutoTokenizer.from_pretrained("bert-base-uncased")
+        vector = Pipeline(repository, tokenizer).apply().tolist()
         size = len(vector)
         cpd = repository["cpd"]
         has_cpd = cpd in vector
@@ -64,7 +66,7 @@ class TestPipeline(unittest.TestCase):
         has_rc = rc in vector
         ic = repository["ic"]
         has_ic = ic in vector
-        expected = 569859
+        expected = 78
         self.assertEqual(
             size,
             expected,
@@ -82,4 +84,3 @@ class TestPipeline(unittest.TestCase):
             has_ic,
             f"received vector {vector} does not have IC value: {ic}, but should"
         )
-

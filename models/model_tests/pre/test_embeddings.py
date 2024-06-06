@@ -21,6 +21,8 @@
 # SOFTWARE.
 import unittest
 
+from transformers import AutoTokenizer
+
 from model.pre.embeddings import Embeddings
 
 """
@@ -30,14 +32,21 @@ Test cases for Embeddings.
 
 class TestEmbeddings(unittest.TestCase):
 
-    def test_generates_embeddings_for_tokens(self):
-        shape = Embeddings(
-            ["apache", "kafka", "examples", "learning"],
-            4
-        ).embed().shape
-        expected = (4, 768)
+    def test_generates_embeddings_for_raw_text(self):
+        tokenizer = AutoTokenizer.from_pretrained("bert-base-uncased")
+        inputs = Embeddings(
+            "apache/kafka-learning-examples", 4, tokenizer
+        ).embed()["input_ids"]
+        expected = [101, 15895, 1013, 10556, 24316, 2050, 1011, 4083, 1011, 4973, 102]
         self.assertEqual(
-            shape,
+            inputs,
             expected,
-            f"received matrix's shape {shape} does not match with expected {expected}"
+            f"Generated input IDs {inputs} do not match with expected {expected}"
+        )
+        back = tokenizer.decode(inputs)
+        typed = "[CLS] apache / kafka - learning - examples [SEP]"
+        self.assertEqual(
+            back,
+            typed,
+            f"Decoded input IDs {back} do not match with expected {typed}"
         )

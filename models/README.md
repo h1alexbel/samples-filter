@@ -37,19 +37,9 @@ You will need [Docker] installed.
 
 ## How to build new dataset?
 
-Dataset used for model training are located here:
-[train.csv](https://github.com/h1alexbel/samples-filter/blob/dataset/train.csv)
-To refresh it, run [srdataset] either on cloud VM or locally. The building
-process can take a while. After it completed, you should have `dataset.csv`
-file with all collected repositories with the following structure:
-
-* `name`: repository full name, e.g. `redisson/redisson-examples`.
-* `readme`: repository README.md file.
-* `description`: repository description.
-* `topics`: a set of repository topics, e.g. `[apache, streaming, kafka]`
-* `CPD`: commits per day calculated metric.
-* `RC`: published releases to commits ratio.
-* `IC`: issues to commits ratio.
+To build a new dataset, run [srdataset] either on cloud VM or locally. The
+building process can take a while. After it completed, you should have
+`repos.csv` file with all collected repositories.
 
 All features must be preprocessed and vectorized using [pipeline.py].
 Once you have vectors, you can [feed](#how-to-train-it) them to the models.
