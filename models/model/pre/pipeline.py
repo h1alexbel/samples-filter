@@ -21,10 +21,6 @@
 # SOFTWARE.
 
 from model.pre.embeddings import Embeddings
-from model.pre.pre_description import PreDescription
-from model.pre.pre_name import PreName
-from model.pre.pre_readme import PreReadme
-from model.pre.pre_topics import PreTopics
 from model.pre.vector import Vector
 
 """
@@ -39,25 +35,28 @@ class Pipeline:
     :param repository Repository to vectorize
     """
 
-    def __init__(self, repository):
+    def __init__(self, repository, tokenizer):
         self.repository = repository
+        self.tokenizer = tokenizer
 
     def apply(self):
         name = self.repository["name"]
         print(f"processing {name}")
-        name = PreName(name).tokens()
-        readme = PreReadme(self.repository["readme"]).tokens()
-        description = PreDescription(self.repository["description"]).tokens()
-        topics = PreTopics(self.repository["topics"]).tokens()
-        e_name = Embeddings(name, 30).embed()
-        e_readme = Embeddings(readme, 512).embed()
-        e_description = Embeddings(description, 100).embed()
-        e_topics = Embeddings(topics, 100).embed()
         return Vector(
-            e_name,
-            e_readme,
-            e_description,
-            e_topics,
+            Embeddings(name, 30, self.tokenizer).embed()["input_ids"],
+            Embeddings(
+                self.repository["readme"],
+                512,
+                self.tokenizer
+            ).embed()["input_ids"],
+            Embeddings(
+                self.repository["description"],
+                100,
+                self.tokenizer
+            ).embed()["input_ids"],
+            Embeddings(
+                self.repository["topics"], 100, self.tokenizer
+            ).embed()["input_ids"],
             cpd=self.repository["cpd"],
             rc=self.repository["rc"],
             ic=self.repository["ic"]
