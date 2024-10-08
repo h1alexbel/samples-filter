@@ -19,12 +19,12 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
-FROM python:3.11-slim AS stage
+FROM python:3.13-slim AS stage
 WORKDIR /app
 COPY . .
 RUN pip install --no-cache-dir -r requirements.txt
 RUN python3 tools.py
-FROM python:3.11-slim as distilled
+FROM python:3.13-slim as distilled
 WORKDIR /app
 COPY --from=stage /app/model ./model
 ENTRYPOINT ["python3"]
