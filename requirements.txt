@@ -1,7 +1,7 @@
 typer==0.3.2
 colorama==0.4.4
 requests==2.32.0
-transformers==4.41.2
+transformers==4.46.0
 torch==2.2.2
 pandas==2.2.2
 scikit-learn==1.5.0
