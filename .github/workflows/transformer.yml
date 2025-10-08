@@ -33,7 +33,7 @@ jobs:
       - run: sudo apt-get -y install ghostscript
       - uses: actions/setup-python@v3
         with:
-          python-version: "3.9"
+          python-version: "3.14"
       - run: |
           make install cov check
           cd model
