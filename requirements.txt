@@ -13,7 +13,7 @@ accelerate==0.30.0
 pyarrow==16.0.0
 pytest==8.2.2
 pytest-cov==5.0.0
-gensim==4.3.2
+gensim==4.4.0
 scipy==1.13.1
 aiohttp>=3.9.4 # not directly required, pinned by Snyk to avoid a vulnerability
 numpy>=1.22.2 # not directly required, pinned by Snyk to avoid a vulnerability
